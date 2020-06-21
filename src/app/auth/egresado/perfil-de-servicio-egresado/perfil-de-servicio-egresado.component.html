@@ -1,0 +1,61 @@
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="offset-md-1 col-md-10 px-4">
+      <div class="inner-adjust">
+        <div class="pt-3 mb-3 border-bottom">
+          <h1 class="h2">User Profile</h1>
+        </div>
+        <!-- Show user data when logged in -->
+        <div class="row">
+          <div class="col-md-12">
+            <ng-container *ngIf="usuarioIngresado; then datos; else noExiste"></ng-container>
+            <ng-template #datos>
+              <div class="media">
+                <img class="col-md-6 align-self-start mr-5 rounded-circle" src="{{
+                  usuarioIngresado.photoURL ? usuarioIngresado.photoURL : '../../../assets/dummy-user.png'
+              }}" alt="{{ usuarioIngresado.firstName }}" />
+                <div class="media-body col-md-6">
+                  <h3>
+                    <p>
+                      Nombre: <strong>{{ usuarioIngresado.firstName }}</strong>
+                    </p>
+                    <p>
+                      Apellido: <strong>{{ usuarioIngresado.lastName }}</strong>
+                    </p>
+                    <p>
+                      Email: <strong>{{ usuarioIngresado.email }}</strong>
+                    </p>
+                    <p>
+                      Sexo: <strong>{{ usuarioIngresado.gender }}</strong>
+                    </p>
+                    <p>
+                      Nacimiento: <strong>{{ usuarioIngresado.birthday }}</strong>
+                    </p>
+                    <p>
+                      Celular: <strong>{{ usuarioIngresado.cellphone }}</strong>
+                    </p>
+                    <p>
+                      Año de egreso: <strong>{{ usuarioIngresado.yearDeEgreso }}</strong>
+                    </p>
+                    <p>
+                      Orientacion: <strong>{{ usuarioIngresado.orientacion }}</strong>
+                    </p>
+                    <p>
+                      Areas de conocimiento: <strong>{{ usuarioIngresado.areasDeConocimiento }}</strong>
+                    </p>
+                  </h3>
+                  <button type="button" class="btn btn-success btn-block">Contactar</button>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #noExiste>
+              <h1>No existe ese usuario</h1>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="offset-md-1 col-md-10 px-4">
+      <div class="inner-adjust">
+        <div class="pt-3 mb-3 border-bottom">
+          <h1 class="h2">User Profile</h1>
+        </div>
+        <!-- Show user data when logged in -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="media">
+              <img class="col-md-6 align-self-start mr-5 rounded-circle" src="{{
+                  user.photoURL ? user.photoURL : '../../../assets/dummy-user.png'
+                }}" alt="{{ user.empresaName }}" />
+              <div class="media-body col-md-6">
+                <ng-container *ngIf="mostrar; then datos; else datosEditables"></ng-container>
+                <ng-template #datos>
+                  <h3>
+                    <p>
+                      Nombre: <strong>{{ user.empresaName }}</strong>
+                    </p>
+                    <p>
+                      CUIT/CUIL: <strong>{{ user.CUIT }}</strong>
+                    </p>
+                    <p>
+                      Email: <strong>{{ user.email }}</strong>
+                    </p>
+                    <button class="btn btn-dark" (click)="editar()">Editar</button>
+                  </h3>
+                </ng-template>
+                <ng-template #datosEditables>
+                  <div>
+                    <form [formGroup]="editarForm" (ngSubmit)="onEdit()">
+                      <div class="form-row mb-2">
+                        <div class="col">
+                          <label for="empresaName">Nombre</label>
+                          <input type="text" class="form-control" id="inputName" [(ngModel)]="user.empresaName"
+                            formControlName="empresaName" required />
+                          <p *ngIf="empresaNamePattern.touched && empresaNamePattern.invalid"
+                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>The name of the company must be only by letters.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="form-row mb-2">
+                        <div class="col">
+                          <label for="Cambiar Foto">Foto de perfil</label>
+                          <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file"
+                            id="inputFile" formControlName="photoURL" (change)="cambioArchivo($event)" />
+                        </div>
+                      </div>
+                      <div *ngIf="errorMessage">
+                        <div class="form-text alert-danger text-center mt-2 mb-2 pt-1 pb-1"> {{ errorMessage }} </div>
+                      </div>
+                      <button type="submit" class="btn btn-dark mr-1">Guardar</button>
+                      <button class="btn btn-dark ml-1" (click)="editar()">Cancelar</button>
+                    </form>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

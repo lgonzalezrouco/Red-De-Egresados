@@ -1,0 +1,143 @@
+<!-- Sidebar navigation -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main role="main" class="offset-md-1 col-md-10 px-4">
+      <div class="inner-adjust">
+        <div class="pt-3 mb-3 border-bottom">
+          <h1 class="h2">User Profile</h1>
+        </div>
+        <!-- Show user data when logged in -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="media">
+              <img class="col-md-6 align-self-start mr-5 rounded-circle" src="{{
+                  user.photoURL ? user.photoURL : '../../../assets/dummy-user.png'
+                }}" alt="{{ user.firstName }}" />
+              <div class="media-body col-md-6">
+                <ng-container *ngIf="mostrar; then datos; else datosEditables"></ng-container>
+                <ng-template #datos>
+                  <h3>
+                    <p>
+                      Nombre: <strong>{{ user.firstName }}</strong>
+                    </p>
+                    <p>
+                      Apellido: <strong>{{ user.lastName }}</strong>
+                    </p>
+                    <p>
+                      Email: <strong>{{ user.email }}</strong>
+                    </p>
+                    <p>
+                      Sexo: <strong>{{ user.gender }}</strong>
+                    </p>
+                    <p>
+                      Nacimiento: <strong>{{ user.birthday }}</strong>
+                    </p>
+                    <p>
+                      Celular: <strong>{{ user.cellphone }}</strong>
+                    </p>
+                    <p>
+                      Año de egreso: <strong>{{ user.yearDeEgreso }}</strong>
+                    </p>
+                    <p>
+                      Orientacion: <strong>{{ user.orientacion }}</strong>
+                    </p>
+                    <p>
+                      Areas de conocimiento: <strong>{{ user.areasDeConocimiento }}</strong>
+                    </p>
+                    <p>
+                      DNI: <strong>{{ user.DNI }}</strong>
+                    </p>
+                    <p>
+                      Numero de egreso: <strong>{{ user.tituloEgreso }}</strong>
+                    </p>
+                    <button class="btn btn-dark" (click)="editar()">Editar</button>
+                  </h3>
+                </ng-template>
+                <ng-template #datosEditables>
+                  <div>
+                    <form [formGroup]="editarForm" (ngSubmit)="onEdit()">
+                      <div class="form-row mb-2">
+                        <div class="col">
+                          <label for="name">Nombre</label>
+                          <input type="text" class="form-control" id="inputName" [(ngModel)]="user.firstName"
+                            formControlName="firstName" required />
+                          <p *ngIf="firstNamePattern.touched && firstNamePattern.invalid"
+                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
+                          </p>
+                        </div>
+                        <div class="col">
+                          <label for="lastName">Apellido</label>
+                          <input type="text" class="form-control" [(ngModel)]="user.lastName" id="inputLastName"
+                            formControlName="lastName" required />
+                          <p *ngIf="lastNamePattern.touched && lastNamePattern.invalid"
+                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
+                          </p>
+                        </div>
+                      </div>
+                      <div class="form-row mb-2">
+                        <div class="col">
+                          <label for="gender">Sexo</label>
+                          <select id="inputGender" class="form-control" [(ngModel)]="user.gender"
+                            formControlName="gender" required placeholder="-- Por favor eliga una opcion --">
+                            <option>Masculino</option>
+                            <option>Femenino</option>
+                            <option>Prefiero no especificar</option>
+                          </select>
+                          <p *ngIf="genderPattern.touched && genderPattern.invalid"
+                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
+                          </p>
+                        </div>
+                        <div class="col">
+                          <label for="birthday">Nacimiento</label>
+                          <input type="date" class="form-control" id="inputBirthday" [(ngModel)]="user.birthday"
+                            formControlName="birthday" />
+                          <p *ngIf="birthdayPattern.touched && birthdayPattern.invalid"
+                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
+                          </p>
+                        </div>
+                      </div>
+                      <div class="form-row mb-2">
+                        <div class="col">
+                          <label for="cellphone">Telefono</label>
+                          <input type="number" class="form-control" id="cellphone" formControlName="cellphone"
+                            [(ngModel)]="user.cellphone" />
+                          <p *ngIf="cellphonePattern.touched && cellphonePattern.invalid"
+                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
+                          </p>
+                        </div>
+                        <div class="col">
+                          <label for="areasDeConocimiento">Areas de Conocimiento</label>
+                          <select id="areasDeConocimiento" class="form-control" [(ngModel)]="user.areasDeConocimiento"
+                            formControlName="areasDeConocimiento" required>
+                            <option>Desarrollo Web</option>
+                            <option>Fotografia</option>
+                          </select>
+                          <p *ngIf="areasDeConocimientoPattern.touched && areasDeConocimientoPattern.invalid"
+                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
+                          </p>
+                        </div>
+                      </div>
+                      <div class="form-row mb-2">
+                        <div class="col">
+                          <label for="Cambiar Foto">Foto de perfil</label>
+                          <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file"
+                            id="inputFile" formControlName="photoURL" (change)="cambioArchivo($event)" />
+                        </div>
+                      </div>
+                      <div *ngIf="errorMessage">
+                        <div class="form-text alert-danger text-center mt-2 mb-2 pt-1 pb-1"> {{ errorMessage }} </div>
+                      </div>
+                      <button type="submit" class="btn btn-dark mr-1">Guardar</button>
+                      <button class="btn btn-dark ml-1" (click)="editar()">Cancelar</button>
+                    </form>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

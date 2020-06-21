@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-auth-prueba": {
+      "hosting": {
+        "login-signup": [
+          "angular-auth-prueba"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<div class="class row">
+  <div class="class col-md-8 mx-auto mt-5 mb-5">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="text-center">LOGIN</h4>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <div class="mb-2">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email"
+              formControlName="email" />
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <p *ngIf="emailPattern.touched && emailPattern.invalid"
+              class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email</p>
+            <p *ngIf="emailPattern.errors?.pattern" class="form-text alert-danger text-center mt-2 pt-1 pb-1">
+              <sup>*</sup>Please enter correct email</p>
+          </div>
+          <div class="mb-3">
+            <label for="password">
+              Password
+              <small>
+                <a [routerLink]="['/forgot-password']">
+                  Forgot Password?
+                </a>
+              </small>
+            </label>
+            <input type="password" class="form-control" id="password" formControlName="password" />
+            <p *ngIf="passwordPattern.touched && passwordPattern.invalid"
+              class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Password must be 8 characters long</p>
+            <div *ngIf="message">
+              <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ message }} </small>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-dark btn-block">Login</button>
+        </form>
+        <small>
+          Don´t have an account?
+          <a [routerLink]="['/register']">
+            Sign Up
+          </a>
+          <small class="text-muted">Ptss... It´s free</small>
+          <br />
+
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACLARACIONES -->
+<!-- El FormControlName esta asociado al nombre de las variables
+     FormControl del login.component.ts
+-->

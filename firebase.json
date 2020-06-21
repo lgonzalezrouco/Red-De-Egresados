@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "login-signup",
+      "public": "dist/login-signup",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

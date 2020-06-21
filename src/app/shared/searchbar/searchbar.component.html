@@ -1,0 +1,132 @@
+<!-- <div class="container mt-5">
+  <div class="container justify-content-center">
+    <div class="col-sm-auto col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+      <div class="input-group">
+        <div class="input-group-text p-0 search-panel">
+          <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+            <span id="search_concept">Filtrar por</span> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a class="dropdown-item" href="#categoria1">Categoria 1</a></li>
+            <li><a class="dropdown-item" href="#categoria2">Categoria 2</a></li>
+            <li><a class="dropdown-item" href="#categoria3">Categoria 3</a></li>
+            <li><a class="dropdown-item" href="#categoria4">Categoria 4</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item" href="#all">Cualquier cosa</a></li>
+          </ul>
+        </div>
+        <input type="hidden" name="search_param" value="all" id="search_param">
+        <input type="text" class="form-control" name="x" placeholder="Busque un servicio...">
+        <button class="btn btn-dark "><span><svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16"
+              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+              <path fill-rule="evenodd"
+                d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+            </svg></span></button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="container mt-5">
+  <div class="container justify-content-center">
+    <div class="col-sm-auto col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+      <form  class="mb-3">
+        [formGroup]="searchForm" (ngSubmit)="onSearch()"
+        <div class="form-row mb-2">
+          <div class="form-group mb-2 col-md-3 p-0">
+            <div class="btn p-0">
+              <select id="exampleInputSearchFilter1" class="form-control" aria-describedby="searchHelp"
+                formControlName="searchFilter">
+                <option>firstName</option>
+                <option>nickName</option>
+                <option>city</option>
+                <option selected="selected">serviceDescription</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-8 p-0">
+            <input type="text" class="form-control" id="exampleInputSearch1" formControlName="search" placeholder="Busque lo que necesite"/>
+          </div>
+          <div class="col-md-1 p-0">
+            <button type="submit" class="btn btn-dark"><span><svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                  <path fill-rule="evenodd"
+                    d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                </svg></span></button>
+          </div>
+        </div>
+      </form>
+      <div>
+        Mostrar Datos de la busqueda
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container mt-5">
+  <div class="container justify-content-center">
+    <div class="col-sm-auto col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+      <!-- <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="mb-3"> -->
+      <form (ngSubmit)="onSearch()" class="mb-3">
+        <div class="form-row mb-2 justify-content-center">
+          <div class="form-group mb-2 col-xs-6 p-0">
+            <div class="btn p-0">
+              <!-- <select id="exampleInputSearchFilter2" class="form-control" aria-describedby="searchHelp"
+                formControlName="searchFilter" #prueba (change)="setFilter(prueba.value)"> -->
+              <select id="exampleInputSearchFilter2" class="form-control" aria-describedby="searchHelp" #prueba
+                (change)="setFilter(prueba.value)">
+                <option selected="selected" [value]="'firstName'">Nombre</option>
+                <option [value]="'empresaName'">Empresa</option>
+                <option [value]="'lastName'">Apellido</option>
+                <option [value]="'CUIT'">CUIT</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-8 p-0">
+            <input type="text" class="form-control" id="exampleInputSearch1" (change)="getSearchData($event)"
+              autocomplete="off" placeholder="Busque lo que necesite" />
+          </div>
+          <div class="col-sm-1 p-0 d-none d-sm-block">
+            <button type="submit" class="btn btn-dark"><span><svg class="bi bi-search" width="1em" height="1em"
+                  viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                  <path fill-rule="evenodd"
+                    d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                </svg></span></button>
+          </div>
+        </div>
+      </form>
+      <div>
+        <ng-container
+          *ngIf="searchFilter == 'CUIT' || searchFilter == 'empresaName'; then mostrarResultadosEmpresa ; else mostrarResultadosEgresado ">
+        </ng-container>
+        <ng-template #mostrarResultadosEmpresa>
+          <ul *ngFor="let resultado of resultadosDeBusqueda">
+            <div class="card">
+              <div class="card-body" [routerLink]="['/perfil-de-servicio-empresa', resultado.uid]">
+                <li>{{resultado.empresaName}}</li>
+                <li>{{resultado.email}}</li>
+                <li>{{resultado.CUIT}}</li>
+              </div>
+            </div>
+          </ul>
+        </ng-template>
+        <ng-template #mostrarResultadosEgresado>
+          <ul *ngFor="let resultado of resultadosDeBusqueda">
+            <div class="card">
+              <div class="card-body" [routerLink]="['/perfil-de-servicio-egresado', resultado.uid]">
+                <li>{{resultado.firstName}} {{resultado.lastName}}</li>
+                <li>{{resultado.email}}</li>
+              </div>
+            </div>
+          </ul>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
