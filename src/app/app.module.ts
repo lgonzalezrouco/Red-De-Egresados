@@ -30,6 +30,9 @@ import { RegisterEmpresaComponent } from './auth/empresa/register-empresa/regist
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { HomeComponent } from './home/home.component';
 
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +61,8 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     AngularFireStorageModule,
     BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent],
