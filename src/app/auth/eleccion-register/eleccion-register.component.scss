@@ -7,12 +7,15 @@
 }
 
 .titulo {
-  font-size: 2.25rem;
+  font-size: 2.45rem;
+  font-weight: 500;
+  color: #191919;
+  line-height: 1cm;
 }
 
 .btn {
   display: inline-block;
-  font-weight: 400;
+  font-weight: 500;
   color: #212529;
   text-align: center;
   vertical-align: middle;
@@ -24,7 +27,7 @@
   background-color: transparent;
   border: 1px solid transparent;
   padding: 0.55rem 2.25rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.5;
   border-radius: 0.35rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -33,8 +36,8 @@
 
 .btn-dark {
   color: #fff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: #191919;
+  border-color: #191919;
 }
 
 .btn:hover {
@@ -52,6 +55,24 @@
 .set-pointer {
   cursor: pointer;
 }
+.set-size-logo{
+  max-width: 145px;
+  max-height: 88px;
+  display: block;
+  
+  margin-left: -160px;
+  margin-right: 15px;
+  margin-bottom: 5px;
+}
+.set-size-image {
+  width: 250px;
+  height: 175px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+}
+
 
 @media all and (max-width: 767px) {
   .margen-pantalla-chica {
@@ -66,6 +87,16 @@
     margin-right: auto;
     margin-bottom: 5px;
   }
+  .set-size-logo{
+    max-width: 106px;
+    max-height: 64px;
+    
+    display: block;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
 
   .titulo {
     font-size: 2.0962499rem;
@@ -74,12 +105,24 @@
 
 @media all and (max-width: 520px) {
   .titulo {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 }
+@media all and (max-width: 1100px) and (min-width: 767px) {
+  
+  .set-size-logo{
+    max-width: 106px;
+    max-height: 64px;
+    display: block;
+    
+    margin-left: 0px;
+    margin-right: -70px;
+    margin-bottom: 5px;
+  }
 
+}
 
-@media all and (min-width: 767px) {
+@media all and (min-width: 1100px) and (max-width: 1500px)  {
   .set-size-image {
     width: 250px;
     height: 175px;
@@ -88,5 +131,15 @@
     margin-right: auto;
     margin-bottom: 5px;
   }
+  .set-size-logo{
+    max-width: 145px;
+    max-height: 88px;
+    display: block;
+    
+    margin-left: -40px;
+    margin-right: -70px;
+    margin-bottom: 5px;
+  }
+
 
 }

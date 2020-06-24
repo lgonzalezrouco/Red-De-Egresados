@@ -1,151 +1,155 @@
-<div class="row">
-  <div class="offset-1 col-10 offset-md-2 col-md-8 mb-5 mt-5">
-    <div class="card">
-      <div class="card-body">
-        <h1 class="text-center">Crea tu cuenta</h1>
-        <p class="text-center text-info">
+<div class="margen row">
+  <img mat-card-image src="../../../assets/logo.png"
+              class=" set-size-logo ">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 mb-5 mt-2 ">
+    <h1 class="text-center titulo mt-3">Crea tu cuenta</h1>
+        <p class="text-center texto ">
           Inrgesa tus datos para crear tu perfil de egrresado<br>y ser contratado por las mejores empresas
         </p>
-        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="mb-3">
-          <div class="form-row mb-2">
-            <div class="col">
-              <label for="firsName">First name *</label>
-              <input type="text" class="form-control" id="firstName" formControlName="firstName" required>
-              <p *ngIf="(firstNamePattern.touched && firstNamePattern.invalid)"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>First name should only be letters
-                and have 2 letters at least... (Sorry Elon)
-              </p>
-            </div>
-            <div class="col">
-              <label for="cellphone">Cellphone Number*</label>
-              <input type="number" class="form-control" id="cellphone" formControlName="cellphone" required>
-              <p *ngIf="(cellphonePattern.touched && cellphonePattern.invalid)"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Cellphone numbers can only be
-                numbers
-              </p>
-            </div>
-          </div>
-          <div class="form-row mb-2">
-            <div class="col">
-              <label for="lastName">Last name *</label>
-              <input type="text" class="form-control" id="lastName" formControlName="lastName" required>
-              <p *ngIf="lastNamePattern.touched && lastNamePattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Last name should only be letters
-                and have 2 letters at least...</p>
-            </div>
-            <div class="col">
-              <label for="gender">Gender *</label>
-              <select id="gender" class="form-control" formControlName="gender">
-                <option value='' selected disabled hidden>Elija una opcion</option>
-                <option>Masculino</option>
-                <option>Femenino</option>
-                <option>Prefiero no decirlo</option>
-              </select>
-              <p *ngIf="genderPattern.touched && genderPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please enter your gender</p>
-            </div>
-          </div>
-          <div class="form-row mb-2">
-            <div class="col">
-              <label for="birthday">Birthday *</label>
-              <input type="date" class="form-control" id="birthday" formControlName="birthday" />
-              <p *ngIf="birthdayPattern.touched && birthdayPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please enter your birthday</p>
-            </div>
-            <div class="col">
-              <label for="yearDeEgreso">Año de Egreso *</label>
-              <input type="date" class="form-control" id="yearDeEgreso" formControlName="yearDeEgreso" />
-              <p *ngIf="egresoPattern.touched && egresoPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please enter your graduation date
-              </p>
-            </div>
-          </div>
-          <div class="form-row mb-2">
-            <div class="col">
-              <label for="email">Email address *</label>
-              <input type="email" class="form-control" id="email" formControlName="email" />
-              <p *ngIf="emailPattern.touched && emailPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email</p>
-              <p *ngIf="emailPattern.errors?.pattern" class="form-text alert-danger text-center mt-2 pt-1 pb-1">
-                <sup>*</sup>Please enter correct email</p>
-            </div>
-            <div class="col">
-              <label for="orientacion">Orientacion *</label>
-              <select id="orientacion" class="form-control" formControlName="orientacion">
-                <option value='' selected disabled hidden>Elija una orientacion</option>
-                <option>Computacion</option>
-                <option>Mecanica</option>
-              </select>
-              <p *ngIf="orientacionPattern.touched && orientacionPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please enter your orientation</p>
-            </div>
-          </div>
-          <div class="form-row mb-2">
-            <div class="col">
-              <label for="password">Password *</label>
-              <input type="password" class="form-control" id="password" formControlName="password" />
-              <p *ngIf="passwordPattern.touched && passwordPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Password must be 8 characters long
-              </p>
-            </div>
-            <div class="col">
-              <label for="conocimiento">Areas de conocimiento *</label>
-              <select id="conocimiento" class="form-control" formControlName="areasDeConocimiento">
-                <option value='' selected disabled hidden>Areas de conocimiento</option>
-                <option>Desarrollo Web</option>
-                <option>Fotografia</option>
-              </select>
-              <p *ngIf="areasDeConocimientoPattern.touched && areasDeConocimientoPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please enter your areas of
-                expertise</p>
-            </div>
-          </div>
-          <div class="form-row mb-3">
-            <div class="col">
-              <label for="DNI">DNI*</label>
-              <input type="number" class="form-control" id="DNI" formControlName="DNI" required>
-              <p *ngIf="(DNIPattern.touched && DNIPattern.invalid)"
-              class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>DNI can only be numbers and must be
-              exactly 8
-            </p>
-            </div>
-
-            <div class="col">
-              <label for="titulo-egreso">Titulo de Egreso</label>
-              <input type="text" class="form-control" id="titulo-egreso" formControlName="tituloEgreso" required>
-              <p *ngIf="(tituloEgresoPattern.touched && tituloEgresoPattern.invalid)"
-              class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please enter a valid titulo de
-              egreso
-            </p>
-            </div>
-
-          </div>
-          <!-- <div class="form-row mb-2">
-            <div class="col">
-              <label for="profilePic">Photo</label>
-              <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file" id="profilePic"
-                formControlName="photoURL" (change)="cambioArchivo($event)" title="Por favor seleccione una imagen" />
-              <span>{{ mensajeArchivo }}</span>
-            </div>
-          </div> -->
-          <div *ngIf="errorMessage">
-            <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ errorMessage }} </small>
-          </div>
-          <button type="submit" class="btn btn-dark btn-block">Sign Up</button>
-        </form>
-        <p>
-          <small>
-            Already have an account?
-            <a [routerLink]="['/login']">
-              Sign In
-            </a>
-          </small>
-        </p>
-      </div>
-    </div>
-  </div>
+        <div class="margenes">
+          <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <table class="celda-completa" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width mt-1">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombreFormControl">
+                <mat-error *ngIf="nombre.hasError('required')">
+                 El nombre es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field></td>
+              <td><mat-form-field class="icon-right mt-1">
+                <mat-label>Teléfono Celular</mat-label>
+                <span matPrefix>+45 &nbsp;</span>
+                <input type="tel" matInput  formControlName="telefonoFormControl">
+                <mat-error *ngIf="telefono.hasError('required')">
+                  El teléfono es <strong>requerido</strong>
+                 </mat-error>
+              </mat-form-field></td>
+            
+            </tr></table>
+            <table class="celda-completa" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width mt-2">
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="apellidoFormControl">
+                <mat-error *ngIf="apellido.hasError('required')">
+                 El apellido es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field></td>
+              <td><mat-form-field class="example-full-width mt-2">
+                <mat-label>Sexo</mat-label>
+                <mat-select formControlName="sexoFormControl">
+                  <mat-option value="Masculino">Masculino</mat-option>
+                  <mat-option value="Femenino">Femenino</mat-option>
+                  <mat-option value="Prefiero no decirlo">Prefiero no decrilo</mat-option>
+                </mat-select>
+                <mat-error *ngIf="sexo.hasError('required')">
+                  Este campo es <strong>requerido</strong>
+                 </mat-error>
+              </mat-form-field></td>
+            </tr></table>
+            <table class="celda-completa" cellspacing="0"><tr>
+              <td><mat-form-field class="datepicker mt-2">
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input matInput formControlName="fechaNacimientoFormControl" [matDatepicker]="picker" [max]="maxDate" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+                <mat-error *ngIf="fechaNacimiento.hasError('matDatepickerParse') ">
+                  Por favor, ingrese una fecha válida
+                </mat-error>
+                <mat-error *ngIf="fechaNacimiento.hasError('required') && !fechaNacimiento.hasError('matDatepickerParse')">
+                  La fecha es <strong>requerida</strong>
+                 </mat-error>
+              </mat-form-field></td>
+              <td><mat-form-field class="example-full-width mt-2">
+                <mat-label>Fecha de Egreso</mat-label>
+                <mat-select formControlName="fechaEgresoFormControl">
+                  <mat-option *ngFor="let fecha of fechas" [value]="fecha.value1">
+                    {{fecha.viewValue1}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="fechaEgreso.hasError('required')">
+                  Este campo es <strong>requerido</strong>
+                 </mat-error>
+              </mat-form-field></td>
+            </tr></table>
+            <table class="celda-completa" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width mt-2">
+                <mat-label>DNI</mat-label>
+                <input matInput formControlName="dniFormControl" type="number" >
+                <mat-error *ngIf="dni.hasError('required')">
+                 El DNI es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="dni.hasError('min')">
+                  Por favor, ingrese un dni válido
+                 </mat-error>
+                
+              </mat-form-field></td>
+              <td><mat-form-field class="example-full-width mt-2">
+                <mat-label>Orientación</mat-label>
+                <mat-select formControlName="orientacionFormControl">
+                  <mat-option value="Computacion">Computación</mat-option>
+                  <mat-option value="Mecanica">Mecánica</mat-option>
+                </mat-select>
+                <mat-error *ngIf="orientacion.hasError('required')">
+                  Este campo es <strong>requerido</strong>
+                 </mat-error>
+              </mat-form-field></td>
+            </tr></table>
+            <table class="celda-completa" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width mt-2">
+                <mat-label>Mail</mat-label>
+                <input matInput formControlName="emailFormControl">
+                <mat-error *ngIf="mail.hasError('email') && !mail.hasError('required')">
+                  Por favor, ingrese un mail válido
+                </mat-error>
+                <mat-error *ngIf="mail.hasError('required')">
+                  El mail es <strong>requerido</strong>
+                </mat-error>
+                
+              </mat-form-field></td>
+              <td><mat-form-field class="example-full-width mt-2">
+                <mat-label>Profesión</mat-label>
+                <mat-select formControlName="profesionFormControl">
+                  <mat-option *ngFor="let profesion of profesions" [value]="profesion.value">
+                    {{profesion.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="profesion.hasError('required')">
+                  Este campo es <strong>requerido</strong>
+                 </mat-error>
+              </mat-form-field></td>
+            </tr></table>
+            <table class="celda-completa" cellspacing="0"><tr>
+              <td><mat-form-field class="datepicker mt-2">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="contrasenaFormControl">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                <mat-error *ngIf="contrasena.hasError('required')">
+                 La constraseña es <strong>requerida</strong>
+                </mat-error>
+              </mat-form-field></td>
+              <td><mat-form-field class="example-full-width mt-2">
+                <mat-label>Número del Título</mat-label>
+                <input matInput formControlName="tituloFormControl" type="number" >
+                <mat-error *ngIf="titulo.hasError('required')">
+                 El número del título es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="titulo.hasError('min')">
+                  Por favor, ingrese un número válido
+                 </mat-error>
+              </mat-form-field></td>
+            </tr></table>
+          </form>
+              <div class=" margen_btn mt-2 ">
+                <button type="submit" mat-raised-button class="btn " (click)="mostrar()" style="float: right;">Registrarse</button>
+              </div>
+            
+        </div>
+        
+        
+        
+  </mat-card>
+ 
 </div>
 
-<!-- ACLARACIONES -->
-<!-- El FormControlName esta asociado al nombre de las variables
-  FormControl del register.component.ts -->
