@@ -8,17 +8,18 @@
   src: url("src/assets/fonts/roboto/Roboto-Medium.ttf");
 }
 
-.roboto-medium{
-  font-family : Roboto Medium;
-  font-size: 44px;
-  color:#191919;
-}
-
 .roboto-light{
   font-family : Roboto Light;
   font-size: 23px;
   font-weight: normal;
   color:#204B75;
+}
+
+.titulo {
+  font-size: 2.45rem;
+  font-family: Roboto-Medium;
+  font-weight: 500;
+  color: #191919;
 }
 
 .line-height-normal {
@@ -58,8 +59,55 @@
   color: white;
 }
 
+.margen {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
 @media all and (max-width: 767px) {
+  .set-size-logo{
+    max-width: 106px;
+    max-height: 64px;
+
+    display: block;
+
+    margin-left: auto;
+    margin-right: auto;
+
+  }
   .sm-text-center{
     text-align: center;
+  }
+  .titulo {
+    font-size: 2.0962499rem;
+  }
+}
+
+@media all and (max-width: 520px) {
+  .titulo {
+    font-size: 2rem;
+  }
+}
+@media all and (max-width: 1100px) and (min-width: 767px) {
+  .set-size-logo{
+    max-width: 106px;
+    max-height: 64px;
+    display: block;
+    margin-right: -70px;
+    margin-bottom: 5px;
+  }
+}
+
+@media all and (min-width: 1100px) and (max-width: 1500px)  {
+  .set-size-logo{
+    max-width: 145px;
+    max-height: 88px;
+    display: block;
+
+    margin-right: -70px;
+    margin-bottom: 5px;
   }
 }

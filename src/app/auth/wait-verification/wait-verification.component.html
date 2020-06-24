@@ -1,35 +1,33 @@
-<div class="container-fluid">
-  <div class="sm-text-center offset-md-1 mt-5">
-    <img src="../../assets/images/titulo.png" class="img-fluid" />
+<div class="margen container-fluid">
+  <div class="sm-text-center offset-md-1 set-size-logo">
+    <img src="../../assets/images/titulo.png" class="img-fluid">
   </div>
-  <div class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
-    <div *ngIf="user$ | async as user ; else loading">
-      <mat-card>
-        <mat-card-title class="text-center mt-5">
-          <h1 class="roboto-medium line-height-normal">
-            ¡Gracias por registrarte!
-          </h1>
-        </mat-card-title>
-        <mat-card-content>
-          <p class="text-center mt-5 line-height-normal roboto-light">
-            Hemos recibido sus datos
-          </p>
-          <p class="text-center mt-3 line-height-normal roboto-light">
-            Pronto enviaremos un mail de verificacion a
-          </p>
-          <p class="text-center line-height-normal roboto-light">
-            <strong>{{ user?.email }}</strong>
-          </p>
-        </mat-card-content>
-        <mat-card-actions class="mb-5">
-          <div class="form-group text-center mt-4">
-            <button mat-button class="btn btn-dark" (click)="onSendEmail()">
-              Resend verification email
-            </button>
-          </div>
-        </mat-card-actions>
-      </mat-card>
-    </div>
+  <div *ngIf="user$ | async as user ; else loading">
+    <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+      <mat-card-title class="text-center mt-4 mb-4">
+        <h1 class="line-height-normal titulo">
+          ¡Gracias por registrarse!
+        </h1>
+      </mat-card-title>
+      <mat-card-content>
+        <p class="text-center mt-5 line-height-normal roboto-light">
+          Hemos recibido sus datos
+        </p>
+        <p class="text-center mt-3 line-height-normal roboto-light">
+          Pronto enviaremos un mail de verificacion a
+        </p>
+        <p class="text-center line-height-normal roboto-light">
+          <strong>{{ user?.email }}</strong>
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="mb-5">
+        <div class="form-group text-center mt-4">
+          <button mat-button class="btn btn-dark" (click)="onSendEmail()">
+            Resend verification email
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>
 
@@ -50,4 +48,3 @@
     </h3>
   </div>
 </ng-template>
-

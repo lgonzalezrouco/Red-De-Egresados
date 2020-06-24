@@ -13,15 +13,17 @@
   src: url("src/assets/fonts/roboto/Roboto-Bold.ttf");
 }
 
-h1 {
-  font-family: Roboto-Medium, arial;
+.titulo {
+  font-size: 2.45rem;
+  font-family: Roboto-Medium;
+  font-weight: 500;
   color: #191919;
-  font-size: 44pt;
 }
 
 a {
   color: #204b75;
 }
+
 .subtitulo {
   font-family: Roboto-Light, arial;
   font-size: 16pt;
@@ -65,12 +67,55 @@ a {
   color: white;
 }
 
-.carta {
-  margin-top: 130px;
+.margen {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
 @media all and (max-width: 767px) {
+  .set-size-logo{
+    max-width: 106px;
+    max-height: 64px;
+
+    display: block;
+
+    margin-left: auto;
+    margin-right: auto;
+
+  }
   .sm-text-center{
     text-align: center;
+  }
+  .titulo {
+    font-size: 2.0962499rem;
+  }
+}
+
+@media all and (max-width: 520px) {
+  .titulo {
+    font-size: 2rem;
+  }
+}
+@media all and (max-width: 1100px) and (min-width: 767px) {
+  .set-size-logo{
+    max-width: 106px;
+    max-height: 64px;
+    display: block;
+    margin-right: -70px;
+    margin-bottom: 5px;
+  }
+}
+
+@media all and (min-width: 1100px) and (max-width: 1500px)  {
+  .set-size-logo{
+    max-width: 145px;
+    max-height: 88px;
+    display: block;
+
+    margin-right: -70px;
+    margin-bottom: 5px;
   }
 }
