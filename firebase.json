@@ -1,8 +1,8 @@
 {
   "hosting": [
     {
-      "target": "login-signup",
-      "public": "dist/login-signup",
+      "target": "Red-De-Egresados",
+      "public": "dist/Red-De-Egresados",
       "ignore": [
         "firebase.json",
         "**/.*",

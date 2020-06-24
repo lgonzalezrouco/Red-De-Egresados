@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "login-signup": {
+    "Red-De-Egresados": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/login-signup",
+            "outputPath": "dist/Red-De-Egresados",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -28,7 +28,7 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "login-signup:build"
+            "browserTarget": "Red-De-Egresados:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "login-signup:build:production"
+              "browserTarget": "Red-De-Egresados:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "login-signup:build"
+            "browserTarget": "Red-De-Egresados:build"
           }
         },
         "test": {
@@ -93,7 +93,7 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "login-signup:serve"
+            "devServerTarget": "Red-De-Egresados:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "login-signup:serve:production"
+              "devServerTarget": "Red-De-Egresados:serve:production"
             }
           }
         },
@@ -131,8 +131,5 @@
       }
     }
   },
-  "defaultProject": "login-signup",
-  "cli": {
-    "analytics": "3c323d67-9b15-401f-8271-755acb54051c"
-  }
+  "defaultProject": "Red-De-Egresados"
 }
