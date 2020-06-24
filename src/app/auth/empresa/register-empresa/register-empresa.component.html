@@ -1,61 +1,95 @@
-<div class="row">
-  <div class="offset-1 col-10 offset-md-2 col-md-8 mb-5 mt-5">
-    <div class="card">
-      <div class="card-body">
-        <h1 class="text-center">Crea tu cuenta</h1>
-        <p class="text-center text-info">
-          Inrgesa tus datos para crear tu perfil de empresa<br>y contratar los mejores egresados
-        </p>
-        <form [formGroup]="registerEmpresaForm" (ngSubmit)="onRegister()" class="mb-3">
+<div class="container-fluid">
+  <div class="sm-text-center offset-md-1 mt-5">
+    <img src="../../assets/images/titulo.png" class="img-fluid">
+  </div>
+  <div class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+    <div>
+      <mat-card>
+        <mat-card-title class="text-center mt-5">
+          <h1 class="line-height-normal">Crea tu cuenta</h1>
+        </mat-card-title>
+        <mat-card-subtitle class="subtitulo line-height-normal text-center mt-5">
+          Ingresa tus datos para crear tu perfil de empresa <br> y contratar los mejores egresados
+        </mat-card-subtitle>
+        <form [formGroup]="registerEmpresaForm" (ngSubmit)="onRegister()" class="mt-5 mb-3">
           <div class="form-row mb-2">
-            <div class="col">
-              <label for="empresaName">Nombre *</label>
-              <input type="text" class="form-control" id="empresaName" formControlName="empresaName" required>
-              <p *ngIf="(empresaNamePattern.touched && empresaNamePattern.invalid)"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Your name should only be letters
-                and have 2 letters at least...
-              </p>
+            <div class="offset-2 col-4">
+              <mat-form-field class="full-width-height">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="empresaName" type="text">
+                <mat-error *ngIf="empresaNamePattern.invalid">
+                  Please enter a valid name.
+                </mat-error>
+                <mat-error *ngIf="empresaNamePattern.touched">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
             </div>
-            <div class="col">
-              <label for="CUIT">CUIT/CUIL*</label>
-              <input type="number" class="form-control" id="CUIT" formControlName="CUIT" required>
-              <p *ngIf="(cuitPattern.touched && cuitPattern.invalid)"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>CUIL/CUIT can only be
-                numbers
-              </p>
+            <div class="col-4">
+              <mat-form-field class="full-width-height">
+                <mat-label>CUIT/CUIL</mat-label>
+                <input matInput formControlName="CUIT" type="number">
+                <mat-error *ngIf="cuitPattern.invalid">
+                  CUIL/CUIT can only be
+                  numbers
+                </mat-error>
+                <mat-error *ngIf="cuitPattern.touched">
+                  Your CUIT/CUIL is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
           <div class="form-row mb-3">
-            <div class="col">
-              <label for="email">Email address *</label>
-              <input type="email" class="form-control" id="email" formControlName="email" />
-              <p *ngIf="emailPattern.touched && emailPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email</p>
-              <p *ngIf="emailPattern.errors?.pattern" class="form-text alert-danger text-center mt-2 pt-1 pb-1">
-                <sup>*</sup>Please enter correct email</p>
+            <div class="offset-2 col-4">
+              <mat-form-field class="full-width-height">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email">
+                <mat-error *ngIf="emailPattern.invalid">
+                  Please enter a valid email
+                </mat-error>
+                <mat-error *ngIf="emailPattern.touched">
+                  Your email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
             </div>
-            <div class="col">
-              <label for="password">Password *</label>
-              <input type="password" class="form-control" id="password" formControlName="password" />
-              <p *ngIf="passwordPattern.touched && passwordPattern.invalid"
-                class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Password must be 8 characters long
+            <div class="col-4">
+              <mat-form-field class="full-width-height">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" [type]="hide ? 'password':'text' ">
+                <mat-icon class="material-icons" matSuffix (click)="hide = !hide">
+                  {{hide ? 'visibility':'visibility_off'}}
+                </mat-icon>
+                <mat-error *ngIf="passwordPattern.invalid">
+                  Password must be 8 characters long
+                </mat-error>
+                <mat-error *ngIf="passwordPattern.touched">
+                  Your email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row" *ngIf="errorMessage">
+            <div class="offset-2 col-8">
+              <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ errorMessage }} </small>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="offset-2 col-8">
+              <p class="container">
+                  Already have an account?
+                  <a [routerLink]="['/login']">
+                    Sign In
+                  </a>
               </p>
             </div>
           </div>
-          <div *ngIf="errorMessage">
-            <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ errorMessage }} </small>
+          <div class="form-row">
+            <div class="offset-3 col-6 text-center offset-md-8 col-md-4">
+              <button type="submit" mat-raised-button class="btn">Registrarse</button>
+            </div>
           </div>
-          <button type="submit" class="btn btn-dark btn-block">Sign Up</button>
         </form>
-        <p>
-          <small>
-            Already have an account?
-            <a [routerLink]="['/login']">
-              Sign In
-            </a>
-          </small>
-        </p>
-      </div>
+      </mat-card>
     </div>
   </div>
 </div>

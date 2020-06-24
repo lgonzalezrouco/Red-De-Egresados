@@ -39,6 +39,9 @@ export class RegisterEmpresaComponent implements OnInit {
   // Variable para mostrar si hubo algun error en el formulario
   public errorMessage: string;
 
+  // Variable para saber si la contraseña es visible o no
+  public hide = true;
+
   constructor(private authSvc: AuthService, private router: Router) {}
 
   ngOnInit(): void {}

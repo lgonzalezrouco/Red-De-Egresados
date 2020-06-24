@@ -19,7 +19,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { SearchbarComponent } from './shared/searchbar/searchbar.component';
 import { EleccionRegisterComponent } from './auth/eleccion-register/eleccion-register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WaitVerificationComponent } from './auth/empresa/wait-verification/wait-verification.component';
+import { WaitVerificationComponent } from './auth/wait-verification/wait-verification.component';
 import { LoginComponent } from './auth/egresado/login/login.component';
 import { PerfilComponent } from './auth/egresado/perfil/perfil.component';
 import { PerfilDeServicioEgresadoComponent } from './auth/egresado/perfil-de-servicio-egresado/perfil-de-servicio-egresado.component';
@@ -32,6 +32,9 @@ import { HomeComponent } from './home/home.component';
 
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -62,7 +65,9 @@ import {MatButtonModule} from '@angular/material/button';
     AngularFireStorageModule,
     BrowserAnimationsModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],
