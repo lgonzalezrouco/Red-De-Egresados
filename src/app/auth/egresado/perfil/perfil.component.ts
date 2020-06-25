@@ -27,7 +27,7 @@ export class PerfilComponent implements OnInit {
     ]),
     birthday: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
-    areasDeConocimiento: new FormControl('', [Validators.required]),
+    profesion: new FormControl('', [Validators.required]),
   });
 
   // Variables para controlar los patrones del formulario
@@ -36,8 +36,8 @@ export class PerfilComponent implements OnInit {
   public birthdayPattern = this.editarForm.get('birthday');
   public genderPattern = this.editarForm.get('gender');
   public cellphonePattern = this.editarForm.get('cellphone');
-  public areasDeConocimientoPattern = this.editarForm.get(
-    'areasDeConocimiento'
+  public profesionPattern = this.editarForm.get(
+    'profesion'
   );
 
   // Variable para guardar los datos del usuario

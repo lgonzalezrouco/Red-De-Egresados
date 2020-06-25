@@ -9,7 +9,7 @@ export interface User {
   cellphone: string;
   yearDeEgreso: string;
   orientacion: string;
-  areasDeConocimiento: string;
+  profesion: string;
   DNI: string;
   tituloEgreso: string;
   empresa: boolean;

@@ -176,7 +176,7 @@ export class AuthService {
       birthday: values.birthday,
       yearDeEgreso: values.yearDeEgreso,
       orientacion: values.orientacion,
-      areasDeConocimiento: values.areasDeConocimiento,
+      profesion: values.profesion,
       DNI: values.DNI,
       tituloEgreso: values.tituloEgreso,
       cellphone: values.cellphone,
@@ -263,7 +263,7 @@ export class AuthService {
           birthday: data.birthday,
           yearDeEgreso: user.yearDeEgreso,
           orientacion: user.orientacion,
-          areasDeConocimiento: data.areasDeConocimiento,
+          profesion: data.profesion,
           DNI: user.DNI,
           tituloEgreso: user.tituloEgreso,
           cellphone: data.cellphone,
@@ -311,6 +311,7 @@ export class AuthService {
   }
 
   public existeElEgresado(tituloEgreso) {
+    tituloEgreso = tituloEgreso.toString();
     return this.angularFirestore.collection('titulos').doc(tituloEgreso).snapshotChanges();
   }
 

@@ -43,7 +43,7 @@
                       Orientacion: <strong>{{ user.orientacion }}</strong>
                     </p>
                     <p>
-                      Areas de conocimiento: <strong>{{ user.areasDeConocimiento }}</strong>
+                      Profesion: <strong>{{ user.profesion }}</strong>
                     </p>
                     <p>
                       DNI: <strong>{{ user.DNI }}</strong>
@@ -107,13 +107,13 @@
                           </p>
                         </div>
                         <div class="col">
-                          <label for="areasDeConocimiento">Areas de Conocimiento</label>
-                          <select id="areasDeConocimiento" class="form-control" [(ngModel)]="user.areasDeConocimiento"
-                            formControlName="areasDeConocimiento" required>
+                          <label for="profesion">Profesion</label>
+                          <select id="profesion" class="form-control" [(ngModel)]="user.profesion"
+                            formControlName="profesion" required>
                             <option>Desarrollo Web</option>
                             <option>Fotografia</option>
                           </select>
-                          <p *ngIf="areasDeConocimientoPattern.touched && areasDeConocimientoPattern.invalid"
+                          <p *ngIf="profesionPattern.touched && profesionPattern.invalid"
                             class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
                           </p>
                         </div>
