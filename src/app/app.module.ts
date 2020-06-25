@@ -38,6 +38,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
+import { Prueba2Component } from './prueba2/prueba2.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import {MatSelectModule} from '@angular/material/select';
     RegisterEmpresaComponent,
     ForgotPasswordComponent,
     HomeComponent,
+    Prueba2Component,
   ],
   imports: [
     BrowserModule,

@@ -4,20 +4,10 @@
   color: #191919;
   line-height: 1cm;
 }
-.texto{
-  font-size: 1.10rem;
+.texto {
+  font-size: 1.1rem;
   font-weight: 300;
-  color: #204B75;
-}
-.set-size-logo{
-  max-width: 145px;
-  max-height: 88px;
-  display: block;
-  
-  margin-left: -160px;
-  margin-right: 15px;
-  margin-bottom: 5px;
-  
+  color: #204b75;
 }
 .margen {
   flex: 1 1 auto;
@@ -29,25 +19,21 @@
 
 .example-full-width {
   width: 80%;
-  
-  
 }
-.celda-completa{
+.celda-completa {
   width: 100%;
   margin-left: 35px;
 }
 
-
-.datepicker{
+.datepicker {
   width: 80%;
   margin-right: -20px;
 }
-.icon-right{
+.icon-right {
   margin-right: -29px;
   width: 80%;
-  
 }
-.fecha_egreso{
+.fecha_egreso {
   margin-right: -400px;
   width: 80%;
 }
@@ -55,7 +41,7 @@
   display: inline-block;
   font-weight: 500;
   color: #ffffff;
-  background-color: #51799F;
+  background-color: #51799f;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -72,23 +58,10 @@
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.btn-dark {
-  color: #fff;
-  background-color: #51799F;
-  border-color: #51799F;
-}
-
-.alinear-centro {
-  display: flex;
-  justify-content: right;
-  
-  
-}
-.margen_btn{
+.margen_btn {
   margin-right: 35px;
-  
 }
-.margenes{
+.margenes {
   margin-left: 15px;
   margin-right: 15px;
 }
@@ -96,102 +69,87 @@
 /* esconde los arrows de input number*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[type=number] {
-    -moz-appearance:textfield; /* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
 }
 @media all and (max-width: 550px) {
-  
-  margen-pantalla-chica {
-    margin-top: 5rem;
-  }
-
-  .set-size-logo{
+  .set-size-logo {
     max-width: 106px;
     max-height: 64px;
-    
+
     display: block;
-    
+
     margin-left: auto;
     margin-right: auto;
-    
   }
   .titulo {
     font-size: 2.2rem;
     font-weight: 500;
     line-height: 1cm;
   }
-  .texto{
-    font-size: 0.90rem;
+  .texto {
+    font-size: 0.9rem;
   }
-  .celda-completa{
+  .celda-completa {
     width: 100%;
     margin-left: 16px;
   }
-  .margen_btn{
+  .margen_btn {
     margin-right: 8px;
-    
   }
-  .btn{
+  .btn {
     font-size: 0.9rem;
     height: 40%;
     width: 40%;
   }
 }
 @media all and (max-width: 767px) and (min-width: 550px) {
-  .margen-pantalla-chica {
-    margin-top: 5rem;
-  }
 
-  .set-size-logo{
+  .set-size-logo {
     max-width: 106px;
     max-height: 64px;
-    
+
     display: block;
-    
+
     margin-left: auto;
     margin-right: auto;
-    
   }
   .titulo {
     font-size: 2.2rem;
     font-weight: 500;
     line-height: 1cm;
   }
-  .texto{
-    font-size: 0.90rem;
+  .texto {
+    font-size: 0.9rem;
   }
-  .celda-completa{
+  .celda-completa {
     width: 100%;
     margin-left: 16px;
   }
-  .margen_btn{
+  .margen_btn {
     margin-right: 8px;
-    
   }
-  .btn{
+  .btn {
     font-size: 0.9rem;
     height: 40%;
     width: 40%;
   }
-
 }
 @media all and (max-width: 1100px) and (min-width: 767px) {
-  
-  .set-size-logo{
+  .set-size-logo {
     max-width: 106px;
     max-height: 64px;
     display: block;
-    
-    margin-left: 0px;
+
     margin-right: -70px;
     margin-bottom: 5px;
   }
-  .celda-completa{
+  .celda-completa {
     width: 100%;
     margin-left: 20px;
   }
@@ -200,25 +158,21 @@ input[type=number] {
     font-weight: 500;
     line-height: 1cm;
   }
-  .texto{
-    font-size: 0.90rem;
+  .texto {
+    font-size: 0.9rem;
   }
-  .margen_btn{
+  .margen_btn {
     margin-right: 15px;
-    
   }
-
 }
 
-@media all and (min-width: 1100px) and (max-width: 1500px)  {
-  
-  .set-size-logo{
+@media all and (min-width: 1100px) and (max-width: 1500px) {
+  .set-size-logo {
     max-width: 145px;
     max-height: 88px;
     display: block;
-    
-    margin-left: -40px;
+
     margin-right: -70px;
     margin-bottom: 5px;
   }
-   }
+}

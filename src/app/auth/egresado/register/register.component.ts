@@ -28,24 +28,29 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegisterComponent implements OnInit {
 
-  maxDate= new Date(2020,0,0);
+  today = new Date();
+  todayYear: number = this.today.getFullYear();
+  todayMonth: number = this.today.getMonth();
+  todayDay: number = this.today.getDate();
+
+  maxDate = new Date(this.todayYear, this.todayMonth, this.todayDay);
+
   hide = true;
+
   profesions: Profesion[] = [
-    {value: 'desarrolloWeb', viewValue: 'Desarrollo Web'},
-    {value: 'fotografia', viewValue: 'Fotografía'},
+    { value: 'desarrolloWeb', viewValue: 'Desarrollo Web' },
+    { value: 'fotografia', viewValue: 'Fotografía' },
   ];
+
   fechas: Fecha[] = [
-    {value1: 2018 , viewValue1: 2018},
-    {value1: 2019, viewValue1: 2019},
+    { value1: 2018, viewValue1: 2018 },
+    { value1: 2019, viewValue1: 2019 },
   ];
-
-
-
 
   matcher = new MyErrorStateMatcher();
   public categoriasSeleccionadas: string[] = [];
 
-  /*registerForm = new FormGroup({
+  registerForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
@@ -72,7 +77,7 @@ export class RegisterComponent implements OnInit {
     gender: new FormControl('', [Validators.required]),
     yearDeEgreso: new FormControl('', [Validators.required]),
     orientacion: new FormControl('', [Validators.required]),
-    areasDeConocimiento: new FormControl('', [Validators.required]),
+    profesion: new FormControl('', [Validators.required]),
     DNI: new FormControl('', [
       Validators.required,
       Validators.pattern('^[0-9]+$'),
@@ -80,63 +85,20 @@ export class RegisterComponent implements OnInit {
       Validators.maxLength(8),
     ]),
     tituloEgreso: new FormControl('', [Validators.required]),
-  });*/
-  registerForm = new FormGroup({
-    nombreFormControl : new FormControl('', [
-      Validators.required,
-    ]),
-    emailFormControl : new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]),
-
-    apellidoFormControl : new FormControl('', [
-      Validators.required,
-    ]),
-    fechaNacimientoFormControl : new FormControl('', [
-      Validators.required,
-    ]),
-    contrasenaFormControl : new FormControl('', [
-      Validators.required,
-    ]),
-    dniFormControl : new FormControl('', [
-      Validators.required,
-      Validators.min(1000000),
-    ]),
-   telefonoFormControl : new FormControl('', [
-      Validators.required,
-    ]),
-    sexoFormControl : new FormControl('', [
-      Validators.required,
-    ]),
-    orientacionFormControl : new FormControl('', [
-      Validators.required,
-    ]),
-    profesionFormControl : new FormControl('', [
-      Validators.required,
-    ]),
-    tituloFormControl : new FormControl('', [
-      Validators.required,
-      Validators.min(0),
-    ]),
-    fechaEgresoFormControl : new FormControl('', [
-      Validators.required,
-
-    ]),
   });
   // Variables para controlar los patrones del formulario
-  public mail = this.registerForm.get('emailFormControl');
-  public contrasena = this.registerForm.get('contrasenaFormControl');
-  public nombre = this.registerForm.get('nombreFormControl');
-  public apellido = this.registerForm.get('apellidoFormControl');
-  public fechaNacimiento = this.registerForm.get('fechaNacimientoFormControl');
-  public sexo = this.registerForm.get('sexoFormControl');
-  public telefono = this.registerForm.get('telefonoFormControl');
-  public fechaEgreso = this.registerForm.get('fechaEgresoFormControl');
-  public orientacion = this.registerForm.get('orientacionFormControl');
-  public profesion = this.registerForm.get('profesionFormControl');
-  public dni = this.registerForm.get('dniFormControl');
-  public titulo = this.registerForm.get('tituloFormControl');
+  public emailPattern = this.registerForm.get('email');
+  public passwordPattern = this.registerForm.get('password');
+  public firstNamePattern = this.registerForm.get('firstName');
+  public lastNamePattern = this.registerForm.get('lastName');
+  public birthdayPattern = this.registerForm.get('birthday');
+  public genderPattern = this.registerForm.get('gender');
+  public cellphonePattern = this.registerForm.get('cellphone');
+  public egresoPattern = this.registerForm.get('yearDeEgreso');
+  public orientacionPattern = this.registerForm.get('orientacion');
+  public profesionPattern = this.registerForm.get('profesion');
+  public DNIPattern = this.registerForm.get('DNI');
+  public tituloEgresoPattern = this.registerForm.get('tituloEgreso');
 
   // Variable para mostrar si hubo algun error en el formulario
   public errorMessage: string;
@@ -149,6 +111,37 @@ export class RegisterComponent implements OnInit {
 
   async onRegister() {
     try {
+      const {
+        email,
+        password,
+        DNI,
+        tituloEgreso,
+        firstName,
+        cellphone,
+        lastName,
+        birthday,
+        gender,
+        yearDeEgreso,
+        orientacion,
+        profesion,
+      } = this.registerForm.value;
+      if (
+        email == '' ||
+        password == '' ||
+        DNI == '' ||
+        tituloEgreso == '' ||
+        firstName == '' ||
+        cellphone == '' ||
+        lastName == '' ||
+        birthday == '' ||
+        gender == '' ||
+        yearDeEgreso == '' ||
+        orientacion == '' ||
+        profesion == ''
+      ) {
+        this.errorMessage = 'Algunos de los campos estan incompletos';
+        throw new Error(this.errorMessage);
+      }
       this.createUser();
     } catch (error) {
       console.log(error);
@@ -160,9 +153,6 @@ export class RegisterComponent implements OnInit {
     (await this.authSvc.afAuth.currentUser).updateProfile({
       displayName: firstName + ' ' + lastName,
     });
-  }
-  mostrar(){
-    console.log(this.registerForm.get("nombreFormControl").value);
   }
 
   async createUser() {

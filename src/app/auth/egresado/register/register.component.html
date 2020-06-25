@@ -1,155 +1,194 @@
-<div class="margen row">
-  <img mat-card-image src="../../../assets/logo.png"
-              class=" set-size-logo ">
-  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 mb-5 mt-2 ">
+<div class="margen container-fluid">
+  <div class="sm-text-center offset-md-1 set-size-logo">
+    <img src="../../assets/images/titulo.png" class="img-fluid">
+  </div>
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 mb-5 mt-2">
     <h1 class="text-center titulo mt-3">Crea tu cuenta</h1>
-        <p class="text-center texto ">
-          Inrgesa tus datos para crear tu perfil de egrresado<br>y ser contratado por las mejores empresas
-        </p>
-        <div class="margenes">
-          <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-            <table class="celda-completa" cellspacing="0"><tr>
-              <td><mat-form-field class="example-full-width mt-1">
+    <p class="text-center texto">
+      Ingresa tus datos para crear tu perfil de egresado<br />y ser contratado
+      por las mejores empresas
+    </p>
+    <div class="margenes">
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <table class="celda-completa" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width mt-1">
                 <mat-label>Nombre</mat-label>
-                <input matInput formControlName="nombreFormControl">
-                <mat-error *ngIf="nombre.hasError('required')">
-                 El nombre es <strong>requerido</strong>
+                <input matInput formControlName="firstName" />
+                <mat-error *ngIf="firstNamePattern.hasError('required')">
+                  El nombre es <strong>requerido</strong>
                 </mat-error>
-              </mat-form-field></td>
-              <td><mat-form-field class="icon-right mt-1">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="icon-right mt-1">
                 <mat-label>Teléfono Celular</mat-label>
                 <span matPrefix>+45 &nbsp;</span>
-                <input type="tel" matInput  formControlName="telefonoFormControl">
-                <mat-error *ngIf="telefono.hasError('required')">
+                <input type="tel" matInput formControlName="cellphone" />
+                <mat-error *ngIf="cellphonePattern.hasError('required')">
                   El teléfono es <strong>requerido</strong>
-                 </mat-error>
-              </mat-form-field></td>
-            
-            </tr></table>
-            <table class="celda-completa" cellspacing="0"><tr>
-              <td><mat-form-field class="example-full-width mt-2">
-                <mat-label>Apellido</mat-label>
-                <input matInput formControlName="apellidoFormControl">
-                <mat-error *ngIf="apellido.hasError('required')">
-                 El apellido es <strong>requerido</strong>
                 </mat-error>
-              </mat-form-field></td>
-              <td><mat-form-field class="example-full-width mt-2">
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <table class="celda-completa" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width mt-2">
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="lastName" />
+                <mat-error *ngIf="lastNamePattern.hasError('required')">
+                  El apellido es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width mt-2">
                 <mat-label>Sexo</mat-label>
-                <mat-select formControlName="sexoFormControl">
+                <mat-select formControlName="gender">
+                  <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
                   <mat-option value="Masculino">Masculino</mat-option>
                   <mat-option value="Femenino">Femenino</mat-option>
                   <mat-option value="Prefiero no decirlo">Prefiero no decrilo</mat-option>
                 </mat-select>
-                <mat-error *ngIf="sexo.hasError('required')">
+                <mat-error *ngIf="genderPattern.hasError('required')">
                   Este campo es <strong>requerido</strong>
-                 </mat-error>
-              </mat-form-field></td>
-            </tr></table>
-            <table class="celda-completa" cellspacing="0"><tr>
-              <td><mat-form-field class="datepicker mt-2">
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <table class="celda-completa" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="datepicker mt-2">
                 <mat-label>Fecha de Nacimiento</mat-label>
-                <input matInput formControlName="fechaNacimientoFormControl" [matDatepicker]="picker" [max]="maxDate" >
+                <input matInput formControlName="birthday" [matDatepicker]="picker" [max]="maxDate" />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker startView="multi-year"></mat-datepicker>
-                <mat-error *ngIf="fechaNacimiento.hasError('matDatepickerParse') ">
+                <mat-error *ngIf="birthdayPattern.hasError('matDatepickerParse')">
                   Por favor, ingrese una fecha válida
                 </mat-error>
-                <mat-error *ngIf="fechaNacimiento.hasError('required') && !fechaNacimiento.hasError('matDatepickerParse')">
+                <mat-error *ngIf="
+                birthdayPattern.hasError('required') &&
+                    !birthdayPattern.hasError('matDatepickerParse')
+                  ">
                   La fecha es <strong>requerida</strong>
-                 </mat-error>
-              </mat-form-field></td>
-              <td><mat-form-field class="example-full-width mt-2">
+                </mat-error>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width mt-2">
                 <mat-label>Fecha de Egreso</mat-label>
-                <mat-select formControlName="fechaEgresoFormControl">
+                <mat-select formControlName="yearDeEgreso">
                   <mat-option *ngFor="let fecha of fechas" [value]="fecha.value1">
-                    {{fecha.viewValue1}}
+                    {{ fecha.viewValue1 }}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="fechaEgreso.hasError('required')">
+                <mat-error *ngIf="egresoPattern.hasError('required')">
                   Este campo es <strong>requerido</strong>
-                 </mat-error>
-              </mat-form-field></td>
-            </tr></table>
-            <table class="celda-completa" cellspacing="0"><tr>
-              <td><mat-form-field class="example-full-width mt-2">
-                <mat-label>DNI</mat-label>
-                <input matInput formControlName="dniFormControl" type="number" >
-                <mat-error *ngIf="dni.hasError('required')">
-                 El DNI es <strong>requerido</strong>
                 </mat-error>
-                <mat-error *ngIf="dni.hasError('min')">
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <table class="celda-completa" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width mt-2">
+                <mat-label>DNI</mat-label>
+                <input matInput formControlName="DNI" type="number" />
+                <mat-error *ngIf="DNIPattern.hasError('required')">
+                  El DNI es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="DNIPattern.hasError('min')">
                   Por favor, ingrese un dni válido
-                 </mat-error>
-                
-              </mat-form-field></td>
-              <td><mat-form-field class="example-full-width mt-2">
+                </mat-error>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width mt-2">
                 <mat-label>Orientación</mat-label>
-                <mat-select formControlName="orientacionFormControl">
+                <mat-select formControlName="orientacion">
                   <mat-option value="Computacion">Computación</mat-option>
                   <mat-option value="Mecanica">Mecánica</mat-option>
                 </mat-select>
-                <mat-error *ngIf="orientacion.hasError('required')">
+                <mat-error *ngIf="orientacionPattern.hasError('required')">
                   Este campo es <strong>requerido</strong>
-                 </mat-error>
-              </mat-form-field></td>
-            </tr></table>
-            <table class="celda-completa" cellspacing="0"><tr>
-              <td><mat-form-field class="example-full-width mt-2">
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <table class="celda-completa" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width mt-2">
                 <mat-label>Mail</mat-label>
-                <input matInput formControlName="emailFormControl">
-                <mat-error *ngIf="mail.hasError('email') && !mail.hasError('required')">
+                <input matInput formControlName="email" />
+                <mat-error *ngIf="emailPattern.hasError('email') && !emailPattern.hasError('required')">
                   Por favor, ingrese un mail válido
                 </mat-error>
-                <mat-error *ngIf="mail.hasError('required')">
+                <mat-error *ngIf="emailPattern.hasError('required')">
                   El mail es <strong>requerido</strong>
                 </mat-error>
-                
-              </mat-form-field></td>
-              <td><mat-form-field class="example-full-width mt-2">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width mt-2">
                 <mat-label>Profesión</mat-label>
-                <mat-select formControlName="profesionFormControl">
+                <mat-select formControlName="profesion">
+                  <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
                   <mat-option *ngFor="let profesion of profesions" [value]="profesion.value">
-                    {{profesion.viewValue}}
+                    {{ profesion.viewValue }}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="profesion.hasError('required')">
+                <mat-error *ngIf="profesionPattern.hasError('required')">
                   Este campo es <strong>requerido</strong>
-                 </mat-error>
-              </mat-form-field></td>
-            </tr></table>
-            <table class="celda-completa" cellspacing="0"><tr>
-              <td><mat-form-field class="datepicker mt-2">
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+        <table class="celda-completa" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="datepicker mt-2">
                 <mat-label>Contraseña</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="contrasenaFormControl">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                  </button>
-                <mat-error *ngIf="contrasena.hasError('required')">
-                 La constraseña es <strong>requerida</strong>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+                  <mat-icon>{{
+                    hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </button>
+                <mat-error *ngIf="passwordPattern.hasError('required')">
+                  La constraseña es <strong>requerida</strong>
                 </mat-error>
-              </mat-form-field></td>
-              <td><mat-form-field class="example-full-width mt-2">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width mt-2">
                 <mat-label>Número del Título</mat-label>
-                <input matInput formControlName="tituloFormControl" type="number" >
-                <mat-error *ngIf="titulo.hasError('required')">
-                 El número del título es <strong>requerido</strong>
+                <input matInput formControlName="tituloEgreso" type="number" />
+                <mat-error *ngIf="tituloEgresoPattern.hasError('required')">
+                  El número del título es <strong>requerido</strong>
                 </mat-error>
-                <mat-error *ngIf="titulo.hasError('min')">
+                <mat-error *ngIf="tituloEgresoPattern.hasError('min')">
                   Por favor, ingrese un número válido
-                 </mat-error>
-              </mat-form-field></td>
-            </tr></table>
-          </form>
-              <div class=" margen_btn mt-2 ">
-                <button type="submit" mat-raised-button class="btn " (click)="mostrar()" style="float: right;">Registrarse</button>
-              </div>
-            
-        </div>
-        
-        
-        
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </form>
+      <div class="margen_btn mt-2">
+        <button type="submit" mat-raised-button class="btn" style="float: right;">
+          Registrarse
+        </button>
+      </div>
+    </div>
   </mat-card>
- 
 </div>
-
