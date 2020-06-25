@@ -1,9 +1,9 @@
 {
   "targets": {
-    "angular-auth-prueba": {
+    "red-de-egresados": {
       "hosting": {
-        "login-signup": [
-          "angular-auth-prueba"
+        "Red-De-Egresados": [
+          "red-de-egresados"
         ]
       }
     }
