@@ -1,3 +1,12 @@
+@font-face {
+  font-family: Roboto-Medium;
+  src: url("src/assets/fonts/roboto/Roboto-Medium.ttf");
+}
+
+.line-height-normal {
+  line-height: normal;
+}
+
 .margen {
   flex: 1 1 auto;
   min-height: 1px;
@@ -8,9 +17,9 @@
 
 .titulo {
   font-size: 2.45rem;
+  font-family: Roboto-Medium;
   font-weight: 500;
   color: #191919;
-  line-height: 1cm;
 }
 
 .btn {
@@ -55,15 +64,15 @@
 .set-pointer {
   cursor: pointer;
 }
-.set-size-logo{
+
+/* .set-size-logo{
   max-width: 145px;
   max-height: 88px;
   display: block;
-  
-  margin-left: -160px;
+
   margin-right: 15px;
   margin-bottom: 5px;
-}
+} */
 .set-size-image {
   width: 250px;
   height: 175px;
@@ -90,12 +99,12 @@
   .set-size-logo{
     max-width: 106px;
     max-height: 64px;
-    
+
     display: block;
-    
+
     margin-left: auto;
     margin-right: auto;
-    
+
   }
 
   .titulo {
@@ -109,13 +118,12 @@
   }
 }
 @media all and (max-width: 1100px) and (min-width: 767px) {
-  
+
   .set-size-logo{
     max-width: 106px;
     max-height: 64px;
     display: block;
-    
-    margin-left: 0px;
+
     margin-right: -70px;
     margin-bottom: 5px;
   }
@@ -135,8 +143,7 @@
     max-width: 145px;
     max-height: 88px;
     display: block;
-    
-    margin-left: -40px;
+
     margin-right: -70px;
     margin-bottom: 5px;
   }

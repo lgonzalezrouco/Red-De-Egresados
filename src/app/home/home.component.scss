@@ -1,0 +1,157 @@
+@font-face {
+  font-family: Roboto-Light;
+  src: url("src/assets/fonts/roboto/Roboto-Light.ttf");
+}
+
+@font-face {
+  font-family: Roboto-Black;
+  src: url("src/assets/fonts/roboto/Roboto-Black.ttf");
+}
+
+// Imagen de fondo
+.fondo {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-image: url("src/assets/images/fondo.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+// Modificacion de boton
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 3px solid transparent;
+  padding: 0rem 4rem;
+  font-size: 2.37rem;
+  line-height: 1.5;
+  border-radius: 3rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  font-family: Roboto-Light;
+}
+
+.btn-dark {
+  color: #fff;
+  background-color: transparent;
+  border-color: #356089;
+}
+
+.btn:hover {
+  background-color: #356089;
+  border-color: #356089;
+  color: white;
+}
+
+// Para setear que cuando el mouse esta sobre algo, que aparezca para hacer click
+.pointer:hover {
+  cursor: pointer;
+}
+
+// Para darle formato las palabras del navbar
+.palabras-navbar {
+  font-family: Roboto-Light;
+  font-size: 1.75rem;
+}
+
+// Para posicionar las palabras del navbar
+.posicion-palabras-navbar {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;
+}
+
+// Para darle formato a la palabra principal
+.palabra-principal {
+  color: #80a1c1;
+  font-family: Roboto-Black;
+  font-size: 6.5vw;
+}
+
+// Para setear el line-height en normal
+.line-height-normal {
+  line-height: normal;
+}
+
+// Para darle un margen a la palabra principal
+.margen-palabra-principal {
+  margin-top: 7.5rem !important;
+}
+
+// Para establecer el formato de la palabra secundaria
+.palabra-secundaria {
+  font-family: Roboto-Light;
+  font-size: xx-large;
+  color: #ffffff;
+}
+
+.fondo-blanco {
+  background-color: #ffffff;
+}
+
+.fondo-negro {
+  background-color: #191919;
+}
+
+.float-right {
+  float: right;
+}
+
+@media all and (max-width: 767px) {
+  .btn {
+    display: inline-block;
+    font-weight: 500;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 3px solid transparent;
+    padding: 0rem 4rem;
+    font-size: x-large;
+    line-height: 1.5;
+    border-radius: 3rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-family: Roboto-Light;
+  }
+  .btn-dark {
+    color: #191919;
+    background-color: transparent;
+    border-color: #356089;
+  }
+  .btn:hover {
+    background-color: #356089;
+    border-color: #356089;
+    color: #ffffff;
+  }
+  .posicion-palabras-navbar {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+  }
+  .palabra-principal {
+    font-size: 18vw;
+  }
+  .palabra-secundaria {
+    font-size: x-large;
+  }
+  .margen-palabra-principal {
+    margin-top: 3.5rem !important;
+  }
+}

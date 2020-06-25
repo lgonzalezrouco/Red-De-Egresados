@@ -1,2 +1,66 @@
-<app-navbar></app-navbar>
-<h1 class="text-center mt-5">Bienvenido a CincoPe</h1>
+<!-- Vista para pantallas pequeñas para abajo -->
+<div class="d-md-none">
+  <div class="container-fluid">
+    <div id="navbar" class="row fondo-blanco">
+      <div class="col-12 mt-4 text-center">
+        <img src="../../assets/images/titulo.png" routerLink="/" alt="Fondo" class="pointer">
+      </div>
+      <div class="col-12 text-center">
+        <a href="#" class="palabras-navbar posicion-palabras-navbar col-12 ">About</a>
+        <a routerLink="/eleccion-register" class="palabras-navbar posicion-palabras-navbar col-12">Registrarse</a>
+      </div>
+    </div>
+    <div id="contenido" class="row">
+      <div class="col-12 pb-5 fondo-blanco p-0">
+        <img src="../../assets/images/maletin_gorro.png" alt="maletin_gorro" class="img-fluid float-right">
+      </div>
+      <div class="col-12 fondo-blanco">
+        <div class="mb-4 pb-5 text-center">
+          <button type="submit" (click)="goToLogin()" class="btn btn-dark">Iniciar sesion</button>
+        </div>
+      </div>
+      <div class="col-12 fondo-negro">
+        <div class="text-center">
+          <p class="palabra-principal margen-palabra-principal line-height-normal">No pierdas el contacto</p>
+        </div>
+        <div class="mt-5 mb-4 pb-5 text-center">
+          <p class="palabra-secundaria line-height-normal">Con nuestra nueva red de Egresados, participá en proyectos y aparece en el radar de las mejores empresas del mercado</p>
+        </div>
+        <!-- <div class="mt-5 mb-5 pb-5 text-center">
+          <button type="submit" (click)="goToLogin()" class="btn btn-dark">Iniciar sesion</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Vista para pantallas medianas para arriba -->
+<div class="d-none d-md-block">
+  <div class="container-fluid fondo">
+    <div class="row fondo-blanco">
+      <div class="offset-md-1 col-md-1 mt-4">
+        <img src="../../assets/images/titulo.png" routerLink="/" alt="Fondo" class="pointer -margen-left-15">
+      </div>
+      <div class="offset-md-5 col-md-4 mt-4">
+        <a href="#" class="palabras-navbar posicion-palabras-navbar offset-md-3 col-md-3">About</a>
+        <a routerLink="/eleccion-register" class="palabras-navbar posicion-palabras-navbar offset-md-2 col-md-3">Registrarse</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="text-center">
+          <p class="palabra-principal margen-palabra-principal line-height-normal">No pierdas<br>el contacto</p>
+        </div>
+        <div class="offset-md-2 mt-5 text-left">
+          <p class="palabra-secundaria line-height-normal">Con nuestra nueva red de Egresados, participá en proyectos y aparece en el radar de las mejores empresas del mercado</p>
+          <!-- <p class="palabra-secundaria">Con nuestra nueva red de Egresados, participá en proyectos</p>
+          <p class="palabra-secundaria margen-palabra-secundaria">y aparece en el radar de las mejores empresas del mercado</p> -->
+        </div>
+        <div class="mt-5 mb-5 pb-5 text-center">
+          <button type="submit" (click)="goToLogin()" class="btn btn-dark palabra-boton">Iniciar sesion</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,21 +1,24 @@
-<div class="margen row ">
-  <img mat-card-image src="../../../assets/logo.png"
-              class=" set-size-logo ">
-  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 mb-5 mt-2 ">
-    <mat-card-title class="titulo text-center mt-4 mb-4">
-      ¿Cómo desea registrarse?
+<div class="margen container-fluid">
+  <div class="sm-text-center offset-md-1 set-size-logo">
+    <img src="../../assets/images/titulo.png" class="img-fluid">
+  </div>
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+    <mat-card-title class="text-center mt-4 mb-4">
+      <h1 class="line-height-normal titulo">
+        ¿Cómo desea registrarse?
+      </h1>
     </mat-card-title>
     <mat-card-actions >
       <div class="margen row">
         <div class="col-12 col-md-6 set-pointer" (click)="goToEgresadoRegister()">
-            <img mat-card-image src="../../../assets/eleccion_egresado.png" alt="Eleccion egresado"
+            <img mat-card-image src="../../../assets/images/eleccion_egresado.png" alt="Eleccion egresado"
               class="img-fluid set-size-image mb-5">
             <div class="alinear-centro mt-5">
               <button type="submit" (click)="goToEgresadoRegister()" class="btn btn-dark alinear-centro">Egresado</button>
             </div>
         </div>
         <div class="margen-pantalla-chica col-12 col-md-6 set-pointer" (click)="goToEmpresaRegister()">
-          <img mat-card-image src="../../../assets/eleccion_empresa.png" alt="Eleccion empresa"
+          <img mat-card-image src="../../../assets/images/eleccion_empresa.png" alt="Eleccion empresa"
             class="img-fluid set-size-image mb-5">
           <div class="alinear-centro mt-5">
             <button type="submit" (click)="goToEmpresaRegister()" class="btn btn-dark">Empresa</button>
@@ -24,5 +27,4 @@
       </div>
     </mat-card-actions>
   </mat-card>
-  
 </div>

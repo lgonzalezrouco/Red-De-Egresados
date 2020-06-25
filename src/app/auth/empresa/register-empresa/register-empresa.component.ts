@@ -39,6 +39,9 @@ export class RegisterEmpresaComponent implements OnInit {
   // Variable para mostrar si hubo algun error en el formulario
   public errorMessage: string;
 
+  // Variable para saber si la contraseña es visible o no
+  public hide = true;
+
   constructor(private authSvc: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
@@ -78,7 +81,7 @@ export class RegisterEmpresaComponent implements OnInit {
         this.updateUserData(empresaName);
         console.log(user);
 
-        // Redirigir a verification-email
+        // Redirigir a wait-verification
         this.router.navigate(['/wait-verification']);
       } else {
         // Si user es un string, significa que hubo un error, por lo tanto se muestra
