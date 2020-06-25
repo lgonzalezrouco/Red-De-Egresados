@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
   <div class="offset-1 col-10 offset-md-2 col-md-8 mb-5 mt-5">
     <div class="card">
       <div class="card-body">
@@ -44,6 +44,79 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<div class="margen container-fluid">
+  <div class="sm-text-center offset-md-1 set-size-logo">
+    <img src="../../assets/images/titulo.png" class="img-fluid">
+  </div>
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+    <mat-card-title class="text-center mt-4 mb-4">
+      <h1 class="line-height-normal titulo">
+        Bienvenido de nuevo
+      </h1>
+    </mat-card-title>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="mt-5 mb-3">
+      <div class="form-row mb-2">
+        <div class="offset-3 col-6">
+          <mat-form-field class="full-width-height">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+            <mat-error *ngIf="emailPattern.invalid">
+              Please enter a valid email
+            </mat-error>
+            <mat-error *ngIf="emailPattern.touched">
+              Your email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-row mb-1">
+        <div class="offset-3 col-6">
+          <p class="sm-text-center float-left mb-0">
+            <a [routerLink]="['/forgot-password']">
+              ¿Olvidaste tu Contraseña?
+            </a>
+          </p>
+          <mat-form-field class="full-width-height">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" [type]="hide ? 'password':'text' ">
+            <mat-icon class="material-icons" matSuffix (click)="hide = !hide">
+              {{hide ? 'visibility':'visibility_off'}}
+            </mat-icon>
+            <mat-error *ngIf="passwordPattern.invalid">
+              Password must be 8 characters long
+            </mat-error>
+            <mat-error *ngIf="passwordPattern.touched">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="form-row mt-4 mb-4" *ngIf="errorMessage">
+        <div class="offset-2 col-8">
+          <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ errorMessage }} </small>
+        </div>
+      </div> -->
+      <mat-card-actions class="mb-5">
+        <div class="offset-3 col-6">
+          <div class="alinear-centro mt-4">
+            <button type="submit" class="btn btn-dark btn-block alinear-centro">Iniciar Sesion</button>
+          </div>
+        </div>
+        <div class="col-12 mt-4">
+          <div class="alinear-centro mt-4">
+            <p class="sm-text-center float-left mb-0">
+              Already have an account?
+              <a [routerLink]="['/register']">
+                Sign In
+              </a>
+            </p>
+          </div>
+        </div>
+      </mat-card-actions>
+    </form>
+  </mat-card>
 </div>
 
 <!-- ACLARACIONES -->

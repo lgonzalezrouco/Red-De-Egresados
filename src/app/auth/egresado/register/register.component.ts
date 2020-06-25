@@ -128,8 +128,8 @@ export class RegisterComponent implements OnInit {
               this.updateUserData(firstName, lastName);
               console.log(user);
 
-              // Redirigir a verificationEmail
-              this.router.navigate(['/verification-email']);
+              // Redirigir a wait-verification
+              this.router.navigate(['/wait-verification']);
             } else {
               // Si user es un undefined, significa que hubo un error, por lo tanto se muestra
               if (user == undefined) {
