@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective,NgForm } from '@angular/forms';
-import { AuthService } from '@app/auth/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,7 +27,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   providers: [AuthService],
 })
 export class RegisterComponent implements OnInit {
-  
+
   maxDate= new Date(2020,0,0);
   hide = true;
   profesions: Profesion[] = [
@@ -39,9 +39,9 @@ export class RegisterComponent implements OnInit {
     {value1: 2019, viewValue1: 2019},
   ];
 
-  
-  
-  
+
+
+
   matcher = new MyErrorStateMatcher();
   public categoriasSeleccionadas: string[] = [];
 
@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.email,
     ]),
-    
+
     apellidoFormControl : new FormControl('', [
       Validators.required,
     ]),
@@ -121,7 +121,7 @@ export class RegisterComponent implements OnInit {
     ]),
     fechaEgresoFormControl : new FormControl('', [
       Validators.required,
-      
+
     ]),
   });
   // Variables para controlar los patrones del formulario

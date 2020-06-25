@@ -7,11 +7,11 @@ import {
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { User } from '@app/shared/interfaces/user';
 import { Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Empresa } from '@app/shared/interfaces/empresa';
 import { stringify } from 'querystring';
+import { User } from 'src/app/shared/interfaces/user';
+import { Empresa } from 'src/app/shared/interfaces/empresa';
 
 @Injectable({
   providedIn: 'root',
