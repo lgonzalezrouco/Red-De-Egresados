@@ -10,3 +10,9 @@ body {
 a{
   color: inherit;
 }
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, 
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: #51799f !important;
+    color:white !important;
+    
+}
