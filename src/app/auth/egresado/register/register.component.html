@@ -1,3 +1,4 @@
+
 <div class="margen container-fluid">
   <div class="sm-text-center offset-md-1 set-size-logo">
     <img src="../../assets/images/titulo.png" class="img-fluid">
@@ -9,7 +10,10 @@
       por las mejores empresas
     </p>
     <div class="margenes">
+      <mat-horizontal-stepper #stepper>
       <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <mat-step [stepControl]="firstFormGroup">
+          <ng-template matStepLabel>Primer paso</ng-template>
         <table class="celda-completa" cellspacing="0">
           <tr>
             <td>
@@ -94,6 +98,12 @@
             </td>
           </tr>
         </table>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>Ultimo paso</ng-template>
         <table class="celda-completa" cellspacing="0">
           <tr>
             <td>
@@ -183,12 +193,17 @@
             </td>
           </tr>
         </table>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+        <div class="margen_btn mt-2">
+          <button type="submit" mat-raised-button class="btn" style="float: right;">
+            Registrarse
+          </button>
+        </div>
+      </mat-step>
       </form>
-      <div class="margen_btn mt-2">
-        <button type="submit" mat-raised-button class="btn" style="float: right;">
-          Registrarse
-        </button>
-      </div>
+    </mat-horizontal-stepper>
     </div>
   </mat-card>
 </div>

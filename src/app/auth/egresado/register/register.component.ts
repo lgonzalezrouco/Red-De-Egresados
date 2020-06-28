@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormGroupDirective,NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective,NgForm,FormBuilder} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+
+
 interface Profesion {
   value: string;
   viewValue: string;
@@ -27,6 +29,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   providers: [AuthService],
 })
 export class RegisterComponent implements OnInit {
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
   today = new Date();
   todayYear: number = this.today.getFullYear();
@@ -105,9 +109,15 @@ export class RegisterComponent implements OnInit {
 
   public egresado;
 
-  constructor(private authSvc: AuthService, private router: Router) {}
+  constructor(private authSvc: AuthService, private router: Router,private _formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required]
+  });
+  this.secondFormGroup = this._formBuilder.group({
+    secondCtrl: ''
+  });}
 
   async onRegister() {
     try {
