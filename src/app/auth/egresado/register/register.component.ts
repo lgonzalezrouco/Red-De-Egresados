@@ -1,23 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormGroupDirective,NgForm } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormGroupDirective,
+  NgForm,
+} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 interface Profesion {
   value: string;
   viewValue: string;
 }
 interface Fecha {
-  value1: number;
-  viewValue1: number;
+  value: number;
+  viewValue: number;
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 @Component({
@@ -27,7 +40,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   providers: [AuthService],
 })
 export class RegisterComponent implements OnInit {
-
   today = new Date();
   todayYear: number = this.today.getFullYear();
   todayMonth: number = this.today.getMonth();
@@ -38,17 +50,73 @@ export class RegisterComponent implements OnInit {
   hide = true;
 
   profesions: Profesion[] = [
-    { value: 'desarrolloWeb', viewValue: 'Desarrollo Web' },
-    { value: 'fotografia', viewValue: 'Fotografía' },
+    { value: 'Desarrollo Web', viewValue: 'Desarrollo Web' },
+    { value: 'Fotografia', viewValue: 'Fotografía' },
   ];
 
   fechas: Fecha[] = [
-    { value1: 2018, viewValue1: 2018 },
-    { value1: 2019, viewValue1: 2019 },
+    { value: 2018, viewValue: 2018 },
+    { value: 2019, viewValue: 2019 },
   ];
 
-  matcher = new MyErrorStateMatcher();
-  public categoriasSeleccionadas: string[] = [];
+  /* matcher = new MyErrorStateMatcher(); */
+
+  firstFormGroup = new FormGroup({
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]*'),
+      Validators.minLength(2),
+    ]),
+    cellphone: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]+$'),
+      Validators.minLength(8),
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]*'),
+      Validators.minLength(2),
+    ]),
+    birthday: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required]),
+    yearDeEgreso: new FormControl('', [Validators.required]),
+  });
+
+  // Variables para controlar los patrones del formulario
+  public firstNamePattern = this.firstFormGroup.get('firstName');
+  public lastNamePattern = this.firstFormGroup.get('lastName');
+  public birthdayPattern = this.firstFormGroup.get('birthday');
+  public genderPattern = this.firstFormGroup.get('gender');
+  public cellphonePattern = this.firstFormGroup.get('cellphone');
+  public egresoPattern = this.firstFormGroup.get('yearDeEgreso');
+
+  secondFormGroup = new FormGroup({
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+    orientacion: new FormControl('', [Validators.required]),
+    profesion: new FormControl('', [Validators.required]),
+    DNI: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]+$'),
+      Validators.minLength(8),
+      Validators.maxLength(8),
+    ]),
+    tituloEgreso: new FormControl('', [Validators.required]),
+  });
+
+  // Variables para controlar los patrones del formulario
+  public emailPattern = this.secondFormGroup.get('email');
+  public passwordPattern = this.secondFormGroup.get('password');
+  public orientacionPattern = this.secondFormGroup.get('orientacion');
+  public profesionPattern = this.secondFormGroup.get('profesion');
+  public DNIPattern = this.secondFormGroup.get('DNI');
+  public tituloEgresoPattern = this.secondFormGroup.get('tituloEgreso');
 
   registerForm = new FormGroup({
     email: new FormControl('', [
@@ -86,19 +154,6 @@ export class RegisterComponent implements OnInit {
     ]),
     tituloEgreso: new FormControl('', [Validators.required]),
   });
-  // Variables para controlar los patrones del formulario
-  public emailPattern = this.registerForm.get('email');
-  public passwordPattern = this.registerForm.get('password');
-  public firstNamePattern = this.registerForm.get('firstName');
-  public lastNamePattern = this.registerForm.get('lastName');
-  public birthdayPattern = this.registerForm.get('birthday');
-  public genderPattern = this.registerForm.get('gender');
-  public cellphonePattern = this.registerForm.get('cellphone');
-  public egresoPattern = this.registerForm.get('yearDeEgreso');
-  public orientacionPattern = this.registerForm.get('orientacion');
-  public profesionPattern = this.registerForm.get('profesion');
-  public DNIPattern = this.registerForm.get('DNI');
-  public tituloEgresoPattern = this.registerForm.get('tituloEgreso');
 
   // Variable para mostrar si hubo algun error en el formulario
   public errorMessage: string;
@@ -112,19 +167,23 @@ export class RegisterComponent implements OnInit {
   async onRegister() {
     try {
       const {
-        email,
-        password,
-        DNI,
-        tituloEgreso,
         firstName,
         cellphone,
         lastName,
         birthday,
         gender,
         yearDeEgreso,
+      } = this.firstFormGroup.value;
+
+      const {
+        email,
+        password,
+        DNI,
+        tituloEgreso,
         orientacion,
         profesion,
-      } = this.registerForm.value;
+      } = this.secondFormGroup.value;
+
       if (
         email == '' ||
         password == '' ||
@@ -142,6 +201,21 @@ export class RegisterComponent implements OnInit {
         this.errorMessage = 'Algunos de los campos estan incompletos';
         throw new Error(this.errorMessage);
       }
+
+      this.registerForm.patchValue({
+        email: email,
+        password: password,
+        firstName: firstName,
+        cellphone: cellphone,
+        lastName: lastName,
+        birthday: birthday,
+        gender: gender,
+        yearDeEgreso: yearDeEgreso,
+        orientacion: orientacion,
+        profesion: profesion,
+        DNI: DNI,
+        tituloEgreso: tituloEgreso,
+      });
       this.createUser();
     } catch (error) {
       console.log(error);
@@ -173,6 +247,9 @@ export class RegisterComponent implements OnInit {
           if (existeEgresado) {
             // Se guarda el DNI en una variable
             DNIEnFirestore = this.egresado.DNI;
+          } else {
+            this.errorMessage = 'Ese titulo de egresado no existe';
+            throw new Error(this.errorMessage);
           }
 
           // Si el DNI y el titulo de Egreso coninciden...
@@ -211,6 +288,7 @@ export class RegisterComponent implements OnInit {
           } else {
             // Si no coinciden se muestra el mensaje en la pantalla.
             this.errorMessage = 'El titulo de egreso o el DNI el incorrecto';
+            throw new Error(this.errorMessage);
           }
         });
     } catch (error) {

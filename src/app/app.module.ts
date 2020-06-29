@@ -35,10 +35,12 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
-import { Prueba2Component } from './prueba2/prueba2.component';
+import {MatStepperModule} from '@angular/material/stepper';
+
+import { PruebaComponent } from './prueba/prueba.component';
 
 
 @NgModule({
@@ -58,7 +60,7 @@ import { Prueba2Component } from './prueba2/prueba2.component';
     RegisterEmpresaComponent,
     ForgotPasswordComponent,
     HomeComponent,
-    Prueba2Component,
+    PruebaComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ import { Prueba2Component } from './prueba2/prueba2.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
   ],
   exports: [
     MatButtonModule,
@@ -88,7 +91,9 @@ import { Prueba2Component } from './prueba2/prueba2.component';
     MatIconModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

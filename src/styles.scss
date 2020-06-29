@@ -10,3 +10,8 @@ body {
 a{
   color: inherit;
 }
+
+.mat-step-icon-selected, .mat-step-icon-state-done, .mat-step-icon-state-edit, .mat-calendar-body-selected {
+  background-color: #51799f !important;
+  color: #ffffff;
+}
