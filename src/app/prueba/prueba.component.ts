@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../auth/services/auth.service';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
 
 interface Profesion {
   value: string;
@@ -20,25 +13,22 @@ interface Fecha {
   viewValue1: number;
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
 
 @Component({
-  selector: 'app-prueba2',
-  templateUrl: './prueba2.component.html',
-  styleUrls: ['./prueba2.component.scss'],
+  selector: 'app-prueba',
+  templateUrl: './prueba.component.html',
+  styleUrls: ['./prueba.component.scss']
 })
-export class Prueba2Component implements OnInit {
+export class PruebaComponent implements OnInit {
+
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
   today = new Date();
   todayYear: number = this.today.getFullYear();
   todayMonth: number = this.today.getMonth();
@@ -116,12 +106,19 @@ export class Prueba2Component implements OnInit {
 
   public egresado;
 
-  constructor(private authSvc: AuthService, private router: Router) {}
+  constructor(private authSvc: AuthService, private router: Router,private _formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required]
+  });
+  this.secondFormGroup = this._formBuilder.group({
+    secondCtrl: ''
+  });}
 
   async onRegister() {
-    try {
+    console.log(this.registerForm.value)
+    /* try {
       const {
         email,
         password,
@@ -156,7 +153,7 @@ export class Prueba2Component implements OnInit {
       this.createUser();
     } catch (error) {
       console.log(error);
-    }
+    } */
   }
 
   // Se usa para actualizar los datos del usuario propios de firebase
@@ -228,4 +225,5 @@ export class Prueba2Component implements OnInit {
       console.log(error);
     }
   }
+
 }

@@ -1,0 +1,193 @@
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: #51799f !important;
+    color:white !important;
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+
+.titulo {
+  font-size: 2.65rem;
+  font-weight: 500;
+  color: #191919;
+  line-height: 1cm;
+}
+.texto {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #204b75;
+}
+.margen {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.example-full-width {
+  width: 80%;
+}
+.celda-completa {
+  width: 100%;
+  margin-left: 35px;
+}
+
+.datepicker {
+  width: 80%;
+  margin-right: -20px;
+}
+.icon-right {
+  margin-right: -29px;
+  width: 80%;
+}
+.fecha_egreso {
+  margin-right: -400px;
+  width: 80%;
+}
+.btn {
+  display: inline-block;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #51799f;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.55rem 2.25rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  border-radius: 0.35rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.margen_btn {
+  margin-right: 35px;
+}
+.margenes {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+/* esconde los arrows de input number*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+@media all and (max-width: 550px) {
+  .set-size-logo {
+    max-width: 106px;
+    max-height: 64px;
+
+    display: block;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .titulo {
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1cm;
+  }
+  .texto {
+    font-size: 0.9rem;
+  }
+  .celda-completa {
+    width: 100%;
+    margin-left: 16px;
+  }
+  .margen_btn {
+    margin-right: 8px;
+  }
+  .btn {
+    font-size: 0.9rem;
+    height: 40%;
+    width: 40%;
+  }
+}
+@media all and (max-width: 767px) and (min-width: 550px) {
+
+  .set-size-logo {
+    max-width: 106px;
+    max-height: 64px;
+
+    display: block;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .titulo {
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1cm;
+  }
+  .texto {
+    font-size: 0.9rem;
+  }
+  .celda-completa {
+    width: 100%;
+    margin-left: 16px;
+  }
+  .margen_btn {
+    margin-right: 8px;
+  }
+  .btn {
+    font-size: 0.9rem;
+    height: 40%;
+    width: 40%;
+  }
+}
+@media all and (max-width: 1100px) and (min-width: 767px) {
+  .set-size-logo {
+    max-width: 106px;
+    max-height: 64px;
+    display: block;
+
+    margin-right: -70px;
+    margin-bottom: 5px;
+  }
+  .celda-completa {
+    width: 100%;
+    margin-left: 20px;
+  }
+  .titulo {
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1cm;
+  }
+  .texto {
+    font-size: 0.9rem;
+  }
+  .margen_btn {
+    margin-right: 15px;
+  }
+}
+
+@media all and (min-width: 1100px) and (max-width: 1500px) {
+  .set-size-logo {
+    max-width: 145px;
+    max-height: 88px;
+    display: block;
+
+    margin-right: -70px;
+    margin-bottom: 5px;
+  }
+}
