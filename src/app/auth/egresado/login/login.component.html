@@ -62,35 +62,36 @@
           <mat-form-field class="full-width-height">
             <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="email">
-            <mat-error *ngIf="emailPattern.invalid">
-              Please enter a valid email
+            <mat-error *ngIf="emailPattern.invalid && !emailPattern.touched">
+              Por favor, ingrese un email válido.
             </mat-error>
-            <mat-error *ngIf="emailPattern.touched">
-              Your email is <strong>required</strong>
+            <mat-error *ngIf="emailPattern.touched" >
+              El email es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
         </div>
       </div>
       <div class="form-row mb-1">
         <div class="offset-3 col-6">
-          <p class="sm-text-center float-left mb-0">
-            <a [routerLink]="['/forgot-password']">
-              ¿Olvidaste tu Contraseña?
-            </a>
-          </p>
+          
           <mat-form-field class="full-width-height">
-            <mat-label>Password</mat-label>
+            <mat-label>Contraseña</mat-label>
             <input matInput type="password" formControlName="password" [type]="hide ? 'password':'text' ">
             <mat-icon class="material-icons" matSuffix (click)="hide = !hide">
               {{hide ? 'visibility':'visibility_off'}}
             </mat-icon>
-            <mat-error *ngIf="passwordPattern.invalid">
-              Password must be 8 characters long
+            <mat-error *ngIf="passwordPattern.hasError('minLength')">
+              La contraseña debe contener mínimo 8 caracteres.
             </mat-error>
-            <mat-error *ngIf="passwordPattern.touched">
-              Password is <strong>required</strong>
+            <mat-error *ngIf="passwordPattern.hasError('required')">
+              La contraseña es <strong>requerida</strong>
             </mat-error>
           </mat-form-field>
+          <p class="sm-text-center float-right margen2">
+            <a [routerLink]="['/forgot-password']">
+              ¿Olvidaste tu Contraseña?
+            </a>
+          </p>
         </div>
       </div>
       <!-- <div class="form-row mt-4 mb-4" *ngIf="errorMessage">
@@ -107,9 +108,9 @@
         <div class="col-12 mt-4">
           <div class="alinear-centro mt-4">
             <p class="sm-text-center float-left mb-0">
-              Already have an account?
+              ¿No tienes una cuenta?
               <a [routerLink]="['/register']">
-                Sign In
+                Regístrate
               </a>
             </p>
           </div>

@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
-    password: new FormControl('', [Validators.minLength(8)]),
+    password: new FormControl('', [Validators.required,
+      Validators.minLength(8)]),
   });
 
   // Variables para controlar los patrones del formulario

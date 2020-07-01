@@ -201,7 +201,7 @@ export class RegisterComponent implements OnInit {
         this.errorMessage = 'Algunos de los campos estan incompletos';
         throw new Error(this.errorMessage);
       }
-
+      
       this.registerForm.patchValue({
         email: email,
         password: password,

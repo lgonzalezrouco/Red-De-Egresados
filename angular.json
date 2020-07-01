@@ -131,5 +131,8 @@
       }
     }
   },
-  "defaultProject": "Red-De-Egresados"
+  "defaultProject": "Red-De-Egresados",
+  "cli": {
+    "analytics": "e5c81a83-287e-4729-a9e5-b09cd97eaa3c"
+  }
 }
