@@ -73,7 +73,7 @@
       </div>
       <div class="form-row mb-1">
         <div class="offset-3 col-6">
-          
+
           <mat-form-field class="full-width-height">
             <mat-label>Contraseña</mat-label>
             <input matInput type="password" formControlName="password" [type]="hide ? 'password':'text' ">
@@ -94,13 +94,13 @@
           </p>
         </div>
       </div>
-      <!-- <div class="form-row mt-4 mb-4" *ngIf="errorMessage">
+      <div class="form-row mt-4 mb-4" *ngIf="errorMessage">
         <div class="offset-2 col-8">
           <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ errorMessage }} </small>
         </div>
-      </div> -->
+      </div>
       <mat-card-actions class="mb-5">
-        <div class="offset-3 col-6">
+        <div class="col-12 offset-md-3 col-md-6">
           <div class="alinear-centro mt-4">
             <button type="submit" class="btn btn-dark btn-block alinear-centro">Iniciar Sesion</button>
           </div>
