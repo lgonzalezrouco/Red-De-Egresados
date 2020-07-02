@@ -1,51 +1,3 @@
-<!-- <div class="row">
-  <div class="offset-1 col-10 offset-md-2 col-md-8 mb-5 mt-5">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="text-center">LOGIN</h4>
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-          <div class="mb-2">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email"
-              formControlName="email" />
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            <p *ngIf="emailPattern.touched && emailPattern.invalid"
-              class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email</p>
-            <p *ngIf="emailPattern.errors?.pattern" class="form-text alert-danger text-center mt-2 pt-1 pb-1">
-              <sup>*</sup>Please enter correct email</p>
-          </div>
-          <div class="mb-3">
-            <label for="password">
-              Password
-              <small>
-                <a [routerLink]="['/forgot-password']">
-                  Forgot Password?
-                </a>
-              </small>
-            </label>
-            <input type="password" class="form-control" id="password" formControlName="password" />
-            <p *ngIf="passwordPattern.touched && passwordPattern.invalid"
-              class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Password must be 8 characters long</p>
-            <div *ngIf="message">
-              <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ message }} </small>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-dark btn-block">Login</button>
-        </form>
-        <small>
-          Don´t have an account?
-          <a [routerLink]="['/register']">
-            Sign Up
-          </a>
-          <small class="text-muted">Ptss... It´s free</small>
-          <br />
-
-        </small>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div class="margen container-fluid">
   <div class="sm-text-center offset-md-1 set-size-logo">
     <img src="../../assets/images/titulo.png" class="img-fluid">
@@ -94,13 +46,13 @@
           </p>
         </div>
       </div>
-      <div class="form-row mt-4 mb-4" *ngIf="errorMessage">
+      <!-- <div class="form-row mt-4 mb-4" *ngIf="errorMessage">
         <div class="offset-2 col-8">
           <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ errorMessage }} </small>
         </div>
-      </div>
+      </div> -->
       <mat-card-actions class="mb-5">
-        <div class="col-12 offset-md-3 col-md-6">
+        <div class="offset-3 col-6">
           <div class="alinear-centro mt-4">
             <button type="submit" class="btn btn-dark btn-block alinear-centro">Iniciar Sesion</button>
           </div>

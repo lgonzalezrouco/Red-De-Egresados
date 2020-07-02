@@ -1,15 +1,11 @@
 import { Injectable, NgZone, ErrorHandler } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { stringify } from 'querystring';
 import { User } from 'src/app/shared/interfaces/user';
 import { Empresa } from 'src/app/shared/interfaces/empresa';
 
@@ -277,6 +273,7 @@ export class AuthService {
     }
   }
 
+  // Se usa para editar la empresa
   editEmpresa(user: any, data: any, url: any) {
     try {
       if (data.empresaName == '') {
@@ -310,6 +307,7 @@ export class AuthService {
     return this.angularFirestore.collection('users').doc(id).snapshotChanges();
   }
 
+  // Se usa para traer un titulo
   public existeElEgresado(tituloEgreso) {
     tituloEgreso = tituloEgreso.toString();
     return this.angularFirestore.collection('titulos').doc(tituloEgreso).snapshotChanges();

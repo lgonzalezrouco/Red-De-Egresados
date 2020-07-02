@@ -39,8 +39,11 @@ import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
-import { PruebaComponent } from './prueba/prueba.component';
+import { HttpClientModule } from "@angular/common/http"
+
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 
 
 @NgModule({
@@ -60,7 +63,7 @@ import { PruebaComponent } from './prueba/prueba.component';
     RegisterEmpresaComponent,
     ForgotPasswordComponent,
     HomeComponent,
-    PruebaComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,9 @@ import { PruebaComponent } from './prueba/prueba.component';
     MatNativeDateModule,
     MatIconModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatToolbarModule,
+    HttpClientModule
   ],
   exports: [
     MatButtonModule,

@@ -103,8 +103,8 @@
                   <mat-label>Fecha de Egreso</mat-label>
                   <mat-select formControlName="yearDeEgreso">
                     <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
-                    <mat-option *ngFor="let fecha of fechas" [value]="fecha.value">
-                      {{ fecha.viewValue }}
+                    <mat-option *ngFor="let year of years | async" [value]="year.value">
+                      {{ year.viewValue }}
                     </mat-option>
                   </mat-select>
                   <mat-error *ngIf="egresoPattern.hasError('required')">
@@ -172,7 +172,7 @@
                   <mat-label>Profesion</mat-label>
                   <mat-select formControlName="profesion">
                     <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
-                    <mat-option *ngFor="let profesion of profesions" [value]="profesion.value">
+                    <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
                       {{ profesion.viewValue }}
                     </mat-option>
                   </mat-select>
@@ -239,5 +239,8 @@
         </div>
       </div>
     </form>
+    <div *ngFor="let year of years">
+      {{year.value}}
+    </div>
   </mat-card>
 </div>

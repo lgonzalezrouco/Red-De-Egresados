@@ -1,143 +1,179 @@
-<!-- Sidebar navigation -->
-<div class="container-fluid">
-  <div class="row">
-    <!-- Main content -->
-    <main role="main" class="offset-md-1 col-md-10 px-4">
-      <div class="inner-adjust">
-        <div class="pt-3 mb-3 border-bottom">
-          <h1 class="h2">User Profile</h1>
+<app-toolbar></app-toolbar>
+
+<div class="margen container-fluid">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+    <div class="row">
+      <div class="col-12 col-md-4 mt-3 md-margen">
+        <img class="offset-md-2 col-md-8 rounded-circle" src="{{
+            user.photoURL ? user.photoURL : '../../../assets/images/user8.png'
+          }}" alt="{{ user.firstName }}" />
+        <div class="offset-3 mt-4">
+          <h3 class="texto-datos">
+            <p class="texto-dato">
+              <img class="img-fluid mr-3" src="../../../assets/images/sexo.png"> {{ user.gender }}
+            </p>
+            <p class="texto-dato">
+              <img class="img-fluid mr-3 -ml-009" src="../../../assets/images/nacimiento.png"> {{ user.birthday }}
+            </p>
+            <p class="texto-dato">
+              <img class="img-fluid mr-3 -ml-033" src="../../../assets/images/egreso.png"> {{ user.yearDeEgreso }}
+            </p>
+            <p class="texto-dato">
+              <img class="img-fluid mr-3 -ml-033" src="../../../assets/images/orientacion.png"> {{ user.orientacion }}
+            </p>
+          </h3>
         </div>
-        <!-- Show user data when logged in -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="media">
-              <img class="col-md-6 align-self-start mr-5 rounded-circle" src="{{
-                  user.photoURL ? user.photoURL : '../../../assets/images/dummy-user.png'
-                }}" alt="{{ user.firstName }}" />
-              <div class="media-body col-md-6">
-                <ng-container *ngIf="mostrar; then datos; else datosEditables"></ng-container>
-                <ng-template #datos>
-                  <h3>
-                    <p>
-                      Nombre: <strong>{{ user.firstName }}</strong>
-                    </p>
-                    <p>
-                      Apellido: <strong>{{ user.lastName }}</strong>
-                    </p>
-                    <p>
-                      Email: <strong>{{ user.email }}</strong>
-                    </p>
-                    <p>
-                      Sexo: <strong>{{ user.gender }}</strong>
-                    </p>
-                    <p>
-                      Nacimiento: <strong>{{ user.birthday }}</strong>
-                    </p>
-                    <p>
-                      Celular: <strong>{{ user.cellphone }}</strong>
-                    </p>
-                    <p>
-                      Año de egreso: <strong>{{ user.yearDeEgreso }}</strong>
-                    </p>
-                    <p>
-                      Orientacion: <strong>{{ user.orientacion }}</strong>
-                    </p>
-                    <p>
-                      Profesion: <strong>{{ user.profesion }}</strong>
-                    </p>
-                    <p>
-                      DNI: <strong>{{ user.DNI }}</strong>
-                    </p>
-                    <p>
-                      Numero de egreso: <strong>{{ user.tituloEgreso }}</strong>
-                    </p>
-                    <button class="btn btn-dark" (click)="editar()">Editar</button>
-                  </h3>
-                </ng-template>
-                <ng-template #datosEditables>
-                  <div>
-                    <form [formGroup]="editarForm" (ngSubmit)="onEdit()">
-                      <div class="form-row mb-2">
-                        <div class="col">
-                          <label for="name">Nombre</label>
-                          <input type="text" class="form-control" id="inputName" [(ngModel)]="user.firstName"
-                            formControlName="firstName" required />
-                          <p *ngIf="firstNamePattern.touched && firstNamePattern.invalid"
-                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
-                          </p>
-                        </div>
-                        <div class="col">
-                          <label for="lastName">Apellido</label>
-                          <input type="text" class="form-control" [(ngModel)]="user.lastName" id="inputLastName"
-                            formControlName="lastName" required />
-                          <p *ngIf="lastNamePattern.touched && lastNamePattern.invalid"
-                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
-                          </p>
-                        </div>
-                      </div>
-                      <div class="form-row mb-2">
-                        <div class="col">
-                          <label for="gender">Sexo</label>
-                          <select id="inputGender" class="form-control" [(ngModel)]="user.gender"
-                            formControlName="gender" required placeholder="-- Por favor eliga una opcion --">
-                            <option>Masculino</option>
-                            <option>Femenino</option>
-                            <option>Prefiero no especificar</option>
-                          </select>
-                          <p *ngIf="genderPattern.touched && genderPattern.invalid"
-                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
-                          </p>
-                        </div>
-                        <div class="col">
-                          <label for="birthday">Nacimiento</label>
-                          <input type="date" class="form-control" id="inputBirthday" [(ngModel)]="user.birthday"
-                            formControlName="birthday" />
-                          <p *ngIf="birthdayPattern.touched && birthdayPattern.invalid"
-                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
-                          </p>
-                        </div>
-                      </div>
-                      <div class="form-row mb-2">
-                        <div class="col">
-                          <label for="cellphone">Telefono</label>
-                          <input type="number" class="form-control" id="cellphone" formControlName="cellphone"
-                            [(ngModel)]="user.cellphone" />
-                          <p *ngIf="cellphonePattern.touched && cellphonePattern.invalid"
-                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
-                          </p>
-                        </div>
-                        <div class="col">
-                          <label for="profesion">Profesion</label>
-                          <select id="profesion" class="form-control" [(ngModel)]="user.profesion"
-                            formControlName="profesion" required>
-                            <option>Desarrollo Web</option>
-                            <option>Fotografia</option>
-                          </select>
-                          <p *ngIf="profesionPattern.touched && profesionPattern.invalid"
-                            class="form-text alert-danger text-center mt-2 pt-1 pb-1"><sup>*</sup>Please provide email
-                          </p>
-                        </div>
-                      </div>
-                      <div class="form-row mb-2">
-                        <div class="col">
-                          <label for="Cambiar Foto">Foto de perfil</label>
-                          <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file"
-                            id="inputFile" formControlName="photoURL" (change)="cambioArchivo($event)" />
-                        </div>
-                      </div>
-                      <div *ngIf="errorMessage">
-                        <div class="form-text alert-danger text-center mt-2 mb-2 pt-1 pb-1"> {{ errorMessage }} </div>
-                      </div>
-                      <button type="submit" class="btn btn-dark mr-1">Guardar</button>
-                      <button class="btn btn-dark ml-1" (click)="editar()">Cancelar</button>
-                    </form>
-                  </div>
-                </ng-template>
-              </div>
+      </div>
+      <ng-container *ngIf="mostrar; then mostrarDatos; else editarDatos"></ng-container>
+      <ng-template #mostrarDatos>
+        <div class="col-12 col-md-8 px-0 mt-4 mb-4">
+          <div class="row">
+            <div class="col-10 col-md-11">
+              <h1 class="line-height-normal sm-text-left titulo vertical-align">
+                {{ user.firstName }} {{user.lastName}}
+              </h1>
+            </div>
+            <div class="col-2 col-md-1 px-0">
+              <button (click)="editar()" class="boton-editar vertical-align">
+                <img mat-icon class="img-fluid" src="../../assets/images/editar.png">
+              </button>
+            </div>
+            <div class="col-12">
+              <p class="subtitulo-profesion mt-2 mb-3">
+                <strong>{{ user.profesion }}</strong>
+              </p>
+            </div>
+            <div class="col 12">
+              <h3>
+                <p>
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+                  nec ornare tortor, et volutpat augue. In tincidunt auctor nisl eget
+                  condimentum. Donec id iaculis sapien. Vivamus pharetra facilisis
+                  quam et sodales. Quisque congue, ipsum et sollicitudin laoreet,
+                  mauris augue condimentum est, in placerat massa odio vel erat.
+                  Mauris sit amet efficitur lorem, id volutpat diam."
+                </p>
+              </h3>
             </div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
+      </ng-template>
+      <ng-template #editarDatos>
+        <div class="col-12 col-md-8 px-0 mt-4 mb-4">
+          <form [formGroup]="editarForm" (ngSubmit)="onEdit()" class="sm-margen mt-5 mb-3">
+            <div class="form-row mb-2">
+              <div class="offset-md-1 col-md-5 col-12 float-left">
+                <mat-form-field class="full-width-height">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput formControlName="firstName" type="text" [(ngModel)]="userAux.firstName">
+                  <mat-error *ngIf="firstNamePattern.hasError('required')">
+                    El nombre es <strong>requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="firstNamePattern.hasError('pattern') ||firstNamePattern.hasError('minlength')">
+                    El nombre solo esta compuesto por
+                    <strong>letras</strong> y debe tener minimo 2
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-5 col-12 float-right">
+                <mat-form-field class="full-width-height">
+                  <mat-label>Apellido</mat-label>
+                  <input matInput formControlName="lastName" type="text" [(ngModel)]="userAux.lastName">
+                  <mat-error *ngIf="lastNamePattern.hasError('required')">
+                    El apellido es <strong>requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="lastNamePattern.hasError('pattern') || lastNamePattern.hasError('minlength')">
+                    El apellido solo esta compuesto por
+                    <strong>letras</strong> y debe tener minimo 2
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-row mb-2">
+              <div class="offset-md-1 col-md-5 col-12 float-left">
+                <mat-form-field class="full-width-height mt-2">
+                  <mat-label>Genero</mat-label>
+                  <mat-select [(ngModel)]="userAux.gender" formControlName="gender">
+                    <mat-option value="Masculino">Masculino</mat-option>
+                    <mat-option value="Femenino">Femenino</mat-option>
+                    <mat-option value="Prefiero no decirlo">Prefiero no decrilo</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="genderPattern.hasError('required')">
+                    El genero es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-5 col-12 float-right">
+                <mat-form-field class="full-width-height mt-2">
+                  <mat-label>Fecha de Nacimiento</mat-label>
+                  <input matInput formControlName="birthday" [(ngModel)]="fechaDeNacimiento" [matDatepicker]="picker" [max]="maxDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="birthdayPattern.hasError('matDatepickerParse')">
+                    La fecha de nacimiento no es <strong>valida</strong>
+                  </mat-error>
+                  <mat-error *ngIf="
+                      birthdayPattern.hasError('required') &&
+                      !birthdayPattern.hasError('matDatepickerParse')
+                    ">
+                    La fecha es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-row mb-2">
+              <div class="offset-md-1 col-md-5 col-12 float-left">
+                <mat-form-field class="full-width-height mt-2">
+                  <mat-label>Telefono</mat-label>
+                  <span matPrefix>+45 &nbsp;</span>
+                  <input matInput formControlName="cellphone" type="number" [(ngModel)]="userAux.cellphone" />
+                  <mat-error *ngIf="cellphonePattern.hasError('required')">
+                    El teléfono es <strong>requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="cellphonePattern.hasError('pattern')">
+                    El teléfono solo esta compuesto por <strong>numeros</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-5 col-12 float-right">
+                <mat-form-field class="full-width-height mt-2">
+                  <mat-label>Profesion</mat-label>
+                  <mat-select [(ngModel)]="userAux.profesion" formControlName="profesion">
+                    <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">{{ profesion.viewValue }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="profesionPattern.hasError('required')">
+                    La profesion es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-row mb-2">
+              <div class="offset-md-1 col-md-5 col-12 float-left">
+                <label for="Cambiar Foto">Foto de perfil</label>
+                <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file"
+                  id="inputFile" formControlName="photoURL" (change)="cambioArchivo($event)" />
+              </div>
+              <div class="col-md-5 col-12">
+                <div class="row">
+                  <div class="col-12 offset-md-1 col-md-5 mt-4 text-center">
+                    <button class="btn btn-dark" type="submit">Guardar</button>
+                  </div>
+                  <div class="col-12 offset-md-1 col-md-5 mt-4 text-center">
+                    <button class="btn btn-dark" (click)="editar()">Cancelar</button>
+                  </div>
+                  <!-- <div class="col-12 offset-md-1 col-md-5">
+
+                    <button type="submit" class="btn btn-dark mr-1">Guardar</button>
+                  </div>
+                  <div class="col-12 offset-md-1 col-md-5 p-0">
+                    <button class="btn btn-dark ml-1" (click)="editar()">Cancelar</button>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </div>
+  </mat-card>
 </div>

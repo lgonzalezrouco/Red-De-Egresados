@@ -3,24 +3,17 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  FormGroupDirective,
-  NgForm,
+  /* FormGroupDirective,
+  NgForm, */
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { ErrorStateMatcher } from '@angular/material/core';
+/* import { ErrorStateMatcher } from '@angular/material/core'; */
 import { Router } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-interface Profesion {
-  value: string;
-  viewValue: string;
-}
-interface Fecha {
-  value: number;
-  viewValue: number;
-}
-export class MyErrorStateMatcher implements ErrorStateMatcher {
+/* import { Profesion } from 'src/app/shared/interfaces/profesion';
+import { EgresoYear } from 'src/app/shared/interfaces/egresoYear'; */
+import { HttpClient } from '@angular/common/http';
+
+/* export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null
@@ -32,7 +25,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
       (control.dirty || control.touched || isSubmitted)
     );
   }
-}
+} */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -40,6 +33,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   providers: [AuthService],
 })
 export class RegisterComponent implements OnInit {
+
+  // Se usa para establecer la fecha maxima, el dia de hoy.
   today = new Date();
   todayYear: number = this.today.getFullYear();
   todayMonth: number = this.today.getMonth();
@@ -47,20 +42,10 @@ export class RegisterComponent implements OnInit {
 
   maxDate = new Date(this.todayYear, this.todayMonth, this.todayDay);
 
+  // Se usa para saber si se tiene que mostrar la contraseña o no
   hide = true;
 
-  profesions: Profesion[] = [
-    { value: 'Desarrollo Web', viewValue: 'Desarrollo Web' },
-    { value: 'Fotografia', viewValue: 'Fotografía' },
-  ];
-
-  fechas: Fecha[] = [
-    { value: 2018, viewValue: 2018 },
-    { value: 2019, viewValue: 2019 },
-  ];
-
-  /* matcher = new MyErrorStateMatcher(); */
-
+  // Es el formGroup de la primera parte del stepper
   firstFormGroup = new FormGroup({
     firstName: new FormControl('', [
       Validators.required,
@@ -90,6 +75,8 @@ export class RegisterComponent implements OnInit {
   public cellphonePattern = this.firstFormGroup.get('cellphone');
   public egresoPattern = this.firstFormGroup.get('yearDeEgreso');
 
+
+  // Es el formGroup de la segunda parte del stepper
   secondFormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -118,6 +105,7 @@ export class RegisterComponent implements OnInit {
   public DNIPattern = this.secondFormGroup.get('DNI');
   public tituloEgresoPattern = this.secondFormGroup.get('tituloEgreso');
 
+  // Es el formGroup que se pasa a la base de datos y ambos formGroup anteriores en uno solo
   registerForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -158,23 +146,44 @@ export class RegisterComponent implements OnInit {
   // Variable para mostrar si hubo algun error en el formulario
   public errorMessage: string;
 
+  // Se usa para almacenar la informacion del titulo del egresado
   public egresado;
 
-  constructor(private authSvc: AuthService, private router: Router) {}
+  // Se usa para almacenar todos los años de egreso disponibles
+  public years;
 
-  ngOnInit(): void {}
+  // Se usa para almacenar todas las profesiones disponibles
+  public profesions;
+
+  constructor(
+    private authSvc: AuthService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
+
+  ngOnInit(): void {
+    // Almacena la informacion de los json en las variables
+    this.years = this.http.get('../../../../assets/JSON/egresoYear.json');
+    this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
+  }
 
   async onRegister() {
     try {
+      // Se agarran los datos del primer formGroup
       const {
         firstName,
         cellphone,
         lastName,
-        birthday,
         gender,
         yearDeEgreso,
       } = this.firstFormGroup.value;
 
+      // Se le da el formato local a la fecha
+      let { birthday } = this.firstFormGroup.value;
+      let date = new Date(birthday);
+      birthday = date.toLocaleDateString();
+
+      // Se agarran los datos del segundo formGroup
       const {
         email,
         password,
@@ -184,6 +193,7 @@ export class RegisterComponent implements OnInit {
         profesion,
       } = this.secondFormGroup.value;
 
+      // Se verifica que todos los datos sean validos
       if (
         email == '' ||
         password == '' ||
@@ -198,10 +208,11 @@ export class RegisterComponent implements OnInit {
         orientacion == '' ||
         profesion == ''
       ) {
+        // Si no lo son tira un error
         this.errorMessage = 'Algunos de los campos estan incompletos';
         throw new Error(this.errorMessage);
       }
-      
+      // Si son validos, se unifican todos los datos en un solo formGroup
       this.registerForm.patchValue({
         email: email,
         password: password,
@@ -232,8 +243,11 @@ export class RegisterComponent implements OnInit {
   async createUser() {
     // guarda los valores del email, password, photoURL, firstName y lastName
     const { email, password, DNI, tituloEgreso } = this.registerForm.value;
+    // Guarda los datos del usuario registrado o un error
     let user;
+    // Se usa para saber si existe el titulo del egresado
     let existeEgresado: boolean;
+    // Se usa para verificar el DNI en la DB
     let DNIEnFirestore: number;
 
     try {
@@ -248,6 +262,7 @@ export class RegisterComponent implements OnInit {
             // Se guarda el DNI en una variable
             DNIEnFirestore = this.egresado.DNI;
           } else {
+            // Pero si no, tira un error
             this.errorMessage = 'Ese titulo de egresado no existe';
             throw new Error(this.errorMessage);
           }

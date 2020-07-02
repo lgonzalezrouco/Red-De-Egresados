@@ -1,7 +1,9 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
+import { User } from 'src/app/shared/interfaces/user';
 
 @Component({
   selector: 'app-perfil',
@@ -9,6 +11,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./perfil.component.scss'],
 })
 export class PerfilComponent implements OnInit {
+
+  // Se usa para establecer la fecha maxima, el dia de hoy.
+  today = new Date();
+  todayYear: number = this.today.getFullYear();
+  todayMonth: number = this.today.getMonth();
+  todayDay: number = this.today.getDate();
+
+  maxDate = new Date(this.todayYear, this.todayMonth, this.todayDay);
 
   editarForm = new FormGroup({
     firstName: new FormControl('', [
@@ -28,6 +38,7 @@ export class PerfilComponent implements OnInit {
     birthday: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
     profesion: new FormControl('', [Validators.required]),
+    photoURL: new FormControl(''),
   });
 
   // Variables para controlar los patrones del formulario
@@ -36,12 +47,11 @@ export class PerfilComponent implements OnInit {
   public birthdayPattern = this.editarForm.get('birthday');
   public genderPattern = this.editarForm.get('gender');
   public cellphonePattern = this.editarForm.get('cellphone');
-  public profesionPattern = this.editarForm.get(
-    'profesion'
-  );
+  public profesionPattern = this.editarForm.get('profesion');
 
   // Variable para guardar los datos del usuario
   public user: any;
+  public userAux: User;
 
   // Variable para saber si se tiene que mostrar el formulario editable
   public mostrar: boolean = true;
@@ -60,10 +70,17 @@ export class PerfilComponent implements OnInit {
   // Se usa para saber si el usuario ofrece servicios o no.
   public ofreceServicio: boolean;
 
+  // Se usa para almacenar todas las profesiones disponibles
+  public profesions;
+
+  // Se usa para mostrar la fecha de nacimiento en el formato correcto
+  public fechaDeNacimiento;
+
   constructor(
     public authSvc: AuthService,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    public http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +91,12 @@ export class PerfilComponent implements OnInit {
             this.user = userSnapshot.payload.data();
             console.log(userSnapshot.payload.exists);
             console.log(this.user);
+            this.userAux = this.user;
+            this.fechaDeNacimiento = new Date(this.userAux.birthday);
+            this.fechaDeNacimiento = this.fechaDeNacimiento.toLocaleDateString(
+              'en-GB'
+            );
+            this.fechaDeNacimiento = new Date(this.fechaDeNacimiento);
             if (
               this.user.serviceDescription != '' &&
               this.user.serviceDescription != null
@@ -83,6 +106,10 @@ export class PerfilComponent implements OnInit {
               this.ofreceServicio = false;
             }
           });
+          // Almacena la informacion de los json en las variables
+          this.profesions = this.http.get(
+            '../../../../assets/JSON/profesion.json'
+          );
         } else {
           console.log('Nadie inicio sesion');
         }
@@ -90,6 +117,9 @@ export class PerfilComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+  mostrarDato($event) {
+    console.log($event);
   }
 
   public cambioArchivo(event) {
@@ -198,28 +228,57 @@ export class PerfilComponent implements OnInit {
   }
 
   async editUser() {
+    try {
+      let { birthday } = this.editarForm.value;
+      let date = new Date(birthday);
+      birthday = date.toLocaleDateString();
+      this.editarForm.patchValue({
+        birthday: birthday,
+      });
 
-    const user = await this.authSvc.editUser(
-      this.user,
-      this.editarForm.value,
-      this.URLPublica
-    );
+      const {
+        firstName,
+        cellphone,
+        lastName,
+        gender,
+        profesion,
+      } = this.editarForm.value;
 
-    // Si el resultado de la operacion no es un string (osea que no devolvio un error)
-    if (typeof user !== 'string') {
-      //Se agarran los valores firstName y lastName del registerForm
-      const { firstName, lastName } = this.editarForm.value;
+      if (
+        firstName == '' ||
+        lastName == '' ||
+        cellphone == '' ||
+        gender == '' ||
+        profesion == '' ||
+        birthday == ''
+      ) {
+        throw new Error('Algunos de los campos estan incompletos');
+      }
 
-      // Se actualiza los datos del usuario (estos son los propios de firebase)
-      this.updateUserData(firstName, lastName, this.URLPublica);
+      const user = await this.authSvc.editUser(
+        this.user,
+        this.editarForm.value,
+        this.URLPublica
+      );
 
-      console.log(user);
+      // Si el resultado de la operacion no es un string (osea que no devolvio un error)
+      if (typeof user !== 'string') {
+        //Se agarran los valores firstName y lastName del registerForm
+        const { firstName, lastName } = this.editarForm.value;
 
-      this.editar();
-    } else {
-      // Si user es un string, significa que hubo un error, por lo tanto se muestra
-      this.errorMessage = user;
-      console.log(user);
+        // Se actualiza los datos del usuario (estos son los propios de firebase)
+        this.updateUserData(firstName, lastName, this.URLPublica);
+
+        console.log(user);
+
+        this.editar();
+      } else {
+        // Si user es un string, significa que hubo un error, por lo tanto se muestra
+        this.errorMessage = user;
+        console.log(user);
+      }
+    } catch (error) {
+      this.errorMessage = error;
     }
   }
 }

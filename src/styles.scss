@@ -10,7 +10,23 @@ body {
 a{
   color: inherit;
 }
-.mat-step-icon-selected, .mat-step-icon-state-done, .mat-step-icon-state-edit, .mat-calendar-body-selected {
+.mat-step-icon-selected, .mat-step-icon-state-done, .mat-step-icon-state-edit, .mat-calendar-body-selected, .mat-form-field.mat-focused .mat-form-field-ripple {
   background-color: #51799f !important;
   color: #ffffff;
+}
+
+.mat-datepicker-toggle-active, .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #51799f !important;
+}
+
+.mat-input-element {
+  caret-color: #51799f !important;
+}
+
+.mat-toolbar {
+  background: #356089 !important;
+  color: #ffffff;
+}
+.mat-form-field.mat-focused .mat-form-field-label{
+  color: #51799f !important;
 }

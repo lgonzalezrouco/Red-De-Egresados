@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,12 +14,9 @@ export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
+      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
+    password: new FormControl('', [Validators.required,
+      Validators.minLength(8)]),
   });
 
   // Variables para controlar los patrones del formulario
@@ -55,7 +53,7 @@ export class LoginComponent implements OnInit {
         console.log(user);
       }
     } catch (error) {
-      console.log(error);
+      this.errorMessage = error;
     }
   }
 }
