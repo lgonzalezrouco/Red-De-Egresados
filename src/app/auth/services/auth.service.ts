@@ -205,7 +205,6 @@ export class AuthService {
       verificada = '';
     }
 
-
     let CUIT = values.CUIT.toString();
     console.log(CUIT);
 
@@ -291,7 +290,7 @@ export class AuthService {
           CUIT: user.CUIT,
           verificada: user.verificada,
           photoURL: url,
-          empresa: true
+          empresa: true,
         });
 
       return result;
@@ -310,18 +309,48 @@ export class AuthService {
   // Se usa para traer un titulo
   public existeElEgresado(tituloEgreso) {
     tituloEgreso = tituloEgreso.toString();
-    return this.angularFirestore.collection('titulos').doc(tituloEgreso).snapshotChanges();
+    return this.angularFirestore
+      .collection('titulos')
+      .doc(tituloEgreso)
+      .snapshotChanges();
   }
 
-  searchPrueba(search: string, searchFilter: string) {
+  searchWithOption(profesion, minAge, maxAge, orientacion) {
+    let today = new Date();
+    let todayYear: number = today.getFullYear();
+    let todayMonth: number = today.getMonth();
+    let todayDay: number = today.getDate();
+
+    minAge = parseInt(minAge);
+    maxAge = parseInt(maxAge);
+
+    let minAgeDate = new Date(todayYear - minAge, todayMonth, todayDay);
+    let maxAgeDate = new Date(todayYear - maxAge, todayMonth, todayDay);
+
+    return this.angularFirestore.collection('users', (ref) =>
+      ref
+        .where('profesion', '==', profesion)
+        .where('birthday', '<=', minAgeDate)
+        .where('birthday', '>=', maxAgeDate)
+        .where('orientacion', '==', orientacion)
+    ).valueChanges();
+  }
+
+  searchwithFirstName(start, end) {
+    console.log(start);
+    console.log(end);
     return this.angularFirestore
-      .collection('users', (ref) => ref.where(searchFilter, '==', search))
+      .collection('users', (ref) =>
+        ref.limit(25).orderBy('firstName').startAt(start).endAt(end)
+      )
       .valueChanges();
   }
 
   // Se usa para traer de la DB los usuarios que coincidan con el filtro y el parametro de busqueda
   search(start, end, filter) {
     console.log(filter);
+    console.log(start);
+    console.log(end);
     return this.angularFirestore
       .collection('users', (ref) =>
         ref.limit(5).orderBy(filter).startAt(start).endAt(end)
