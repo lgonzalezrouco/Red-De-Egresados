@@ -1,0 +1,107 @@
+<app-toolbar></app-toolbar>
+<div class="margen container-fluid">
+  <!-- <div class="sm-text-center offset-md-1 set-size-logo">
+    <img src="../../assets/images/titulo.png" class="img-fluid">
+  </div> -->
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+    <form [formGroup]="firstNameFormGroup" (ngSubmit)="searchWithFirstName()" class="mt-2 mb-3">
+      <div class="form-row margen-divider">
+        <mat-card-header>
+          <mat-card-subtitle class="subtitulo">Busca utilizando el nombre del egresado</mat-card-subtitle>
+        </mat-card-header>
+        <div class="offset-md-1 col-md-8">
+          <mat-form-field class="full-width-height">
+            <mat-label>Nombre de Egresado</mat-label>
+            <span matPrefix>
+              <mat-icon>search</mat-icon>&nbsp;
+            </span>
+            <input type="text" matInput placeholder="Juan Perez" (change)="getSearchData($event)" />
+          </mat-form-field>
+        </div>
+        <div class="sm-text-center col-md-2">
+          <button type="submit" mat-raised-button class="btn">
+            Buscar
+          </button>
+        </div>
+      </div>
+    </form>
+    <form [formGroup]="optionsFormGroup" (ngSubmit)="getResultsWithOptions()" class="mt-2 mb-3">
+      <mat-divider [inset]="true"></mat-divider>
+      <div class="form-row">
+        <mat-card-header>
+          <mat-card-subtitle class="mt-4 subtitulo">Busca utilizando estas opciones</mat-card-subtitle>
+        </mat-card-header>
+        <div class="offset-md-1 col-md-10">
+          <div class="form-row">
+            <div class="col-md-4 col-12">
+              <mat-form-field class="full-width-height">
+                <mat-label>Profesion</mat-label>
+                <mat-select formControlName="profesion">
+                  <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                  <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
+                    {{ profesion.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 col-12">
+              <mat-form-field class="full-width-height">
+                <mat-label>Edad Minima</mat-label>
+                <input type="number" matInput formControlName="minAge" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 col-12">
+              <mat-form-field class="full-width-height">
+                <mat-label>Edad Maxima</mat-label>
+                <input type="number" matInput formControlName="maxAge" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row mb-2">
+        <div class="offset-md-1 col-md-10">
+          <div class="form-row">
+            <div class="col-md-4 col-12">
+              <mat-form-field class="full-width-height">
+                <mat-label>Orientacion</mat-label>
+                <mat-select formControlName="orientacion">
+                  <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                  <mat-option value="Computacion">Computación</mat-option>
+                  <mat-option value="Mecanica">Mecánica</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="sm-text-center offset-md-5 col-md-3">
+              <button type="submit" mat-raised-button class="btn">
+                Buscar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="resultadosDeBusqueda != null">
+      <mat-divider></mat-divider>
+      <div *ngFor="let resultado of resultadosDeBusqueda" class="row pt-4">
+        <div class="col-12 col-md-6">
+          <div class="row" [routerLink]="['/perfil-de-servicio-egresado', resultado.uid]">
+            <div class="col-md-6">
+              <img class="offset-md-2 col-md-10 rounded-circle d-none d-md-block" src="{{
+                  resultado.photoURL
+                    ? resultado.photoURL
+                    : '../../../assets/images/user8.png'
+                }}" alt="{{ resultado.firstName }}" />
+            </div>
+            <div class="col-md-6">
+              <h1 class="nombre">{{ resultado.firstName }} {{ resultado.lastName }}</h1>
+              <h2 class="profesion">{{ resultado.profesion }}</h2>
+              <h3 class="genero">{{ resultado.gender }}</h3>
+              <h3 class="edad">{{ getEdad(resultado.birthday) }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
