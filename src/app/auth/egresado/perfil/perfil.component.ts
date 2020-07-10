@@ -11,7 +11,6 @@ import { User } from 'src/app/shared/interfaces/user';
   styleUrls: ['./perfil.component.scss'],
 })
 export class PerfilComponent implements OnInit {
-
   // Se usa para establecer la fecha maxima, el dia de hoy.
   today = new Date();
   todayYear: number = this.today.getFullYear();
@@ -74,7 +73,7 @@ export class PerfilComponent implements OnInit {
   public profesions;
 
   // Se usa para mostrar la fecha de nacimiento en el formato correcto
-  public fechaDeNacimiento;
+  public fechaDeNacimiento : Date;
 
   constructor(
     public authSvc: AuthService,
@@ -92,11 +91,12 @@ export class PerfilComponent implements OnInit {
             console.log(userSnapshot.payload.exists);
             console.log(this.user);
             this.userAux = this.user;
-            this.fechaDeNacimiento = new Date(this.userAux.birthday);
-            this.fechaDeNacimiento = this.fechaDeNacimiento.toLocaleDateString(
-              'en-GB'
-            );
-            this.fechaDeNacimiento = new Date(this.fechaDeNacimiento);
+
+            const timeStamp = this.userAux.birthday.toString();
+            let [,res] = timeStamp.match(/seconds=(\d+)/);
+            this.fechaDeNacimiento = new Date(+res * 1000);
+            console.log(this.fechaDeNacimiento);
+
             if (
               this.user.serviceDescription != '' &&
               this.user.serviceDescription != null
@@ -168,6 +168,7 @@ export class PerfilComponent implements OnInit {
       this.mostrar = false;
     } else {
       this.mostrar = true;
+      window.location.reload();
     }
   }
 
@@ -229,12 +230,6 @@ export class PerfilComponent implements OnInit {
 
   async editUser() {
     try {
-      let { birthday } = this.editarForm.value;
-      let date = new Date(birthday);
-      birthday = date.toLocaleDateString();
-      this.editarForm.patchValue({
-        birthday: birthday,
-      });
 
       const {
         firstName,
@@ -242,6 +237,7 @@ export class PerfilComponent implements OnInit {
         lastName,
         gender,
         profesion,
+        birthday
       } = this.editarForm.value;
 
       if (

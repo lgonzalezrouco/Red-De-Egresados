@@ -13,7 +13,7 @@
               <img class="img-fluid mr-3" src="../../../assets/images/sexo.png"> {{ user.gender }}
             </p>
             <p class="texto-dato">
-              <img class="img-fluid mr-3 -ml-009" src="../../../assets/images/nacimiento.png"> {{ user.birthday }}
+              <img class="img-fluid mr-3 -ml-009" src="../../../assets/images/nacimiento.png"> {{ fechaDeNacimiento | date:"dd/MM/yyyy" }}
             </p>
             <p class="texto-dato">
               <img class="img-fluid mr-3 -ml-033" src="../../../assets/images/egreso.png"> {{ user.yearDeEgreso }}

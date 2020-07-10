@@ -176,12 +176,8 @@ export class RegisterComponent implements OnInit {
         lastName,
         gender,
         yearDeEgreso,
+        birthday
       } = this.firstFormGroup.value;
-
-      // Se le da el formato local a la fecha
-      let { birthday } = this.firstFormGroup.value;
-      let date = new Date(birthday);
-      birthday = date.toLocaleDateString();
 
       // Se agarran los datos del segundo formGroup
       const {
