@@ -12,6 +12,7 @@ import { RegisterEmpresaComponent } from './auth/empresa/register-empresa/regist
 import { PerfilEmpresaComponent } from './auth/empresa/perfil-empresa/perfil-empresa.component';
 import { PerfilDeServicioEgresadoComponent } from './auth/egresado/perfil-de-servicio-egresado/perfil-de-servicio-egresado.component';
 import { PerfilDeServicioEmpresaComponent } from './auth/empresa/perfil-de-servicio-empresa/perfil-de-servicio-empresa.component';
+import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -63,6 +64,10 @@ const routes: Routes = [
     path: 'perfil-de-servicio-empresa/:uid',
     component: PerfilDeServicioEmpresaComponent,
   },
+  {
+    path: 'home-egresado',
+    component: HomeEgresadoComponent
+  }
 ];
 
 @NgModule({

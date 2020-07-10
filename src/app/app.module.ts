@@ -40,10 +40,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { HttpClientModule } from "@angular/common/http"
 
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
 
 
 @NgModule({
@@ -64,6 +66,7 @@ import { ToolbarComponent } from './shared/toolbar/toolbar.component';
     ForgotPasswordComponent,
     HomeComponent,
     ToolbarComponent,
+    HomeEgresadoComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,8 @@ import { ToolbarComponent } from './shared/toolbar/toolbar.component';
     MatSelectModule,
     MatStepperModule,
     MatToolbarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDividerModule
   ],
   exports: [
     MatButtonModule,
