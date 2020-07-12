@@ -92,6 +92,10 @@
   margin-bottom: 0rem;
 }
 
+.set-pointer {
+  cursor: pointer;
+}
+
 @media all and (max-width: 767px) {
   .set-size-logo{
     max-width: 106px;

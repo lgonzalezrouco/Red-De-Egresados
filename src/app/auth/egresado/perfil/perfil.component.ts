@@ -66,9 +66,6 @@ export class PerfilComponent implements OnInit {
   // Variable para mostrar si hubo algun error en el formulario
   public errorMessage: any;
 
-  // Se usa para saber si el usuario ofrece servicios o no.
-  public ofreceServicio: boolean;
-
   // Se usa para almacenar todas las profesiones disponibles
   public profesions;
 
@@ -96,15 +93,6 @@ export class PerfilComponent implements OnInit {
             let [,res] = timeStamp.match(/seconds=(\d+)/);
             this.fechaDeNacimiento = new Date(+res * 1000);
             console.log(this.fechaDeNacimiento);
-
-            if (
-              this.user.serviceDescription != '' &&
-              this.user.serviceDescription != null
-            ) {
-              this.ofreceServicio = true;
-            } else {
-              this.ofreceServicio = false;
-            }
           });
           // Almacena la informacion de los json en las variables
           this.profesions = this.http.get(
@@ -117,9 +105,6 @@ export class PerfilComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
-  }
-  mostrarDato($event) {
-    console.log($event);
   }
 
   public cambioArchivo(event) {

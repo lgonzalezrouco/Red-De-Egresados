@@ -3,14 +3,14 @@ import { Subject, combineLatest } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-egresado',
   templateUrl: './home-egresado.component.html',
-  styleUrls: ['./home-egresado.component.scss']
+  styleUrls: ['./home-egresado.component.scss'],
 })
 export class HomeEgresadoComponent implements OnInit {
-
   public profesions;
 
   startAt = new Subject();
@@ -29,9 +29,7 @@ export class HomeEgresadoComponent implements OnInit {
   });
 
   optionsFormGroup = new FormGroup({
-    profesion: new FormControl('', [
-      Validators.required
-    ]),
+    profesion: new FormControl('', [Validators.required]),
     minAge: new FormControl('', [
       Validators.required,
       Validators.pattern('^[0-9]+$'),
@@ -40,17 +38,24 @@ export class HomeEgresadoComponent implements OnInit {
       Validators.required,
       Validators.pattern('^[0-9]+$'),
     ]),
-    orientacion: new FormControl('', [
-      Validators.required
-    ]),
+    orientacion: new FormControl('', [Validators.required]),
   });
 
-  constructor(private http: HttpClient, private authSvc: AuthService) { }
+  constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
-    this.getResultsWithFirstName();
-    /* this.getResultsWithOptions(); */
+    this.authSvc.afAuth.user.subscribe((u) => {
+      console.log(u);
+      if (!u) {
+        this.router.navigate(['/home']);
+      } else {
+        this.profesions = this.http.get(
+          '../../../../assets/JSON/profesion.json'
+        );
+        this.getResultsWithFirstName();
+        /* this.getResultsWithOptions(); */
+      }
+    });
   }
 
   // Es para conseguir la informacion para el parametro de busqueda
@@ -60,7 +65,7 @@ export class HomeEgresadoComponent implements OnInit {
 
   searchWithFirstName() {
     this.startAt.next(this.valorDeEvent);
-    this.endAt.next(this.valorDeEvent + "\uf8ff");
+    this.endAt.next(this.valorDeEvent + '\uf8ff');
   }
 
   // Llama al metodo que se encuentra en el service
@@ -73,34 +78,48 @@ export class HomeEgresadoComponent implements OnInit {
    * Por razones de seguiridad y para evitar un consumo de la red, se desuscribe despues de 30 segundos
    */
   getResultsWithFirstName() {
-    let subscription = combineLatest(this.startObservable, this.endObservable).subscribe((value) => {
+    let subscription = combineLatest(
+      this.startObservable,
+      this.endObservable
+    ).subscribe((value) => {
       this.makeQueryWithFirstName(value[0], value[1]).subscribe((resultado) => {
         this.resultadosDeBusqueda = resultado;
         console.log(this.resultadosDeBusqueda);
         setTimeout(() => {
-          subscription.unsubscribe
-          console.log("DESUSCRITO");
+          subscription.unsubscribe;
+          console.log('DESUSCRITO');
         }, 30000);
-      })
-    })
+      });
+    });
   }
 
-  makeQueryWithOptions(profesion, minAge, maxAge, orientacion){
-    return this.authSvc.searchWithOption(profesion, minAge, maxAge, orientacion);
+  makeQueryWithOptions(profesion, minAge, maxAge, orientacion) {
+    return this.authSvc.searchWithOption(
+      profesion,
+      minAge,
+      maxAge,
+      orientacion
+    );
   }
 
   getResultsWithOptions() {
-    const { profesion, minAge, maxAge, orientacion } = this.optionsFormGroup.value;
-    this.makeQueryWithOptions(profesion, minAge, maxAge, orientacion).subscribe((resultado) => {
-      this.resultadosDeBusqueda = resultado;
-      console.log(this.resultadosDeBusqueda);
-    })
-
+    const {
+      profesion,
+      minAge,
+      maxAge,
+      orientacion,
+    } = this.optionsFormGroup.value;
+    this.makeQueryWithOptions(profesion, minAge, maxAge, orientacion).subscribe(
+      (resultado) => {
+        this.resultadosDeBusqueda = resultado;
+        console.log(this.resultadosDeBusqueda);
+      }
+    );
   }
 
   getEdad(fecha): number {
     const timeStamp = fecha.toString();
-    let [,res] = timeStamp.match(/seconds=(\d+)/);
+    let [, res] = timeStamp.match(/seconds=(\d+)/);
     let fechaDeNacimiento = new Date(+res * 1000);
 
     let today: Date = new Date();
@@ -108,5 +127,4 @@ export class HomeEgresadoComponent implements OnInit {
     let edad: number = today.getFullYear() - fechaDeNacimiento.getFullYear();
     return edad;
   }
-
 }

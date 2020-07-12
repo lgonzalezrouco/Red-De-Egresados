@@ -39,10 +39,10 @@ export class LoginComponent implements OnInit {
       const user = await this.authSvc.login(email, password);
 
       if (typeof user !== 'string') {
-        if (user && user.user.emailVerified) {
+        if (user && user.user.emailVerified == true) {
           console.log(user);
           this.router.navigate(['/home']);
-        } else if (user) {
+        } else if (user && user.user.emailVerified == false) {
           console.log(user);
           this.router.navigate(['/wait-verification']);
         } else {

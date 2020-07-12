@@ -82,18 +82,18 @@
       </div>
     </form>
     <div *ngIf="resultadosDeBusqueda != null">
-      <mat-divider></mat-divider>
+      <mat-divider [inset]="true"></mat-divider>
       <div *ngFor="let resultado of resultadosDeBusqueda" class="row pt-4">
         <div class="col-12 col-md-6">
-          <div class="row" [routerLink]="['/perfil-de-servicio-egresado', resultado.uid]">
-            <div class="col-md-6">
+          <div class="row set-pointer" [routerLink]="['/perfil-de-servicio-egresado', resultado.uid]">
+            <div class="col-md-6 set-pointer">
               <img class="offset-md-2 col-md-10 rounded-circle d-none d-md-block" src="{{
                   resultado.photoURL
                     ? resultado.photoURL
                     : '../../../assets/images/user8.png'
                 }}" alt="{{ resultado.firstName }}" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 set-pointer">
               <h1 class="nombre">{{ resultado.firstName }} {{ resultado.lastName }}</h1>
               <h2 class="profesion">{{ resultado.profesion }}</h2>
               <h3 class="genero">{{ resultado.gender }}</h3>

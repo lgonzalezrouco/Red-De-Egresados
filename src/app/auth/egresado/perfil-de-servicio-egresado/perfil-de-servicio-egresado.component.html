@@ -1,61 +1,73 @@
-<!-- Sidebar navigation -->
-<div class="container-fluid">
-  <div class="row">
-    <!-- Main content -->
-    <main role="main" class="offset-md-1 col-md-10 px-4">
-      <div class="inner-adjust">
-        <div class="pt-3 mb-3 border-bottom">
-          <h1 class="h2">User Profile</h1>
+<app-toolbar></app-toolbar>
+
+<div class="margen container-fluid">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+    <ng-container *ngIf="usuarioIngresado; then datos; else noExiste"></ng-container>
+    <ng-template #datos>
+      <div class="row">
+        <div class="col-12 col-md-4 mt-3 md-margen">
+          <img class="offset-md-2 col-md-8 rounded-circle" src="{{
+          usuarioIngresado.photoURL ? usuarioIngresado.photoURL : '../../../assets/images/user8.png'
+          }}" alt="{{ usuarioIngresado.firstName }}" />
+          <div class="offset-3 mt-4">
+            <h3 class="texto-datos">
+              <p class="texto-dato">
+                <img class="img-fluid mr-3" src="../../../assets/images/sexo.png"> {{ usuarioIngresado.gender }}
+              </p>
+              <p class="texto-dato">
+                <img class="img-fluid mr-3 -ml-009" src="../../../assets/images/nacimiento.png">
+                {{ fechaDeNacimiento | date:"dd/MM/yyyy" }}
+              </p>
+              <p class="texto-dato">
+                <img class="img-fluid mr-3 -ml-033" src="../../../assets/images/egreso.png">
+                {{ usuarioIngresado.yearDeEgreso }}
+              </p>
+              <p class="texto-dato">
+                <img class="img-fluid mr-3 -ml-033" src="../../../assets/images/orientacion.png">
+                {{ usuarioIngresado.orientacion }}
+              </p>
+            </h3>
+          </div>
         </div>
-        <!-- Show user data when logged in -->
-        <div class="row">
-          <div class="col-md-12">
-            <ng-container *ngIf="usuarioIngresado; then datos; else noExiste"></ng-container>
-            <ng-template #datos>
-              <div class="media">
-                <img class="col-md-6 align-self-start mr-5 rounded-circle" src="{{
-                  usuarioIngresado.photoURL ? usuarioIngresado.photoURL : '../../../assets/images/dummy-user.png'
-              }}" alt="{{ usuarioIngresado.firstName }}" />
-                <div class="media-body col-md-6">
-                  <h3>
-                    <p>
-                      Nombre: <strong>{{ usuarioIngresado.firstName }}</strong>
-                    </p>
-                    <p>
-                      Apellido: <strong>{{ usuarioIngresado.lastName }}</strong>
-                    </p>
-                    <p>
-                      Email: <strong>{{ usuarioIngresado.email }}</strong>
-                    </p>
-                    <p>
-                      Sexo: <strong>{{ usuarioIngresado.gender }}</strong>
-                    </p>
-                    <p>
-                      Nacimiento: <strong>{{ usuarioIngresado.birthday }}</strong>
-                    </p>
-                    <p>
-                      Celular: <strong>{{ usuarioIngresado.cellphone }}</strong>
-                    </p>
-                    <p>
-                      Año de egreso: <strong>{{ usuarioIngresado.yearDeEgreso }}</strong>
-                    </p>
-                    <p>
-                      Orientacion: <strong>{{ usuarioIngresado.orientacion }}</strong>
-                    </p>
-                    <p>
-                      Profesion: <strong>{{ usuarioIngresado.profesion }}</strong>
-                    </p>
-                  </h3>
-                  <button type="button" class="btn btn-success btn-block">Contactar</button>
-                </div>
-              </div>
-            </ng-template>
-            <ng-template #noExiste>
-              <h1>No existe ese usuario</h1>
-            </ng-template>
+        <div class="col-12 col-md-8 px-0 mt-4 mb-4">
+          <div class="row">
+            <div class="col-10 col-md-11">
+              <h1 class="line-height-normal sm-text-left titulo vertical-align">
+                {{ usuarioIngresado.firstName }} {{usuarioIngresado.lastName}}
+              </h1>
+            </div>
+            <div class="col-2 col-md-1 px-0">
+              <button class="boton-editar vertical-align">
+                <img mat-icon class="img-fluid" src="../../assets/images/editar.png">
+              </button>
+            </div>
+            <div class="col-12">
+              <p class="subtitulo-profesion mt-2 mb-3">
+                <strong>{{ usuarioIngresado.profesion }}</strong>
+              </p>
+            </div>
+            <div class="col 12">
+              <h3>
+                <p>
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+                  nec ornare tortor, et volutpat augue. In tincidunt auctor nisl eget
+                  condimentum. Donec id iaculis sapien. Vivamus pharetra facilisis
+                  quam et sodales. Quisque congue, ipsum et sollicitudin laoreet,
+                  mauris augue condimentum est, in placerat massa odio vel erat.
+                  Mauris sit amet efficitur lorem, id volutpat diam."
+                </p>
+              </h3>
+            </div>
           </div>
         </div>
       </div>
-    </main>
-  </div>
+    </ng-template>
+    <ng-template #noExiste>
+      <div class="container text-center alinear-centro mt-3">
+        <h1 class="line-height-normal alinear-centro text-center titulo vertical-align">
+          El usuario no existe
+        </h1>
+      </div>
+    </ng-template>
+  </mat-card>
 </div>
