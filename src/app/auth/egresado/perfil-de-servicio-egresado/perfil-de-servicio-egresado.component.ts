@@ -21,7 +21,30 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // Se consigue el uid del usuario que esta logeado
+    this.uidDelUsuarioLogeado = localStorage.getItem('uid');
+    this.route.paramMap.subscribe((params) => {
+      this.uid = params.get('uid');
+      console.log(this.uid);
+      console.log(this.uidDelUsuarioLogeado);
+      // Si el usuario seleccionado es el propio, se navega al propio perfil
+      if (this.uid == this.uidDelUsuarioLogeado) {
+        this.router.navigate(['/perfil']);
+      } else {
+        // Sino muestra los datos correspondientes
+        this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
+          this.usuarioIngresado = userSnapshot.payload.data();
+          console.log(userSnapshot.payload.exists);
+          console.log(this.usuarioIngresado);
+
+          const timeStamp = this.usuarioIngresado.birthday.toString();
+          let [, res] = timeStamp.match(/seconds=(\d+)/);
+          this.fechaDeNacimiento = new Date(+res * 1000);
+          console.log(this.fechaDeNacimiento);
+        });
+      }
+    });
+
+    /* // Se consigue el uid del usuario que esta logeado
     this.authSvc.afAuth.user.subscribe((u) => {
       if (u) {
         this.uidDelUsuarioLogeado = u.uid;
@@ -30,10 +53,10 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
         console.log('Nadie inicio sesion');
       }
       return this.getUsuarioIngresado();
-    });
+    }); */
   }
 
-  // Se consigue el uid del usuario del que se quiere ver el perfil
+  /* // Se consigue el uid del usuario del que se quiere ver el perfil
   getUsuarioIngresado(){
     this.route.paramMap.subscribe((params) => {
       this.uid = params.get('uid');
@@ -63,5 +86,5 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
         });
       }
     });
-  }
+  } */
 }

@@ -14,7 +14,16 @@ export class HomeComponent implements OnInit {
   constructor(private authSvc: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.authSvc.afAuth.user.subscribe((u) => {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    const uid = localStorage.getItem('uid');
+    if(this.user && uid){
+      if(this.user.empresa && uid){
+        this.router.navigate(['/home-empresa']);
+      } else if(!this.user.empresa && uid) {
+        this.router.navigate(['/home-egresado']);
+      }
+    }
+    /* this.authSvc.afAuth.user.subscribe((u) => {
       if (u) {
         this.authSvc.getUser(u.uid).subscribe((userSnapshot) => {
           this.user = userSnapshot.payload.data();
@@ -30,7 +39,7 @@ export class HomeComponent implements OnInit {
       } else {
         console.log('Nadie inicio sesion');
       }
-    });
+    }); */
   }
 
   goToLogin(){

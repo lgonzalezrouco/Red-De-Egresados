@@ -31,7 +31,19 @@ export class LoginComponent implements OnInit {
 
   constructor(private authSvc: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const uid = localStorage.getItem('uid')
+    console.log(user);
+    console.log(uid);
+    if(user && uid){
+      if(user.empresa && uid){
+        this.router.navigate(['/perfil-empresa']);
+      } else if(!user.empresa && uid) {
+        this.router.navigate(['/perfil']);
+      }
+    }
+  }
 
   async onLogin() {
     const { email, password } = this.loginForm.value;

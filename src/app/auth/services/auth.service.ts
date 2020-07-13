@@ -37,6 +37,13 @@ export class AuthService {
         email,
         password
       );
+      localStorage.setItem('uid', result.user.uid);
+      this.getUser(result.user.uid).subscribe((userSnapshot) => {
+        localStorage.setItem(
+          'user',
+          JSON.stringify(userSnapshot.payload.data())
+        );
+      });
       return result;
     } catch (error) {
       console.log(error);
@@ -68,6 +75,15 @@ export class AuthService {
        */
       this.setUserDataLogUp(result.user, values);
 
+      localStorage.setItem('uid', result.user.uid);
+
+      this.getUser(result.user.uid).subscribe((userSnapshot) => {
+        localStorage.setItem(
+          'user',
+          JSON.stringify(userSnapshot.payload.data())
+        );
+      });
+
       return result;
     } catch (error) {
       console.log(error);
@@ -94,6 +110,14 @@ export class AuthService {
        * del usuario en firestore
        */
       this.setEmpresaDataLogUp(result.user, values);
+
+      localStorage.setItem('uid', result.user.uid);
+      this.getUser(result.user.uid).subscribe((userSnapshot) => {
+        localStorage.setItem(
+          'user',
+          JSON.stringify(userSnapshot.payload.data())
+        );
+      });
 
       return result;
     } catch (error) {
@@ -136,6 +160,7 @@ export class AuthService {
 
       // Elimina al user del local storage
       localStorage.removeItem('user');
+      localStorage.removeItem('uid');
     } catch (error) {
       console.log(error);
     }
@@ -265,6 +290,13 @@ export class AuthService {
           empresa: false,
         });
 
+      this.getUser(user.uid).subscribe((userSnapshot) => {
+        localStorage.setItem(
+          'user',
+          JSON.stringify(userSnapshot.payload.data())
+        );
+      });
+
       return result;
     } catch (error) {
       console.log(error);
@@ -292,6 +324,13 @@ export class AuthService {
           photoURL: url,
           empresa: true,
         });
+
+      this.getUser(user.uid).subscribe((userSnapshot) => {
+        localStorage.setItem(
+          'user',
+          JSON.stringify(userSnapshot.payload.data())
+        );
+      });
 
       return result;
     } catch (error) {

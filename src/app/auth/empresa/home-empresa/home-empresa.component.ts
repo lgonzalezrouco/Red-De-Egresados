@@ -8,10 +8,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-empresa',
   templateUrl: './home-empresa.component.html',
-  styleUrls: ['./home-empresa.component.scss']
+  styleUrls: ['./home-empresa.component.scss'],
 })
 export class HomeEmpresaComponent implements OnInit {
-
   public profesions;
 
   startAt = new Subject();
@@ -42,10 +41,47 @@ export class HomeEmpresaComponent implements OnInit {
     orientacion: new FormControl('', [Validators.required]),
   });
 
-  constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private authSvc: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.resultadosDeBusqueda);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const uid = localStorage.getItem('uid');
+    console.log(user);
+    console.log(uid);
+    if (!uid) {
+      this.router.navigate(['/home']);
+    } else if (user && uid) {
+      if (!user.empresa && uid) {
+        this.router.navigate(['/home-egresado']);
+      } else if (user.empresa && uid) {
+        this.profesions = this.http.get(
+          '../../../../assets/JSON/profesion.json'
+        );
+        this.getResultsWithFirstName();
+        /* this.getResultsWithOptions(); */
+      }
+    }
+    /* if (user && uid) {
+      if (user.empresa && uid) {
+        this.router.navigate(['/perfil-empresa']);
+      } else if (!user.empresa && uid) {
+        this.router.navigate(['/perfil']);
+      }
+    }
+    const uid = localStorage.getItem('uid');
+    console.log(uid);
+    if (!uid) {
+      this.router.navigate(['/home']);
+    } else {
+      this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
+      this.getResultsWithFirstName();
+      /* this.getResultsWithOptions();
+    } */
+    /* console.log(this.resultadosDeBusqueda);
     this.authSvc.afAuth.user.subscribe((u) => {
       console.log(u);
       if (!u) {
@@ -55,9 +91,9 @@ export class HomeEmpresaComponent implements OnInit {
           '../../../../assets/JSON/profesion.json'
         );
         this.getResultsWithFirstName();
-        /* this.getResultsWithOptions(); */
+        /* this.getResultsWithOptions();
       }
-    });
+    }); */
   }
 
   // Es para conseguir la informacion para el parametro de busqueda
@@ -85,17 +121,19 @@ export class HomeEmpresaComponent implements OnInit {
       this.startObservable,
       this.endObservable
     ).subscribe((value) => {
-      if(value[0] != null || value[0] != undefined){
-        this.makeQueryWithFirstName(value[0], value[1]).subscribe((resultado) => {
-          this.resultadosDeBusqueda = resultado;
-          console.log(this.resultadosDeBusqueda);
-          setTimeout(() => {
-            subscription.unsubscribe;
-            console.log('DESUSCRITO');
-          }, 30000);
-        });
+      if (value[0] != null || value[0] != undefined) {
+        this.makeQueryWithFirstName(value[0], value[1]).subscribe(
+          (resultado) => {
+            this.resultadosDeBusqueda = resultado;
+            console.log(this.resultadosDeBusqueda);
+            setTimeout(() => {
+              subscription.unsubscribe;
+              console.log('DESUSCRITO');
+            }, 30000);
+          }
+        );
       } else {
-        console.log("No ingreso nada");
+        console.log('No ingreso nada');
       }
     });
   }
@@ -116,15 +154,18 @@ export class HomeEmpresaComponent implements OnInit {
       maxAge,
       orientacion,
     } = this.optionsFormGroup.value;
-    if(profesion == '' || minAge == '' || maxAge == '' || orientacion == ''){
-      console.log("No lleno todos los campos");
+    if (profesion == '' || minAge == '' || maxAge == '' || orientacion == '') {
+      console.log('No lleno todos los campos');
     } else {
-      this.makeQueryWithOptions(profesion, minAge, maxAge, orientacion).subscribe(
-        (resultado) => {
-          this.resultadosDeBusqueda = resultado;
-          console.log(this.resultadosDeBusqueda);
-        }
-      );
+      this.makeQueryWithOptions(
+        profesion,
+        minAge,
+        maxAge,
+        orientacion
+      ).subscribe((resultado) => {
+        this.resultadosDeBusqueda = resultado;
+        console.log(this.resultadosDeBusqueda);
+      });
     }
   }
 
@@ -138,5 +179,4 @@ export class HomeEmpresaComponent implements OnInit {
     let edad: number = today.getFullYear() - fechaDeNacimiento.getFullYear();
     return edad;
   }
-
 }

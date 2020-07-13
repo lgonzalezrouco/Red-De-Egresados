@@ -23,6 +23,7 @@ export class PerfilEmpresaComponent implements OnInit {
 
   // Variable para guardar los datos del usuario
   public user: any;
+  public uid;
 
   // Variable para saber si se tiene que mostrar el formulario editable
   public mostrar: boolean = true;
@@ -48,7 +49,15 @@ export class PerfilEmpresaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    try {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.uid = localStorage.getItem('uid');
+    console.log(this.user);
+    if(this.user && this.uid){
+      if(!this.user.empresa && this.uid){
+        this.router.navigate(['/perfil']);
+      }
+    }
+    /* try {
       this.authSvc.afAuth.user.subscribe((u) => {
         if (u) {
           this.authSvc.getUser(u.uid).subscribe((userSnapshot) => {
@@ -62,7 +71,7 @@ export class PerfilEmpresaComponent implements OnInit {
       });
     } catch (error) {
       console.log(error);
-    }
+    } */
   }
 
   public cambioArchivo(event) {

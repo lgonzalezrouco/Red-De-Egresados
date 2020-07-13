@@ -33,7 +33,6 @@ import { HttpClient } from '@angular/common/http';
   providers: [AuthService],
 })
 export class RegisterComponent implements OnInit {
-
   // Se usa para establecer la fecha maxima, el dia de hoy.
   today = new Date();
   todayYear: number = this.today.getFullYear();
@@ -74,7 +73,6 @@ export class RegisterComponent implements OnInit {
   public genderPattern = this.firstFormGroup.get('gender');
   public cellphonePattern = this.firstFormGroup.get('cellphone');
   public egresoPattern = this.firstFormGroup.get('yearDeEgreso');
-
 
   // Es el formGroup de la segunda parte del stepper
   secondFormGroup = new FormGroup({
@@ -162,9 +160,30 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Almacena la informacion de los json en las variables
-    this.years = this.http.get('../../../../assets/JSON/egresoYear.json');
-    this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
+    const user = JSON.parse(localStorage.getItem('user'));
+    const uid = localStorage.getItem('uid');
+    console.log(user);
+    if(user && uid){
+      if(user.empresa && uid){
+        this.router.navigate(['/perfil-empresa']);
+      } else if(!user.empresa && uid) {
+        this.router.navigate(['/perfil']);
+      }
+    } else {
+      // Almacena la informacion de los json en las variables
+      this.years = this.http.get('../../../../assets/JSON/egresoYear.json');
+      this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
+    }
+    /* console.log(user.empresa);
+    if (user.empresa && uid) {
+      this.router.navigate(['/perfil-empresa']);
+    } else if (!user.empresa && uid) {
+      this.router.navigate(['/perfil']);
+    } else {
+      // Almacena la informacion de los json en las variables
+      this.years = this.http.get('../../../../assets/JSON/egresoYear.json');
+      this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
+    } */
   }
 
   async onRegister() {
@@ -176,7 +195,7 @@ export class RegisterComponent implements OnInit {
         lastName,
         gender,
         yearDeEgreso,
-        birthday
+        birthday,
       } = this.firstFormGroup.value;
 
       // Se agarran los datos del segundo formGroup

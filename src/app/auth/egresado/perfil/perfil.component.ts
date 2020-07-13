@@ -51,6 +51,7 @@ export class PerfilComponent implements OnInit {
   // Variable para guardar los datos del usuario
   public user: any;
   public userAux: User;
+  public uid;
 
   // Variable para saber si se tiene que mostrar el formulario editable
   public mostrar: boolean = true;
@@ -70,7 +71,7 @@ export class PerfilComponent implements OnInit {
   public profesions;
 
   // Se usa para mostrar la fecha de nacimiento en el formato correcto
-  public fechaDeNacimiento : Date;
+  public fechaDeNacimiento: Date;
 
   constructor(
     public authSvc: AuthService,
@@ -80,7 +81,25 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    try {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.uid = localStorage.getItem('uid');
+    console.log(this.user);
+    if(this.user && this.uid){
+      if(this.user.empresa && this.uid){
+        this.router.navigate(['/perfil-empresa']);
+      }
+    }
+    this.userAux = this.user;
+
+    const timestamp = this.user.birthday.seconds;
+    this.fechaDeNacimiento = new Date(timestamp * 1000);
+    console.log(this.fechaDeNacimiento);
+
+    // Almacena la informacion de los json en las variables
+    this.profesions = this.http.get(
+      '../../../../assets/JSON/profesion.json'
+    );
+    /* try {
       this.authSvc.afAuth.user.subscribe((u) => {
         if (u) {
           this.authSvc.getUser(u.uid).subscribe((userSnapshot) => {
@@ -90,7 +109,7 @@ export class PerfilComponent implements OnInit {
             this.userAux = this.user;
 
             const timeStamp = this.userAux.birthday.toString();
-            let [,res] = timeStamp.match(/seconds=(\d+)/);
+            let [, res] = timeStamp.match(/seconds=(\d+)/);
             this.fechaDeNacimiento = new Date(+res * 1000);
             console.log(this.fechaDeNacimiento);
           });
@@ -104,7 +123,7 @@ export class PerfilComponent implements OnInit {
       });
     } catch (error) {
       console.log(error);
-    }
+    } */
   }
 
   public cambioArchivo(event) {
@@ -215,14 +234,13 @@ export class PerfilComponent implements OnInit {
 
   async editUser() {
     try {
-
       const {
         firstName,
         cellphone,
         lastName,
         gender,
         profesion,
-        birthday
+        birthday,
       } = this.editarForm.value;
 
       if (

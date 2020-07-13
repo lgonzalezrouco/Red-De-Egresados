@@ -18,7 +18,15 @@ export class ToolbarComponent implements OnInit {
   public esEmpresa: boolean = null
 
   ngOnInit(): void {
-    this.userData = this.verificarSiAlguienInicio();
+    this.loggedUser = JSON.parse(localStorage.getItem('user'));
+    const uid = localStorage.getItem('uid');
+    console.log(this.loggedUser.empresa);
+    if (this.loggedUser.empresa && uid) {
+      this.esEmpresa = true;
+    } else if (!this.loggedUser.empresa && uid) {
+      this.esEmpresa = false;
+    }
+    /* this.userData = this.verificarSiAlguienInicio(); */
   }
 
   constructor(
@@ -37,7 +45,17 @@ export class ToolbarComponent implements OnInit {
   }
 
   verificarSiAlguienInicio() {
-    try {
+    this.loggedUser = JSON.parse(localStorage.getItem('user'));
+    const uid = localStorage.getItem('uid');
+    console.log(this.loggedUser.empresa);
+    if(this.loggedUser && uid){
+      if (this.loggedUser.empresa && uid) {
+        this.esEmpresa = true;
+      } else if (!this.loggedUser.empresa && uid) {
+        this.esEmpresa = false;
+      }
+    }
+    /* try {
       this.authSvc.afAuth.user.subscribe((u) => {
         if (u) {
 
@@ -57,6 +75,15 @@ export class ToolbarComponent implements OnInit {
         }
 
       })
+    } catch (error) {
+      console.log(error);
+    } */
+  }
+
+  async onLogout() {
+    try {
+      await this.authSvc.logout();
+      this.router.navigate(['/login']);
     } catch (error) {
       console.log(error);
     }

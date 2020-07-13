@@ -44,7 +44,17 @@ export class RegisterEmpresaComponent implements OnInit {
 
   constructor(private authSvc: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const uid = localStorage.getItem('uid');
+    if(user && uid){
+      if(user.empresa && uid){
+        this.router.navigate(['/perfil-empresa']);
+      } else if(!user.empresa && uid) {
+        this.router.navigate(['/perfil']);
+      }
+    }
+  }
 
   onRegister(){
     try {

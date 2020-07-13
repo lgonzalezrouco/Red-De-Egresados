@@ -16,11 +16,15 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private authSvc: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.authSvc.afAuth.user.subscribe((u) => {
+    const uid = localStorage.getItem('uid');
+    if(!uid) {
+      this.router.navigate(['/home']);
+    }
+    /* this.authSvc.afAuth.user.subscribe((u) => {
       if (!u) {
         this.router.navigate(['/home']);
       }
-    });
+    }); */
   }
 
   onReset() {

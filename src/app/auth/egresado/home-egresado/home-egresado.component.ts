@@ -41,10 +41,41 @@ export class HomeEgresadoComponent implements OnInit {
     orientacion: new FormControl('', [Validators.required]),
   });
 
-  constructor(private http: HttpClient, private authSvc: AuthService, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private authSvc: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.authSvc.afAuth.user.subscribe((u) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const uid = localStorage.getItem('uid');
+    console.log(user);
+    console.log(uid);
+    if (!uid) {
+      this.router.navigate(['/home']);
+    } else if (user && uid) {
+      if (user.empresa && uid) {
+        this.router.navigate(['/home-empresa']);
+      } else if (!user.empresa && uid) {
+        this.profesions = this.http.get(
+          '../../../../assets/JSON/profesion.json'
+        );
+        this.getResultsWithFirstName();
+        /* this.getResultsWithOptions(); */
+      }
+    }
+    /* const uid = localStorage.getItem('uid');
+    console.log(uid);
+    if (!uid) {
+      this.router.navigate(['/home']);
+    } else {
+      this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
+      this.getResultsWithFirstName();
+      /* this.getResultsWithOptions();
+    } */
+
+    /* this.authSvc.afAuth.user.subscribe((u) => {
       console.log(u);
       if (!u) {
         this.router.navigate(['/home']);
@@ -53,9 +84,9 @@ export class HomeEgresadoComponent implements OnInit {
           '../../../../assets/JSON/profesion.json'
         );
         this.getResultsWithFirstName();
-        /* this.getResultsWithOptions(); */
+        /* this.getResultsWithOptions();
       }
-    });
+    }); */
   }
 
   // Es para conseguir la informacion para el parametro de busqueda

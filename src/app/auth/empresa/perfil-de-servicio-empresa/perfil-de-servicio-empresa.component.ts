@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-de-servicio-empresa',
@@ -11,11 +11,29 @@ export class PerfilDeServicioEmpresaComponent implements OnInit {
 
   public uid;
   public empresaIngresada;
+  public uidDelUsuarioLogeado
 
-  constructor(private authSvc: AuthService, private route: ActivatedRoute) { }
+  constructor(private authSvc: AuthService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.uidDelUsuarioLogeado = localStorage.getItem('uid');
     this.route.paramMap.subscribe((params) => {
+      this.uid = params.get('uid');
+      console.log(this.uid);
+      console.log(this.uidDelUsuarioLogeado);
+      // Si el usuario seleccionado es el propio, se navega al propio perfil
+      if (this.uid == this.uidDelUsuarioLogeado) {
+        this.router.navigate(['/perfil-empresa']);
+      } else {
+        // Sino muestra los datos correspondientes
+        this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
+          this.empresaIngresada = userSnapshot.payload.data();
+          console.log(userSnapshot.payload.exists);
+          console.log(this.empresaIngresada);
+        });
+      }
+    });
+    /* this.route.paramMap.subscribe((params) => {
       this.uid = params.get('uid');
       console.log(this.uid);
       this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
@@ -23,7 +41,7 @@ export class PerfilDeServicioEmpresaComponent implements OnInit {
         console.log(userSnapshot.payload.exists);
         console.log(this.empresaIngresada);
       });
-    });
+    }); */
   }
 
 }
