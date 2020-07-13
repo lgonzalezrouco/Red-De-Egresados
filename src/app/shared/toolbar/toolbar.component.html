@@ -5,11 +5,14 @@
     </div>
     <div class="float-right">
       <ng-container *ngIf="esEmpresa; then linkAEmpresa ; else linkAEgresado"></ng-container>
-      <ng-template #linkAEmpresa></ng-template>
+      <ng-template #linkAEmpresa>
+        <mat-icon svgIcon="home" routerLink="/home-empresa" class="img-fluid mr-4 set-pointer"></mat-icon>
+        <mat-icon svgIcon="user" routerLink="/perfil-empresa" class="img-fluid set-pointer"></mat-icon>
+      </ng-template>
       <ng-template #linkAEgresado>
         <mat-icon svgIcon="home" routerLink="/home-egresado" class="img-fluid mr-4 set-pointer"></mat-icon>
+        <mat-icon svgIcon="user" routerLink="/perfil" class="img-fluid set-pointer"></mat-icon>
       </ng-template>
-      <mat-icon svgIcon="user" routerLink="/perfil" class="img-fluid set-pointer"></mat-icon>
     </div>
   </div>
 </mat-toolbar>

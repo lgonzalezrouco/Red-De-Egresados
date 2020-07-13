@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
           console.log(userSnapshot.payload.exists);
 
           if(this.user.empresa){
-            // hacer que vaya al home de la empresa
+            this.router.navigate(['/home-empresa']);
           } else {
             this.router.navigate(['/home-egresado']);
           }

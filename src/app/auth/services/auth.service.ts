@@ -327,13 +327,15 @@ export class AuthService {
     let minAgeDate = new Date(todayYear - minAge, todayMonth, todayDay);
     let maxAgeDate = new Date(todayYear - maxAge, todayMonth, todayDay);
 
-    return this.angularFirestore.collection('users', (ref) =>
-      ref
-        .where('profesion', '==', profesion)
-        .where('birthday', '<=', minAgeDate)
-        .where('birthday', '>=', maxAgeDate)
-        .where('orientacion', '==', orientacion)
-    ).valueChanges();
+    return this.angularFirestore
+      .collection('users', (ref) =>
+        ref
+          .where('profesion', '==', profesion)
+          .where('birthday', '<=', minAgeDate)
+          .where('birthday', '>=', maxAgeDate)
+          .where('orientacion', '==', orientacion)
+      )
+      .valueChanges();
   }
 
   searchwithFirstName(start, end) {

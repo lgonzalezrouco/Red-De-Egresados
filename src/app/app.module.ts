@@ -46,6 +46,7 @@ import { HttpClientModule } from "@angular/common/http"
 
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
+import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresa
     HomeComponent,
     ToolbarComponent,
     HomeEgresadoComponent,
+    HomeEmpresaComponent,
   ],
   imports: [
     BrowserModule,
