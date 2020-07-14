@@ -3,7 +3,7 @@
   <!-- <div class="sm-text-center offset-md-1 set-size-logo">
     <img src="../../assets/images/titulo.png" class="img-fluid">
   </div> -->
-  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-3">
     <ng-container *ngIf="resultadosDeBusqueda != null || resultadosDeBusqueda != undefined; then mostrarResultados; else barraDeBusqueda"></ng-container>
     <ng-template #barraDeBusqueda>
       <form [formGroup]="firstNameFormGroup" (ngSubmit)="searchWithFirstName()" class="mt-2 mb-3">

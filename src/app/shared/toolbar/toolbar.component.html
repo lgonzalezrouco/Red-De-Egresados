@@ -4,7 +4,7 @@
       <img src="../../assets/images/logo-mini.png" class="img-fluid">
     </div>
     <div class="float-right">
-      <mat-icon svgIcon="home" routerLink="/login" (click)="onLogout()" class="img-fluid mr-4 set-pointer"></mat-icon>
+      <mat-icon svgIcon="logout" routerLink="/login" (click)="onLogout()" class="img-fluid mr-4 set-pointer"></mat-icon>
       <ng-container *ngIf="esEmpresa; then linkAEmpresa ; else linkAEgresado"></ng-container>
       <ng-template #linkAEmpresa>
         <mat-icon svgIcon="home" routerLink="/home-empresa" class="img-fluid mr-4 set-pointer"></mat-icon>

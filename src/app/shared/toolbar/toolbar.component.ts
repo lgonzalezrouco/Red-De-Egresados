@@ -42,6 +42,10 @@ export class ToolbarComponent implements OnInit {
       `user`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../../../assets/images/user.svg")
     );
+    this.matIconRegistry.addSvgIcon(
+      `logout`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../assets/images/logout.svg")
+    );
   }
 
   verificarSiAlguienInicio() {
