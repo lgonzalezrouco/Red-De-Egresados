@@ -111,6 +111,11 @@
  margin-left: -1.2cm;
 }
 
+.imagen-contacto{
+  min-width: auto;
+  min-height: auto;
+}
+
 @media all and (min-width: 767px) {
   .md-margen {
     margin-left: -30px;
@@ -153,5 +158,19 @@
   .btn {
     display: block;
     width: 100%;
+  }
+  .contactar{
+    margin-left: 0cm;
+  }
+}
+
+@media all and (max-width: 450px){
+  .contactar{
+    margin-left: -0.5cm;
+  }
+
+  .imagen-contacto{
+    width: 150%;
+    height: auto;
   }
 }
