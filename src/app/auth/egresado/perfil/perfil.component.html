@@ -7,18 +7,18 @@
         <img class="offset-md-2 col-md-8 rounded-circle" src="{{
             user.photoURL ? user.photoURL : '../../../assets/images/user8.png'
           }}" alt="{{ user.firstName }}" />
-        <div class="offset-3 mt-4">
+        <div class="offset-3 mt-4 ">
           <h3 class="texto-datos">
             <p class="texto-dato">
               <img class="img-fluid mr-3" src="../../../assets/images/sexo.png"> {{ user.gender }}
             </p>
-            <p class="texto-dato">
+            <p class="texto-dato ">
               <img class="img-fluid mr-3 -ml-009" src="../../../assets/images/nacimiento.png"> {{ fechaDeNacimiento | date:"dd/MM/yyyy" }}
             </p>
             <p class="texto-dato">
               <img class="img-fluid mr-3 -ml-033" src="../../../assets/images/egreso.png"> {{ user.yearDeEgreso }}
             </p>
-            <p class="texto-dato">
+            <p class="texto-dato mt">
               <img class="img-fluid mr-3 -ml-033" src="../../../assets/images/orientacion.png"> {{ user.orientacion }}
             </p>
           </h3>
@@ -43,9 +43,9 @@
                 <strong>{{ user.profesion }}</strong>
               </p>
             </div>
-            <div class="col 12">
-              <h3>
-                <p>
+            <div class="col 12 ">
+              <h3 >
+                <p class="mt-3 descrip">
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
                   nec ornare tortor, et volutpat augue. In tincidunt auctor nisl eget
                   condimentum. Donec id iaculis sapien. Vivamus pharetra facilisis
