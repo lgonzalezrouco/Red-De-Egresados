@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SendEmailComponent } from './auth/send-email/send-email.component';
 import { EleccionRegisterComponent } from './auth/eleccion-register/eleccion-register.component';
 import { WaitVerificationComponent } from './auth/wait-verification/wait-verification.component';
 import { HomeComponent } from './home/home.component';
@@ -28,10 +27,6 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
-  },
-  {
-    path: 'verification-email',
-    component: SendEmailComponent,
   },
   {
     path: 'forgot-password',

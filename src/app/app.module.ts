@@ -13,8 +13,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 
-import { SendEmailComponent } from './auth/send-email/send-email.component';
-
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { SearchbarComponent } from './shared/searchbar/searchbar.component';
 import { EleccionRegisterComponent } from './auth/eleccion-register/eleccion-register.component';
@@ -53,7 +51,6 @@ import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.c
   declarations: [
     AppComponent,
     NavbarComponent,
-    SendEmailComponent,
     SearchbarComponent,
     EleccionRegisterComponent,
     WaitVerificationComponent,
