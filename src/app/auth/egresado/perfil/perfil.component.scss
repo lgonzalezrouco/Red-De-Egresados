@@ -30,6 +30,10 @@
   margin-left: -0.33rem;
 }
 
+.margin-top-content {
+  margin-top: 1.5rem!important;
+}
+
 .float-left {
   float: left;
 }
@@ -132,6 +136,14 @@
   }
   .sm-text-center {
     text-align: center;
+  }
+  .margin-top-content {
+    margin-top: 0rem!important;
+  }
+  .sm-alinear-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .sm-margen {
     margin-left: 20px;

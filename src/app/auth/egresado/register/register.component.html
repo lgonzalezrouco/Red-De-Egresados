@@ -8,11 +8,11 @@
         Crea tu cuenta
       </h1>
     </mat-card-title>
-    <mat-card-subtitle class="subtitulo line-height-normal text-center mt-5">
+    <mat-card-subtitle class="subtitulo line-height-normal text-center mt-1">
       Inrgesa tus datos para crear tu perfil de egresado<br />y ser contratado
       por las mejores empresas
     </mat-card-subtitle>
-    <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="mt-5 mb-3">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="mt-1 mb-3">
       <mat-vertical-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="firstFormGroup">
           <form [formGroup]="firstFormGroup">

@@ -15,7 +15,7 @@
 
 .texto-dato {
   font-weight: 500;
-  
+
   margin-top: -5%;
 }
 
@@ -29,6 +29,10 @@
 
 .-ml-033 {
   margin-left: -0.33rem;
+}
+
+.margin-top-content {
+  margin-top: 1.5rem!important;
 }
 
 .float-left {
@@ -169,6 +173,16 @@
   }
   .descrip{
     margin-right: 0%;
+  }
+
+  .sm-alinear-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .margin-top-content {
+    margin-top: 0rem!important;
   }
 }
 
