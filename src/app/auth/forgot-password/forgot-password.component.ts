@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { FormControl, EmailValidator } from '@angular/forms';
+import { FormControl, EmailValidator, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,15 +11,23 @@ import { Router } from '@angular/router';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  userEmail = new FormControl();
+  passwordForm = new FormGroup({
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
+
+  });
+
+  // Variables para controlar los patrones del formulario
+  emailPattern = this.passwordForm.get('email');
 
   constructor(private authSvc: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    /*const uid = localStorage.getItem('uid');
-    if(!uid) {
+    const uid = localStorage.getItem('uid');
+    if(uid != null) {
       this.router.navigate(['/home']);
-    }*/
+    }
     /* this.authSvc.afAuth.user.subscribe((u) => {
       if (!u) {
         this.router.navigate(['/home']);
@@ -31,7 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
     try{
 
       // Se agarra el valor de userEmail
-      const email = this.userEmail.value;
+      const { email } = this.passwordForm.value;
 
       // Verifica si esta vacio o no
       if (email !== ''){

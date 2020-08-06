@@ -120,6 +120,7 @@ export class PerfilEmpresaComponent implements OnInit {
       this.mostrar = false;
     } else {
       this.mostrar = true;
+      window.location.reload();
     }
   }
 
