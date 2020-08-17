@@ -49,20 +49,25 @@ export class HomeEgresadoComponent implements OnInit {
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user'));
+    const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
     const uid = localStorage.getItem('uid');
     console.log(user);
     console.log(uid);
     if (!uid) {
       this.router.navigate(['/home']);
     } else if (user && uid) {
-      if (user.empresa && uid) {
-        this.router.navigate(['/home-empresa']);
-      } else if (!user.empresa && uid) {
-        this.profesions = this.http.get(
-          '../../../../assets/JSON/profesion.json'
-        );
-        this.getResultsWithFirstName();
-        /* this.getResultsWithOptions(); */
+      if (!userFirebase.emailVerified) {
+        this.router.navigate(['/wait-verification']);
+      } else {
+        if (user.empresa && uid) {
+          this.router.navigate(['/home-empresa']);
+        } else if (!user.empresa && uid) {
+          this.profesions = this.http.get(
+            '../../../../assets/JSON/profesion.json'
+          );
+          this.getResultsWithFirstName();
+          /* this.getResultsWithOptions(); */
+        }
       }
     }
     /* const uid = localStorage.getItem('uid');

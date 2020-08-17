@@ -38,6 +38,7 @@ export class AuthService {
         password
       );
       localStorage.setItem('uid', result.user.uid);
+      localStorage.setItem('userFirebase', JSON.stringify(result.user));
       this.getUser(result.user.uid).subscribe((userSnapshot) => {
         localStorage.setItem(
           'user',
@@ -76,6 +77,8 @@ export class AuthService {
       this.setUserDataLogUp(result.user, values);
 
       localStorage.setItem('uid', result.user.uid);
+
+      localStorage.setItem('userFirebase', JSON.stringify(result.user));
 
       this.getUser(result.user.uid).subscribe((userSnapshot) => {
         localStorage.setItem(

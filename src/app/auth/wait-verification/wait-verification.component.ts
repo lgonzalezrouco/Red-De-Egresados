@@ -17,9 +17,21 @@ export class WaitVerificationComponent implements OnInit {
 
   ngOnInit(): void {
     const uid = localStorage.getItem('uid');
+    const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
     if(!uid) {
       this.router.navigate(['/home']);
     }
+
+    if(userFirebase.emailVerified) {
+      if(!user.empresa) {
+        this.router.navigate(['/home-egresado']);
+      } else {
+        this.router.navigate(['/home-empresa']);
+      }
+    }
+
   }
 
   onSendEmail(){

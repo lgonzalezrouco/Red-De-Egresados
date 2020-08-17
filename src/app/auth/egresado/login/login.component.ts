@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,9 +13,12 @@ export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
-    password: new FormControl('', [Validators.required,
-      Validators.minLength(8)]),
+      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
   });
 
   // Variables para controlar los patrones del formulario
@@ -33,14 +35,19 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user'));
-    const uid = localStorage.getItem('uid')
+    const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
+    const uid = localStorage.getItem('uid');
     console.log(user);
     console.log(uid);
-    if(user && uid){
-      if(user.empresa && uid){
-        this.router.navigate(['/perfil-empresa']);
-      } else if(!user.empresa && uid) {
-        this.router.navigate(['/perfil']);
+    if (user && uid) {
+      if (!userFirebase.emailVerified) {
+        this.router.navigate(['/wait-verification']);
+      } else {
+        if (user.empresa && uid) {
+          this.router.navigate(['/perfil-empresa']);
+        } else if (!user.empresa && uid) {
+          this.router.navigate(['/perfil']);
+        }
       }
     }
   }

@@ -162,12 +162,17 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user'));
     const uid = localStorage.getItem('uid');
+    const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
     console.log(user);
     if(user && uid){
-      if(user.empresa && uid){
-        this.router.navigate(['/perfil-empresa']);
-      } else if(!user.empresa && uid) {
-        this.router.navigate(['/perfil']);
+      if(!userFirebase.emailVerified){
+        this.router.navigate(['/wait-verification']);
+      } else {
+        if(user.empresa && uid){
+          this.router.navigate(['/perfil-empresa']);
+        } else if(!user.empresa && uid) {
+          this.router.navigate(['/perfil']);
+        }
       }
     } else {
       // Almacena la informacion de los json en las variables

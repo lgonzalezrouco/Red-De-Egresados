@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./perfil-empresa.component.scss'],
 })
 export class PerfilEmpresaComponent implements OnInit {
-
   editarForm = new FormGroup({
     empresaName: new FormControl('', [
       Validators.required,
@@ -49,12 +48,18 @@ export class PerfilEmpresaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
+
     this.user = JSON.parse(localStorage.getItem('user'));
     this.uid = localStorage.getItem('uid');
     console.log(this.user);
-    if(this.user && this.uid){
-      if(!this.user.empresa && this.uid){
-        this.router.navigate(['/perfil']);
+    if (this.user && this.uid) {
+      if (!userFirebase.emailVerified) {
+        this.router.navigate(['/wait-verification']);
+      } else {
+        if (!this.user.empresa && this.uid) {
+          this.router.navigate(['/perfil']);
+        }
       }
     }
     /* try {

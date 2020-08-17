@@ -82,11 +82,16 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
+    const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
     this.uid = localStorage.getItem('uid');
     console.log(this.user);
-    if(this.user && this.uid){
-      if(this.user.empresa && this.uid){
-        this.router.navigate(['/perfil-empresa']);
+    if (this.user && this.uid) {
+      if (!userFirebase.emailVerified) {
+        this.router.navigate(['/wait-verification']);
+      } else {
+        if (this.user.empresa && this.uid) {
+          this.router.navigate(['/perfil-empresa']);
+        }
       }
     }
     this.userAux = this.user;
@@ -96,9 +101,7 @@ export class PerfilComponent implements OnInit {
     console.log(this.fechaDeNacimiento);
 
     // Almacena la informacion de los json en las variables
-    this.profesions = this.http.get(
-      '../../../../assets/JSON/profesion.json'
-    );
+    this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
     /* try {
       this.authSvc.afAuth.user.subscribe((u) => {
         if (u) {

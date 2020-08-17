@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-empresa.component.scss'],
 })
 export class RegisterEmpresaComponent implements OnInit {
-
   registerEmpresaForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -47,16 +46,21 @@ export class RegisterEmpresaComponent implements OnInit {
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user'));
     const uid = localStorage.getItem('uid');
-    if(user && uid){
-      if(user.empresa && uid){
-        this.router.navigate(['/perfil-empresa']);
-      } else if(!user.empresa && uid) {
-        this.router.navigate(['/perfil']);
+    const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
+    if (user && uid) {
+      if (!userFirebase.emailVerified) {
+        this.router.navigate(['/wait-verification']);
+      } else {
+        if (user.empresa && uid) {
+          this.router.navigate(['/perfil-empresa']);
+        } else if (!user.empresa && uid) {
+          this.router.navigate(['/perfil']);
+        }
       }
     }
   }
 
-  onRegister(){
+  onRegister() {
     try {
       this.createUser();
     } catch (error) {
@@ -66,7 +70,7 @@ export class RegisterEmpresaComponent implements OnInit {
 
   async updateUserData(empresaName) {
     (await this.authSvc.afAuth.currentUser).updateProfile({
-      displayName: empresaName
+      displayName: empresaName,
     });
   }
 
