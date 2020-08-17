@@ -163,6 +163,7 @@ export class AuthService {
 
       // Elimina al user del local storage
       localStorage.removeItem('user');
+      localStorage.removeItem('userFirebase');
       localStorage.removeItem('uid');
     } catch (error) {
       console.log(error);
