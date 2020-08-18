@@ -22,7 +22,19 @@
 .line-height-normal{
   line-height: normal;
 }
-
+.bienvenido {
+  font-size: 2.2vw;
+  font-family: Roboto-Bold;
+  font-weight: 500;
+  color: #191919;
+}
+.subtitulo-bienvenido{
+  font-size: 1vw;
+  font-weight: 300;
+  font-family: Roboto-Medium;
+  
+  color: #356089;
+}
 .margen {
   flex: 1 1 auto;
   min-height: 1px;
@@ -183,6 +195,21 @@
 
   .titulo, .titulo-opciones {
     font-size: 2.0962499rem;
+  }
+  .bienvenido {
+    font-size: 6.6vw;
+    font-family: Roboto-Bold;
+    font-weight: 500;
+    color: #191919;
+    margin-left: 8%;
+  }
+  .subtitulo-bienvenido{
+    font-size: 3.2vw;
+    font-weight: 300;
+    font-family: Roboto-Medium;
+    margin-left: 8%;
+    margin-right: 8%;
+    color: #356089;
   }
 
 }

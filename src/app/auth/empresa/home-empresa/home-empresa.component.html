@@ -3,6 +3,31 @@
   <!-- <div class="sm-text-center offset-md-1 set-size-logo">
     <img src="../../assets/images/titulo.png" class="img-fluid">
   </div> -->
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-3 ">
+    <div class="row">
+      <div class="col-12 col-md-3 mt-3 md-margen">
+        <img class="offset-md-2 col-md-9 foto rounded-circle" src="{{
+            user.photoURL ? user.photoURL : '../../../assets/images/user8.png'
+          }}" alt="{{ user.firstName }}" />
+      </div>
+      <div class="col-12 col-md-8 px-0 margin-top-content mb-4">
+        <div class="row">
+          <div class="col-10 col-md-11 mt-4">
+            <h1 class="line-height-normal sm-text-left bienvenido vertical-align">
+              Bienvenido {{ user.empresaName}}
+            </h1>
+          </div>
+          
+          <div class="col-12">
+            <p class="subtitulo-bienvenido mt-3 mb-3">
+              <strong>En esta página podrás encontrar a los egresados indicados y contactarlos para que formen parte de tu equipo.</strong>
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </mat-card>
   <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-3">
     <ng-container *ngIf="resultadosDeBusqueda != null || resultadosDeBusqueda != undefined; then mostrarResultados; else barraDeBusqueda"></ng-container>
     <ng-template #barraDeBusqueda>
@@ -226,7 +251,7 @@
                 <h2 class="profesion">{{ resultado.profesion }}</h2>
                 <h3 class="orientacion">{{ resultado.orientacion }}</h3>
                 <h3 class="yearDeEgreso">{{ resultado.yearDeEgreso }}</h3>
-                <h3 class="edad">{{ getEdad(resultado.birthday) }}</h3>
+                <h3 class="edad">{{ getEdad(resultado.birthday) }} años</h3>
               </div>
             </div>
           </div>
