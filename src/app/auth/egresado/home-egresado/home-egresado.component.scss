@@ -15,6 +15,9 @@
 .margin-top-content {
   margin-top: 1.5rem!important;
 }
+.margin-bottom-content {
+  margin-bottom: 1.5rem!important;
+}
 .bienvenido {
   font-size: 1.9vw;
   font-family: Roboto-Bold;
@@ -25,7 +28,7 @@
   font-size: 1vw;
   font-weight: 300;
   font-family: Roboto-Medium;
-  
+
   color: #356089;
 }
 .vertical-align {
@@ -165,6 +168,11 @@
   cursor: pointer;
 }
 
+.foto {
+  max-width: 150px;
+  min-width: 150px;
+}
+
 @media all and (max-width: 767px) {
   .row {
     display: -ms-flexbox;
@@ -214,23 +222,15 @@
     font-size: 2.0962499rem;
   }
   .bienvenido {
-    font-size: 6.6vw;
-    font-family: Roboto-Bold;
-    font-weight: 500;
-    color: #191919;
+    font-size: 4vw;
   }
   .subtitulo-bienvenido{
-    font-size: 3.2vw;
-    font-weight: 300;
-    font-family: Roboto-Medium;
-    
-    color: #356089;
+    font-size: 2.5vw;
   }
   .foto{
     max-width: 200px;
     min-width: 200px;
-  } 
-
+  }
 }
 
 @media all and (max-width: 1100px) and (min-width: 767px) {
@@ -251,6 +251,16 @@
   }
   .md-margen {
     margin-left: -30px;
+  }
+  .bienvenido {
+    font-size: 3vw;
+  }
+  .subtitulo-bienvenido{
+    font-size: 1.75vw;
+  }
+  .foto{
+    max-width: 150px;
+    min-width: 150px;
   }
 }
 
@@ -274,6 +284,17 @@
   .md-margen {
     margin-left: -30px;
   }
+
+  .bienvenido {
+    font-size: 2vw;
+  }
+  .subtitulo-bienvenido{
+    font-size: 1.5vw;
+  }
+  .foto{
+    max-width: 150px;
+    min-width: 150px;
+  }
 }
 
 @media all and (max-width: 520px) {
@@ -287,5 +308,15 @@
     flex-wrap: wrap;
     margin-right: 0px !important;
     margin-left: 0px !important;
+  }
+  .bienvenido {
+    font-size: 8vw;
+  }
+  .subtitulo-bienvenido{
+    font-size: 6vw;
+  }
+  .foto{
+    max-width: 150px;
+    min-width: 150px;
   }
 }

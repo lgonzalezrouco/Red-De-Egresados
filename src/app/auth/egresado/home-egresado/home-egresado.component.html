@@ -5,25 +5,23 @@
   </div> -->
   <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-3 ">
     <div class="row">
-      <div class="col-12 col-md-3 mt-3 md-margen">
-        <img class="offset-md-2 col-md-9 foto rounded-circle" src="{{
+      <div class="col-12 col-md-3 alinear-centro sm-text-center">
+        <img class="col-12 alinear-centro sm-text-center col-md-9 foto rounded-circle" src="{{
             user.photoURL ? user.photoURL : '../../../assets/images/user8.png'
           }}" alt="{{ user.firstName }}" />
       </div>
-      <div class="col-12 col-md-8 px-0 margin-top-content mb-4">
+      <div class="col-12 col-md-8 px-0 margin-top-content margin-bottom-content ">
         <div class="row">
           <div class="col-10 col-md-11">
             <h1 class="line-height-normal sm-text-left bienvenido vertical-align">
-              Bienvenido {{ user.firstName }} {{user.lastName}}
+              Bienvenido, {{ user.firstName }} {{user.lastName}}
             </h1>
           </div>
-          
-          <div class="col-12">
-            <p class="subtitulo-bienvenido mt-4 mb-3">
+          <div class="col-12 d-none d-sm-block">
+            <p class="subtitulo-bienvenido line-height-normal mt-2 mb-3">
               <strong>En esta página podrás encontrar a tus ex egresados y a los demás egresados del Insitituto Politecnico Modelo</strong>
             </p>
           </div>
-          
         </div>
       </div>
     </div>
@@ -183,7 +181,7 @@
             </div>
           </div>
         </div>
-      
+
       </form>
       <div *ngIf="resultadosDeBusqueda != null">
         <mat-divider [inset]="true"></mat-divider>
@@ -191,7 +189,7 @@
           <div class="col-12 col-md-6">
             <div class="row set-pointer" [routerLink]="['/perfil-de-servicio-egresado', resultado.uid]">
               <div class="col-md-6 set-pointer">
-                <img class="offset-md-2 col-md-10 rounded-circle d-none d-md-block" src="{{
+                <img class="img-fluid foto col-md-12 rounded-circle d-none d-md-block" src="{{
                     resultado.photoURL
                       ? resultado.photoURL
                       : '../../../assets/images/user8.png'
@@ -200,8 +198,8 @@
               <div class="col-md-6 set-pointer">
                 <h1 class="nombre">{{ resultado.firstName }} {{ resultado.lastName }}</h1>
                 <h2 class="profesion">{{ resultado.profesion }}</h2>
-                <h3 class="orientacion">{{ resultado.orientacion }}</h3>
-                <h3 class="yearDeEgreso">{{ resultado.yearDeEgreso }}</h3>
+                <h3 class="orientacion">{{ resultado.orientacion }}, {{ resultado.yearDeEgreso }}</h3>
+                <!-- <h3 class="yearDeEgreso">{{ resultado.yearDeEgreso }}</h3> -->
                 <h3 class="edad">{{ getEdad(resultado.birthday) }} años</h3>
               </div>
             </div>

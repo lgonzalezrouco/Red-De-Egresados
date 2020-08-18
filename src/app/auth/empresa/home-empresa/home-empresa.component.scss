@@ -12,7 +12,31 @@
   font-family: Roboto-Light;
   src: url("src/assets/fonts/roboto/Roboto-Light.ttf");
 }
+.margin-top-content {
+  margin-top: 1.5rem!important;
+}
+.margin-bottom-content {
+  margin-bottom: 1.5rem!important;
+}
+.bienvenido {
+  font-size: 1.9vw;
+  font-family: Roboto-Bold;
+  font-weight: 500;
+  color: #191919;
+}
+.subtitulo-bienvenido{
+  font-size: 1vw;
+  font-weight: 300;
+  font-family: Roboto-Medium;
 
+  color: #356089;
+}
+.vertical-align {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
 .alinear-centro {
   display: flex;
   justify-content: center;
@@ -22,19 +46,7 @@
 .line-height-normal{
   line-height: normal;
 }
-.bienvenido {
-  font-size: 2.2vw;
-  font-family: Roboto-Bold;
-  font-weight: 500;
-  color: #191919;
-}
-.subtitulo-bienvenido{
-  font-size: 1vw;
-  font-weight: 300;
-  font-family: Roboto-Medium;
-  
-  color: #356089;
-}
+
 .margen {
   flex: 1 1 auto;
   min-height: 1px;
@@ -152,11 +164,24 @@
   margin-bottom: 0rem;
 }
 
+.foto {
+  max-width: 150px;
+  min-width: 150px;
+}
+
 .set-pointer {
   cursor: pointer;
 }
 
 @media all and (max-width: 767px) {
+  .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+  }
   .set-size-logo{
     max-width: 106px;
     max-height: 64px;
@@ -197,19 +222,14 @@
     font-size: 2.0962499rem;
   }
   .bienvenido {
-    font-size: 6.6vw;
-    font-family: Roboto-Bold;
-    font-weight: 500;
-    color: #191919;
-    margin-left: 8%;
+    font-size: 4vw;
   }
   .subtitulo-bienvenido{
-    font-size: 3.2vw;
-    font-weight: 300;
-    font-family: Roboto-Medium;
-    margin-left: 8%;
-    margin-right: 8%;
-    color: #356089;
+    font-size: 2.5vw;
+  }
+  .foto{
+    max-width: 200px;
+    min-width: 200px;
   }
 
 }
@@ -222,6 +242,27 @@
     margin-right: -70px;
     margin-bottom: 5px;
   }
+  .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .md-margen {
+    margin-left: -30px;
+  }
+  .bienvenido {
+    font-size: 3vw;
+  }
+  .subtitulo-bienvenido{
+    font-size: 1.75vw;
+  }
+  .foto{
+    max-width: 150px;
+    min-width: 150px;
+  }
 }
 
 @media all and (min-width: 1100px) and (max-width: 1500px)  {
@@ -233,10 +274,50 @@
     margin-right: -70px;
     margin-bottom: 5px;
   }
+  .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .md-margen {
+    margin-left: -30px;
+  }
+
+  .bienvenido {
+    font-size: 2vw;
+  }
+  .subtitulo-bienvenido{
+    font-size: 1.5vw;
+  }
+  .foto{
+    max-width: 150px;
+    min-width: 150px;
+  }
 }
 
 @media all and (max-width: 520px) {
   .titulo, .titulo-opciones {
     font-size: 2rem;
+  }
+  .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+  }
+  .bienvenido {
+    font-size: 8vw;
+  }
+  .subtitulo-bienvenido{
+    font-size: 6vw;
+  }
+  .foto{
+    max-width: 150px;
+    min-width: 150px;
   }
 }
