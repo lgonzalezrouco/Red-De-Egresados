@@ -50,6 +50,13 @@
   border: none;
 }
 
+.titulo-categoria {
+  font-size: 1.5rem;
+  font-family: Roboto-Bold;
+  font-weight: 500;
+  color: #191919;
+}
+
 .titulo {
   font-size: 2.423vw;
   font-family: Roboto-Bold;
@@ -68,6 +75,19 @@
   font-weight: 300;
   font-family: Roboto-Medium;
   color: #356089;
+}
+
+.subtitulo-capacitacion {
+  font-family: Roboto-Medium;
+  font-weight: 400;
+  font-size: medium;
+}
+
+.subtitulo-experiencia {
+  font-size: x-large;
+  font-family: Roboto-Medium;
+  font-weight: 500;
+  color: #51799f;
 }
 
 .full-width-height {

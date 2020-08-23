@@ -12,6 +12,9 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
   public usuarioIngresado;
   public fechaDeNacimiento;
   public uidDelUsuarioLogeado;
+  public capacitaciones;
+  public capacitacionesLength: number;
+
 
   constructor(
     private authSvc: AuthService,
@@ -32,7 +35,7 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
         this.router.navigate(['/wait-verification']);
       } else {
         this.uidDelUsuarioLogeado = localStorage.getItem('uid');
-        this.route.paramMap.subscribe((params) => {
+        this.route.paramMap.subscribe(async (params) => {
           this.uid = params.get('uid');
           console.log(this.uid);
           console.log(this.uidDelUsuarioLogeado);
@@ -41,7 +44,13 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
             this.router.navigate(['/perfil']);
           } else {
             // Sino muestra los datos correspondientes
-            this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
+            this.usuarioIngresado = await this.authSvc.getUser(this.uid);
+            const timeStamp = this.usuarioIngresado.birthday.toString();
+            let [, res] = timeStamp.match(/seconds=(\d+)/);
+            this.fechaDeNacimiento = new Date(+res * 1000);
+            console.log(this.fechaDeNacimiento);
+            this.getCapacitaciones();
+            /* this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
               this.usuarioIngresado = userSnapshot.payload.data();
               console.log(userSnapshot.payload.exists);
               console.log(this.usuarioIngresado);
@@ -50,11 +59,12 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
               let [, res] = timeStamp.match(/seconds=(\d+)/);
               this.fechaDeNacimiento = new Date(+res * 1000);
               console.log(this.fechaDeNacimiento);
-            });
+            }); */
           }
         });
       }
     }
+
 
     /* // Se consigue el uid del usuario que esta logeado
     this.authSvc.afAuth.user.subscribe((u) => {
@@ -66,6 +76,23 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
       }
       return this.getUsuarioIngresado();
     }); */
+  }
+
+  async getCapacitaciones() {
+    /* let refCapacitaciones = this.authSvc.getCapacitaciones(this.uid); */
+    await this.authSvc.getCapacitaciones(this.uid).then((capacitaciones) => {
+      /* console.log(ref.capacitaciones);
+      localStorage.setItem('capacitaciones', ref.capacitaciones);
+      let aux = localStorage.getItem('capacitaciones') */
+      this.capacitaciones = capacitaciones.capacitaciones;
+      this.capacitacionesLength = this.capacitaciones.length;
+      let i : number = 0
+      for (const capacitacion of this.capacitaciones) {
+        console.log(i);
+        i = i + 1;
+        console.log(capacitacion);
+      }
+    });
   }
 
   /* // Se consigue el uid del usuario del que se quiere ver el perfil

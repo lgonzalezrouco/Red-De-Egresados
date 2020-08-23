@@ -1,7 +1,7 @@
 <app-toolbar></app-toolbar>
 
 <div class="margen container-fluid">
-  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-3 mt-5">
     <div class="row">
       <div class="col-12 col-md-4 mt-3 md-margen">
         <img class="offset-md-2 col-md-8 rounded-circle" src="{{
@@ -13,7 +13,8 @@
               <img class="img-fluid mr-3" src="../../../assets/images/sexo.png"> {{ user.gender }}
             </p>
             <p class="texto-dato ">
-              <img class="img-fluid mr-3 -ml-009" src="../../../assets/images/nacimiento.png"> {{ fechaDeNacimiento | date:"dd/MM/yyyy" }}
+              <img class="img-fluid mr-3 -ml-009" src="../../../assets/images/nacimiento.png">
+              {{ fechaDeNacimiento | date:"dd/MM/yyyy" }}
             </p>
             <p class="texto-dato">
               <img class="img-fluid mr-3 -ml-033" src="../../../assets/images/egreso.png"> {{ user.yearDeEgreso }}
@@ -44,7 +45,7 @@
               </p>
             </div>
             <div class="col 12 ">
-              <h3 >
+              <h3>
                 <p class="mt-3 descrip">
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
                   nec ornare tortor, et volutpat augue. In tincidunt auctor nisl eget
@@ -106,7 +107,8 @@
               <div class="col-md-5 col-12 float-right">
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Fecha de Nacimiento</mat-label>
-                  <input matInput formControlName="birthday" [(ngModel)]="fechaDeNacimiento" [matDatepicker]="picker" [max]="maxDate">
+                  <input matInput formControlName="birthday" [(ngModel)]="fechaDeNacimiento" [matDatepicker]="picker"
+                    [max]="maxDate">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="birthdayPattern.hasError('matDatepickerParse')">
@@ -139,7 +141,8 @@
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Profesion</mat-label>
                   <mat-select [(ngModel)]="userAux.profesion" formControlName="profesion">
-                    <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">{{ profesion.viewValue }}</mat-option>
+                    <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
+                      {{ profesion.viewValue }}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="profesionPattern.hasError('required')">
                     La profesion es <strong>requerida</strong>
@@ -150,8 +153,8 @@
             <div class="form-row mb-2">
               <div class="offset-md-1 col-md-5 col-12 float-left">
                 <label for="Cambiar Foto">Foto de perfil</label>
-                <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file"
-                  id="inputFile" formControlName="photoURL" (change)="cambioArchivo($event)" />
+                <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file" id="inputFile"
+                  formControlName="photoURL" (change)="cambioArchivo($event)" />
               </div>
               <div class="col-md-5 col-12">
                 <div class="row">
@@ -174,6 +177,112 @@
           </form>
         </div>
       </ng-template>
+    </div>
+  </mat-card>
+</div>
+
+<div class="margen container-fluid">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5">
+    <div class="row">
+      <div class="col-12">
+        <ng-container
+          *ngIf="capacitaciones == null || capacitaciones == undefined || capacitacionesLength == 0; then mostrarSinCapacitaciones ; else mostrarConCapacitaciones">
+        </ng-container>
+        <ng-template #mostrarSinCapacitaciones>
+          <div class="mt-2 mb-1">
+            <mat-card-title class="mt-2 mb-4 ml-4 mr-4">
+              <h1 class="line-height-normal titulo-categoria">
+                Lleva tu perfil a otro nivel
+              </h1>
+            </mat-card-title>
+            <div class="row">
+              <div class="col-md-2">
+                <img src="../../../../assets/images/gorrolupa.png" class=" img-fluid ml-5 d-none d-md-block" alt="">
+              </div>
+              <div class="col-12 offset-md-1 col-md-9">
+                <div class="row">
+                  <div class="col-12">
+                    <mat-card-subtitle class="subtitulo-capacitacion ">Ingresa tus datos acerca de tu
+                      experiencia laboral y estudiantil para que las empresas <br>conozcan un poco mas de vos
+                    </mat-card-subtitle>
+                  </div>
+                  <div class="sm-text-center offset-md-7 col-md-5">
+                    <button (click)="goToAgregarExperiencia()" mat-raiser-button class="btn-capacitacion">
+                      Comenzar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #mostrarConCapacitaciones>
+          <div class="row">
+            <div class="col-6 float-left">
+              <h2 class="subtitulo-experiencia ml-2">
+                Experiencia
+              </h2>
+            </div>
+            <div class="offset-4 offset-md-5 col-2 col-md-1 px-0 float-right">
+              <button (click)="editarCapacitaciones()" class="boton-editar vertical-align">
+                <img mat-icon class="img-fluid sm-margen-bottom-editar" src="{{mostrarEdicionCapacitaciones == false ? '../../assets/images/editar.png' : ''}}" alt="agregar imagen de cruz">
+              </button>
+            </div>
+          </div>
+          <ng-container *ngIf="mostrarEdicionCapacitaciones == false ; then capacitacionesSinEditar ; else capacitacionesQueSeEditen"></ng-container>
+          <ng-template #capacitacionesSinEditar>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-12" *ngFor="let capacitacion of capacitaciones">
+                  <div class="row">
+                    <div class="col-4 mt-2 mb-2">
+                      <img src="{{
+                        capacitacion.relacionDeCapacitacion == 'empresa' ? '../../../assets/images/eleccion_empresa.png' : '../../../assets/images/eleccion_egresado.png'
+                      }}" alt="Eleccion egresado" class="img-fluid ">
+                    </div>
+                    <div class="col-8 mt-2 mb-2">
+                      <div>{{capacitacion.lugarDeCapacitacion}}</div>
+                      <div>{{capacitacion.capacitacion}}</div>
+                      <div>{{capacitacion.yearDeInicio}}&nbsp;-&nbsp;{{capacitacion.yearDeFinal}}</div>
+                    </div>
+                  </div>
+                  <mat-divider class="mb-2 divider"></mat-divider>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #capacitacionesQueSeEditen>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-12" *ngFor="let capacitacion of capacitaciones; index as i">
+                  <div class="row" (click)="borrarCapacitacion(i)">
+                    <div class="col-4 mt-2 mb-2">
+                      <img src="{{
+                        capacitacion.relacionDeCapacitacion == 'empresa' ? '../../../assets/images/eleccion_empresa.png' : '../../../assets/images/eleccion_egresado.png'
+                      }}" alt="Eleccion egresado" class="img-fluid ">
+                    </div>
+                    <div class="col-8 mt-2 mb-2">
+                      <div>{{capacitacion.lugarDeCapacitacion}}</div>
+                      <div>{{capacitacion.capacitacion}}</div>
+                      <div>{{capacitacion.yearDeInicio}}&nbsp;-&nbsp;{{capacitacion.yearDeFinal}}</div>
+                    </div>
+                  </div>
+                  <mat-divider class="mb-2 divider"></mat-divider>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="container">
+                  <div class="sm-text-center float-right sm-alinear-centro">
+                    <button (click)="goToAgregarExperiencia()" mat-raiser-button class="btn-agregar-capacitacion">
+                      Agregar experiencias
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+      </div>
     </div>
   </mat-card>
 </div>

@@ -40,11 +40,12 @@ export class PerfilDeServicioEmpresaComponent implements OnInit {
             this.router.navigate(['/perfil-empresa']);
           } else {
             // Sino muestra los datos correspondientes
-            this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
+            this.empresaIngresada = this.authSvc.getUser(this.uid);
+            /* this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
               this.empresaIngresada = userSnapshot.payload.data();
               console.log(userSnapshot.payload.exists);
               console.log(this.empresaIngresada);
-            });
+            }); */
           }
         });
       }

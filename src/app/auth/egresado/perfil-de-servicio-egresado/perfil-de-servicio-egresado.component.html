@@ -1,7 +1,7 @@
 <app-toolbar></app-toolbar>
 
 <div class="margen container-fluid">
-  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-3 mt-5">
     <ng-container *ngIf="usuarioIngresado; then datos; else noExiste"></ng-container>
     <ng-template #datos>
       <div class="row">
@@ -69,5 +69,78 @@
         </h1>
       </div>
     </ng-template>
+  </mat-card>
+</div>
+<div class="margen container-fluid">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5">
+    <div class="row">
+      <div class="col-12">
+        <ng-container
+          *ngIf="capacitaciones == null || capacitaciones == undefined || capacitacionesLength == 0; then mostrarSinCapacitaciones ; else mostrarConCapacitaciones">
+        </ng-container>
+        <ng-template #mostrarSinCapacitaciones>
+          <div class="mt-2 mb-1">
+            <mat-card-title class="mt-2 mb-4 ml-4 mr-4">
+              <h1 class="line-height-normal titulo-categoria">
+                Este usuario no tiene capacitaciones
+              </h1>
+            </mat-card-title>
+            <div class="row">
+              <div class="col-md-2">
+                <img src="../../../../assets/images/gorrolupa.png" class=" img-fluid ml-5 d-none d-md-block" alt="">
+              </div>
+              <div class="col-12 offset-md-1 col-md-9">
+                <div class="row">
+                  <div class="col-12">
+                    <mat-card-subtitle class="subtitulo-capacitacion ">Recomiendale que ingrese sus datos acerca de su
+                      experiencia laboral y estudiantil para que las empresas <br>conozcan puedan saber mas sobre los
+                      egresados
+                    </mat-card-subtitle>
+                  </div>
+                  <!-- <div class="sm-text-center offset-md-7 col-md-5">
+                    <button (click)="goToAgregarExperiencia()" mat-raiser-button class="btn-capacitacion">
+                      Comenzar
+                    </button>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #mostrarConCapacitaciones>
+          <div class="row">
+            <div class="col-6 float-left">
+              <h2 class="subtitulo-experiencia ml-2">
+                Experiencia
+              </h2>
+            </div>
+            <!-- <div class="offset-4 offset-md-5 col-2 col-md-1 px-0 float-right">
+              <button (click)="editarCapacitaciones()" class="boton-editar vertical-align">
+                <img mat-icon class="img-fluid sm-margen-bottom-editar" src="{{mostrarEdicionCapacitaciones == false ? '../../assets/images/editar.png' : ''}}" alt="agregar imagen de cruz">
+              </button>
+            </div> -->
+          </div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-4 col-12" *ngFor="let capacitacion of capacitaciones">
+                <div class="row">
+                  <div class="col-4 mt-2 mb-2">
+                    <img src="{{
+                        capacitacion.relacionDeCapacitacion == 'empresa' ? '../../../assets/images/eleccion_empresa.png' : '../../../assets/images/eleccion_egresado.png'
+                      }}" alt="Eleccion egresado" class="img-fluid ">
+                  </div>
+                  <div class="col-8 mt-2 mb-2">
+                    <div>{{capacitacion.lugarDeCapacitacion}}</div>
+                    <div>{{capacitacion.capacitacion}}</div>
+                    <div>{{capacitacion.yearDeInicio}}&nbsp;-&nbsp;{{capacitacion.yearDeFinal}}</div>
+                  </div>
+                </div>
+                <mat-divider class="mb-2 divider"></mat-divider>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
   </mat-card>
 </div>

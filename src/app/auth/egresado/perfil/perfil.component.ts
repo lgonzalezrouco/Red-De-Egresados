@@ -52,9 +52,12 @@ export class PerfilComponent implements OnInit {
   public user: any;
   public userAux: User;
   public uid;
+  public capacitaciones;
+  public capacitacionesLength: number;
 
   // Variable para saber si se tiene que mostrar el formulario editable
   public mostrar: boolean = true;
+  public mostrarEdicionCapacitaciones: boolean = false;
 
   // Variables para la subida de fotos al Storage
   public nombreArchivo = '';
@@ -84,6 +87,7 @@ export class PerfilComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
     const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
     this.uid = localStorage.getItem('uid');
+    this.capacitaciones = localStorage.getItem('capacitaciones');
     console.log(this.user);
     if (this.user && this.uid) {
       if (!userFirebase.emailVerified) {
@@ -91,6 +95,8 @@ export class PerfilComponent implements OnInit {
       } else {
         if (this.user.empresa && this.uid) {
           this.router.navigate(['/perfil-empresa']);
+        } else {
+          this.getCapacitaciones();
         }
       }
     }
@@ -282,5 +288,40 @@ export class PerfilComponent implements OnInit {
     } catch (error) {
       this.errorMessage = error;
     }
+  }
+
+  goToAgregarExperiencia() {
+    this.router.navigate(['/agregar-experiencias']);
+  }
+
+  async getCapacitaciones() {
+    /* let refCapacitaciones = this.authSvc.getCapacitaciones(this.uid); */
+    await this.authSvc.getCapacitaciones(this.uid).then((capacitaciones) => {
+      /* console.log(ref.capacitaciones);
+      localStorage.setItem('capacitaciones', ref.capacitaciones);
+      let aux = localStorage.getItem('capacitaciones') */
+      this.capacitaciones = capacitaciones.capacitaciones;
+      this.capacitacionesLength = this.capacitaciones.length;
+      let i : number = 0
+      for (const capacitacion of this.capacitaciones) {
+        console.log(i);
+        i = i + 1;
+        console.log(capacitacion);
+      }
+    });
+  }
+
+  editarCapacitaciones() {
+    if (this.mostrarEdicionCapacitaciones) {
+      this.mostrarEdicionCapacitaciones = false;
+      window.location.reload();
+    } else {
+      this.mostrarEdicionCapacitaciones = true;
+    }
+  }
+
+  async borrarCapacitacion(indice) {
+    await this.authSvc.deleteCapacitacion(indice);
+    window.location.reload();
   }
 }

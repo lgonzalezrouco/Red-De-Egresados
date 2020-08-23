@@ -39,12 +39,17 @@ export class AuthService {
       );
       localStorage.setItem('uid', result.user.uid);
       localStorage.setItem('userFirebase', JSON.stringify(result.user));
-      this.getUser(result.user.uid).subscribe((userSnapshot) => {
+      await this.saveUser(result.user.uid);
+      /* let user = await this.getUser(result.user.uid);
+      console.log(user);
+      localStorage.setItem('user', JSON.stringify(user)); */
+      /*this.getUser(result.user.uid).subscribe((userSnapshot) => {
         localStorage.setItem(
           'user',
           JSON.stringify(userSnapshot.payload.data())
         );
-      });
+      });*/
+
       return result;
     } catch (error) {
       console.log(error);
@@ -80,12 +85,14 @@ export class AuthService {
 
       localStorage.setItem('userFirebase', JSON.stringify(result.user));
 
-      this.getUser(result.user.uid).subscribe((userSnapshot) => {
+      await this.saveUser(result.user.uid);
+
+      /* this.getUser(result.user.uid).subscribe((userSnapshot) => {
         localStorage.setItem(
           'user',
           JSON.stringify(userSnapshot.payload.data())
         );
-      });
+      }); */
 
       return result;
     } catch (error) {
@@ -115,12 +122,14 @@ export class AuthService {
       this.setEmpresaDataLogUp(result.user, values);
 
       localStorage.setItem('uid', result.user.uid);
-      this.getUser(result.user.uid).subscribe((userSnapshot) => {
+      localStorage.setItem('userFirebase', JSON.stringify(result.user));
+      await this.saveUser(result.user.uid);
+      /* this.getUser(result.user.uid).subscribe((userSnapshot) => {
         localStorage.setItem(
           'user',
           JSON.stringify(userSnapshot.payload.data())
         );
-      });
+      }); */
 
       return result;
     } catch (error) {
@@ -176,11 +185,89 @@ export class AuthService {
   └─────────────────────────────────────────────┘
   */
 
+  // Se usa para almacenar las capacitaciones en Firestore
+  async setCapacitacionesDeUser(values) {
+    const uid = localStorage.getItem('uid');
+    let arregloCapacitaciones: Array<Object> = [];
+    let capacitacionesExistentes;
+    /* let refCapacitaciones = this.getCapacitaciones(uid); */
+    await this.getCapacitaciones(uid).then((capacitaciones) => {
+      capacitacionesExistentes = capacitaciones.capacitaciones;
+      for (const capacitacion of capacitacionesExistentes) {
+        console.log(capacitacion);
+        arregloCapacitaciones.push(capacitacion);
+      }
+    });
+    console.log(1);
+    console.log(arregloCapacitaciones);
+    console.log(2);
+    console.log(values);
+    arregloCapacitaciones.push(values);
+    console.log(3);
+    console.log(arregloCapacitaciones);
+
+    // Se hace una referencia al documento del usuario teniendo en cuenta su uid
+    const capacitacionesRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
+      `capacitaciones/${uid}`
+    );
+
+    /*
+     * Se guarda la informacion que esta dentro de capacitaciones en el
+     * Firestore usando la referencia creada antes
+     */
+    return capacitacionesRef.update({
+      capacitaciones: arregloCapacitaciones,
+    });
+  }
+
+  //Se usa para eliminar una capacitacion especifica
+  async deleteCapacitacion(indice) {
+    const uid = localStorage.getItem('uid');
+    let arregloCapacitaciones: Array<Object> = [];
+    let capacitacionesExistentes;
+    /* let refCapacitaciones = this.getCapacitaciones(uid); */
+    await this.getCapacitaciones(uid).then((capacitaciones) => {
+      capacitacionesExistentes = capacitaciones.capacitaciones;
+      for (const capacitacion of capacitacionesExistentes) {
+        console.log(capacitacion);
+        arregloCapacitaciones.push(capacitacion);
+      }
+    });
+
+    if (indice !== -1) {
+      arregloCapacitaciones.splice(indice, 1);
+    }
+
+    // Se hace una referencia al documento del usuario teniendo en cuenta su uid
+    const capacitacionesRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
+      `capacitaciones/${uid}`
+    );
+
+    return capacitacionesRef.update({
+      capacitaciones: arregloCapacitaciones,
+    });
+  }
+
+  // Se usa para traer a un usuario especifico
+  public async getCapacitaciones(id: string) {
+    //Trae de la collection 'capacitaciones', el documento con el id que se pasa como argumento
+    let capacitaciones = await this.angularFirestore
+      .collection('capacitaciones')
+      .doc(id)
+      .get()
+      .toPromise();
+    return capacitaciones.data();
+  }
+
   // Se usa para escribir los datos del usuario en Firestore
   setUserDataLogUp(user, values, photoURL?) {
     // Se hace una referencia al documento del usuario teniendo en cuenta su uid
     const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
       `users/${user.uid}`
+    );
+
+    const capacitacionesRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
+      `capacitaciones/${user.uid}`
     );
 
     if (typeof photoURL === 'undefined') {
@@ -208,10 +295,16 @@ export class AuthService {
       empresa: false,
     };
 
+    const capacitacionData = {
+      capacitaciones: [],
+    };
     /*
      * Se guarda la informacion que esta dentro de userData en el
      * Firestore usando la referencia creada antes
      */
+    capacitacionesRef.set(capacitacionData, {
+      merge: true,
+    });
     return userRef.set(userData, {
       merge: true,
     });
@@ -261,7 +354,7 @@ export class AuthService {
   }
 
   // Se usa para editar un usuario que ya se encuentre en Firestore
-  editUser(user: any, data: any, url: any) {
+  async editUser(user: any, data: any, url: any) {
     try {
       if (
         data.firstName == '' ||
@@ -294,12 +387,13 @@ export class AuthService {
           empresa: false,
         });
 
-      this.getUser(user.uid).subscribe((userSnapshot) => {
+      await this.saveUser(user.uid);
+      /* this.getUser(user.uid).subscribe((userSnapshot) => {
         localStorage.setItem(
           'user',
           JSON.stringify(userSnapshot.payload.data())
         );
-      });
+      }); */
 
       return result;
     } catch (error) {
@@ -309,7 +403,7 @@ export class AuthService {
   }
 
   // Se usa para editar la empresa
-  editEmpresa(user: any, data: any, url: any) {
+  async editEmpresa(user: any, data: any, url: any) {
     try {
       if (data.empresaName == '') {
         return 'Por favor llene todos los campos obligatorios';
@@ -329,12 +423,7 @@ export class AuthService {
           empresa: true,
         });
 
-      this.getUser(user.uid).subscribe((userSnapshot) => {
-        localStorage.setItem(
-          'user',
-          JSON.stringify(userSnapshot.payload.data())
-        );
-      });
+      await this.saveUser(user.uid);
 
       return result;
     } catch (error) {
@@ -344,10 +433,26 @@ export class AuthService {
   }
 
   // Se usa para traer a un usuario especifico
+  public async getUser(id: string) {
+    //Trae de la collection 'users', el documento con el id que se pasa como argumento
+    let user = await this.angularFirestore
+      .collection('users')
+      .doc(id)
+      .get()
+      .toPromise();
+    return user.data();
+  }
+
+  public async saveUser(id) {
+    let user = await this.getUser(id);
+    console.log(user);
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+  /*
   public getUser(id: string) {
     //Trae de la collection 'users', el documento con el id que se pasa como argumento
     return this.angularFirestore.collection('users').doc(id).snapshotChanges();
-  }
+  } */
 
   // Se usa para traer un titulo
   public existeElEgresado(tituloEgreso) {
