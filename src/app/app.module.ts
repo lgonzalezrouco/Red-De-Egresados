@@ -39,7 +39,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDividerModule} from '@angular/material/divider';
-import {MatTableModule} from '@angular/material/table';
 
 import { HttpClientModule } from "@angular/common/http"
 
@@ -91,8 +90,7 @@ import { AgregarExperienciasComponent } from './auth/egresado/agregar-experienci
     MatStepperModule,
     MatToolbarModule,
     HttpClientModule,
-    MatDividerModule,
-    MatTableModule
+    MatDividerModule
   ],
   exports: [
     MatButtonModule,
