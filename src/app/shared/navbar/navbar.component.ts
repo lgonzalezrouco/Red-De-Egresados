@@ -7,15 +7,14 @@ import { Observable } from 'rxjs';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  providers: [AuthService]
+  providers: [AuthService],
 })
 export class NavbarComponent implements OnInit {
-
   public user$: Observable<any> = this.authSvc.afAuth.user;
   public userData;
   public loggedUser: any = '';
 
-  constructor(private authSvc: AuthService, private router: Router) { }
+  constructor(private authSvc: AuthService, private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     this.userData = this.verificarSiAlguienInicio();
@@ -25,20 +24,23 @@ export class NavbarComponent implements OnInit {
     try {
       this.authSvc.afAuth.user.subscribe((u) => {
         if (u) {
-
-          this.authSvc.getUser(u.uid).subscribe((userSnapshot) => {
-
+          this.loggedUser = this.authSvc.getUser(u.uid);
+          /* this.authSvc.getUser(u.uid).subscribe((userSnapshot) => {
             this.loggedUser = userSnapshot.payload.data();
             console.log(userSnapshot.payload.exists);
-            console.log(this.loggedUser.firstName + " " + this.loggedUser.lastName + " inició sesion");
+            console.log(
+              this.loggedUser.firstName +
+                ' ' +
+                this.loggedUser.lastName +
+                ' inició sesion'
+            );
             console.log(this.loggedUser.empresa);
-          })
+          }); */
           return u;
         } else {
-          console.log("Nadie inicio sesion");
+          console.log('Nadie inicio sesion');
         }
-
-      })
+      });
     } catch (error) {
       console.log(error);
     }
