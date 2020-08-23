@@ -13,6 +13,7 @@ import { PerfilDeServicioEgresadoComponent } from './auth/egresado/perfil-de-ser
 import { PerfilDeServicioEmpresaComponent } from './auth/empresa/perfil-de-servicio-empresa/perfil-de-servicio-empresa.component';
 import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
 import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.component';
+import { AgregarExperienciasComponent } from './auth/egresado/agregar-experiencias/agregar-experiencias.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -67,6 +68,10 @@ const routes: Routes = [
   {
     path: 'home-empresa',
     component: HomeEmpresaComponent
+  },
+  {
+    path: 'agregar-experiencias',
+    component: AgregarExperienciasComponent
   }
 ];
 
