@@ -179,16 +179,6 @@ export class RegisterComponent implements OnInit {
       this.years = this.http.get('../../../../assets/JSON/egresoYear.json');
       this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
     }
-    /* console.log(user.empresa);
-    if (user.empresa && uid) {
-      this.router.navigate(['/perfil-empresa']);
-    } else if (!user.empresa && uid) {
-      this.router.navigate(['/perfil']);
-    } else {
-      // Almacena la informacion de los json en las variables
-      this.years = this.http.get('../../../../assets/JSON/egresoYear.json');
-      this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
-    } */
   }
 
   async onRegister() {

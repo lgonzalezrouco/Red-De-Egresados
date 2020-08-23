@@ -70,35 +70,6 @@ export class HomeEmpresaComponent implements OnInit {
         }
       }
     }
-    /* if (user && uid) {
-      if (user.empresa && uid) {
-        this.router.navigate(['/perfil-empresa']);
-      } else if (!user.empresa && uid) {
-        this.router.navigate(['/perfil']);
-      }
-    }
-    const uid = localStorage.getItem('uid');
-    console.log(uid);
-    if (!uid) {
-      this.router.navigate(['/home']);
-    } else {
-      this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
-      this.getResultsWithFirstName();
-      /* this.getResultsWithOptions();
-    } */
-    /* console.log(this.resultadosDeBusqueda);
-    this.authSvc.afAuth.user.subscribe((u) => {
-      console.log(u);
-      if (!u) {
-        this.router.navigate(['/home']);
-      } else {
-        this.profesions = this.http.get(
-          '../../../../assets/JSON/profesion.json'
-        );
-        this.getResultsWithFirstName();
-        /* this.getResultsWithOptions();
-      }
-    }); */
   }
 
   // Es para conseguir la informacion para el parametro de busqueda

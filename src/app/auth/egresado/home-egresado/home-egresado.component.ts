@@ -68,32 +68,9 @@ export class HomeEgresadoComponent implements OnInit {
             '../../../../assets/JSON/profesion.json'
           );
           this.getResultsWithFirstName();
-          /* this.getResultsWithOptions(); */
         }
       }
     }
-    /* const uid = localStorage.getItem('uid');
-    console.log(uid);
-    if (!uid) {
-      this.router.navigate(['/home']);
-    } else {
-      this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
-      this.getResultsWithFirstName();
-      /* this.getResultsWithOptions();
-    } */
-
-    /* this.authSvc.afAuth.user.subscribe((u) => {
-      console.log(u);
-      if (!u) {
-        this.router.navigate(['/home']);
-      } else {
-        this.profesions = this.http.get(
-          '../../../../assets/JSON/profesion.json'
-        );
-        this.getResultsWithFirstName();
-        /* this.getResultsWithOptions();
-      }
-    }); */
   }
 
   // Es para conseguir la informacion para el parametro de busqueda

@@ -41,24 +41,9 @@ export class PerfilDeServicioEmpresaComponent implements OnInit {
           } else {
             // Sino muestra los datos correspondientes
             this.empresaIngresada = this.authSvc.getUser(this.uid);
-            /* this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
-              this.empresaIngresada = userSnapshot.payload.data();
-              console.log(userSnapshot.payload.exists);
-              console.log(this.empresaIngresada);
-            }); */
           }
         });
       }
     }
-
-    /* this.route.paramMap.subscribe((params) => {
-      this.uid = params.get('uid');
-      console.log(this.uid);
-      this.authSvc.getUser(this.uid).subscribe((userSnapshot) => {
-        this.empresaIngresada = userSnapshot.payload.data();
-        console.log(userSnapshot.payload.exists);
-        console.log(this.empresaIngresada);
-      });
-    }); */
   }
 }

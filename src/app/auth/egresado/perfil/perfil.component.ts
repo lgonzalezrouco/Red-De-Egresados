@@ -108,31 +108,6 @@ export class PerfilComponent implements OnInit {
 
     // Almacena la informacion de los json en las variables
     this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
-    /* try {
-      this.authSvc.afAuth.user.subscribe((u) => {
-        if (u) {
-          this.authSvc.getUser(u.uid).subscribe((userSnapshot) => {
-            this.user = userSnapshot.payload.data();
-            console.log(userSnapshot.payload.exists);
-            console.log(this.user);
-            this.userAux = this.user;
-
-            const timeStamp = this.userAux.birthday.toString();
-            let [, res] = timeStamp.match(/seconds=(\d+)/);
-            this.fechaDeNacimiento = new Date(+res * 1000);
-            console.log(this.fechaDeNacimiento);
-          });
-          // Almacena la informacion de los json en las variables
-          this.profesions = this.http.get(
-            '../../../../assets/JSON/profesion.json'
-          );
-        } else {
-          console.log('Nadie inicio sesion');
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    } */
   }
 
   public cambioArchivo(event) {

@@ -62,21 +62,6 @@ export class PerfilEmpresaComponent implements OnInit {
         }
       }
     }
-    /* try {
-      this.authSvc.afAuth.user.subscribe((u) => {
-        if (u) {
-          this.authSvc.getUser(u.uid).subscribe((userSnapshot) => {
-            this.user = userSnapshot.payload.data();
-            console.log(userSnapshot.payload.exists);
-            console.log(this.user);
-          });
-        } else {
-          console.log('Nadie inicio sesion');
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    } */
   }
 
   public cambioArchivo(event) {
