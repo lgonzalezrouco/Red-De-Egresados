@@ -15,7 +15,7 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting --project Red-De-Egresados-IPM
+          args: deploy --only hosting --project red-egresados-online
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_PROJECT: Red-De-Egresados-IPM  
+          FIREBASE_PROJECT: red-egresados-online  
