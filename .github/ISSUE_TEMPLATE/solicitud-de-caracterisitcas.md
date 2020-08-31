@@ -1,9 +1,9 @@
 ---
-name: 
-about: 
-title: 
-labels: 
-assignees: 
+name: Solicitud de caracterisitcas
+about: Sugiera una idea para este projecto
+title: ''
+labels: ''
+assignees: ''
 
 ---
 

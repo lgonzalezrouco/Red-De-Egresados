@@ -1,9 +1,9 @@
 ---
-name: 
-about: 
-title: 
-labels: 
-assignees: 
+name: Reporte de bugs
+about: Cree un reporte para ayudar a mejorar el trabajo
+title: ''
+labels: ''
+assignees: lucasrouco
 
 ---
 
