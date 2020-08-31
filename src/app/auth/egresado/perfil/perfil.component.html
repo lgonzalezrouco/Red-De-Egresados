@@ -175,7 +175,7 @@
 </div>
 
 <div class="margen container-fluid">
-  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-3">
     <div class="row">
       <div class="col-12">
         <ng-container
@@ -190,7 +190,8 @@
             </mat-card-title>
             <div class="row">
               <div class="col-md-2">
-                <img src="../../../../assets/images/agregar_experiencia.png" class=" img-fluid ml-5 d-none d-md-block" alt="">
+                <img src="../../../../assets/images/agregar_experiencia.png" class=" img-fluid ml-5 d-none d-md-block"
+                  alt="">
               </div>
               <div class="col-12 offset-md-1 col-md-9">
                 <div class="row">
@@ -218,11 +219,15 @@
             </div>
             <div class="offset-4 offset-md-5 col-2 col-md-1 px-0 float-right">
               <button (click)="editarCapacitaciones()" class="boton-editar vertical-align">
-                <img mat-icon class="img-fluid sm-margen-bottom-editar" src="{{mostrarEdicionCapacitaciones == false ? '../../assets/images/editar.png' : ''}}" alt="agregar imagen de cruz">
+                <img mat-icon class="img-fluid sm-margen-bottom-editar"
+                  src="{{mostrarEdicionCapacitaciones == false ? '../../assets/images/editar.png' : ''}}"
+                  alt="agregar imagen de cruz">
               </button>
             </div>
           </div>
-          <ng-container *ngIf="mostrarEdicionCapacitaciones == false ; then capacitacionesSinEditar ; else capacitacionesQueSeEditen"></ng-container>
+          <ng-container
+            *ngIf="mostrarEdicionCapacitaciones == false ; then capacitacionesSinEditar ; else capacitacionesQueSeEditen">
+          </ng-container>
           <ng-template #capacitacionesSinEditar>
             <div class="container-fluid">
               <div class="row">
@@ -275,6 +280,37 @@
             </div>
           </ng-template>
         </ng-template>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<div class="margen container-fluid">
+  <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5">
+    <div class="row">
+      <div class="col-12 col-md-6 text-center alinear-centro px-0">
+        <ng-container *ngIf="user.githubUsername ; then mostrarCard ; else agregarGithub"></ng-container>
+        <ng-template #mostrarCard>
+          <div class="github-widget px-0" data-username="lucasrouco"></div>
+        </ng-template>
+        <ng-template #agregarGithub>
+          <div class="container-fluid">
+            <form [formGroup]="githubForm" (ngSubmit)="onAddGithub()" class="sm-margen mt-5 mb-3">
+              <div class="form-row mb-2">
+                <mat-form-field class="full-width-height">
+                  <mat-label>usuario de github</mat-label>
+                  <input matInput formControlName="githubUsername" type="text">
+                </mat-form-field>
+              </div>
+              <button type="submit" mat-raiser-button class="btn-agregar-capacitacion">
+                Agregar github
+              </button>
+            </form>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-12 col-md-6 text-center alinear-centro px-0">
+        <div class="github-widget" data-username="lucasrouco"></div>
       </div>
     </div>
   </mat-card>
