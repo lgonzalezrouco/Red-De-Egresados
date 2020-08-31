@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { User } from 'src/app/shared/interfaces/user';
 import { Empresa } from 'src/app/shared/interfaces/empresa';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GithubUser } from 'src/app/shared/interfaces/githubUser';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +23,8 @@ export class AuthService {
     private angularFirestore: AngularFirestore,
     public angularFirestorage: AngularFireStorage,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private http: HttpClient
   ) {}
 
   /*
@@ -159,6 +163,23 @@ export class AuthService {
     return (await this.afAuth.currentUser).sendEmailVerification();
   }
 
+  // Se usa para almacenar en el localStorage la informacion del usuario de firebase
+  async getUserFirebase(): Promise<void> {
+    this.afAuth.user.subscribe((user) => {
+      localStorage.setItem('userFirebase', JSON.stringify(user));
+      console.log(user);
+    });
+  }
+
+  // Se usa para almacenar en el localStorage la informacion del usuario de firestore y el uid
+  async getUserAndUID(): Promise<void> {
+    this.afAuth.user.subscribe(async (user) => {
+      localStorage.setItem('uid', user.uid);
+      const dataUser = await this.getUser(user.uid);
+      localStorage.setItem('user', JSON.stringify(dataUser));
+    });
+  }
+
   /*
   ┌─────────────────────────────────────────────┐
   │                   LOG OUT                   │
@@ -249,7 +270,7 @@ export class AuthService {
   }
 
   // Se usa para traer a un usuario especifico
-  public async getCapacitaciones(id: string) {
+  public async getCapacitaciones(id: string): Promise<any> {
     //Trae de la collection 'capacitaciones', el documento con el id que se pasa como argumento
     let capacitaciones = await this.angularFirestore
       .collection('capacitaciones')
@@ -293,6 +314,7 @@ export class AuthService {
       tituloEgreso: values.tituloEgreso,
       cellphone: values.cellphone,
       empresa: false,
+      githubUsername: '',
     };
 
     const capacitacionData = {
@@ -385,6 +407,7 @@ export class AuthService {
           tituloEgreso: user.tituloEgreso,
           cellphone: data.cellphone,
           empresa: false,
+          githubUsername: user.githubUsername
         });
 
       await this.saveUser(user.uid);
@@ -522,5 +545,72 @@ export class AuthService {
   // Se usa para obtener una referencia de un archivo en Storage
   public referenciaCloudStorage(nombreArchivo: string) {
     return this.angularFirestorage.ref(nombreArchivo);
+  }
+
+  /*
+  ┌─────────────────────────────────────────┐
+  │                   API                   │
+  └─────────────────────────────────────────┘
+  */
+
+  public async agregarGithub(githubUsername, user) {
+    try {
+      if (!this.checkGithubUser(githubUsername)) {
+        console.log("entre")
+        return 'El usuario no existe';
+      }
+
+      // Se actualizan todos los datos del documento del usuario
+      const result = this.angularFirestore
+        .collection('users')
+        .doc(user.uid)
+        .set({
+          uid: user.uid,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          gender: user.gender,
+          photoURL: user.photoURL,
+          birthday: user.birthday,
+          yearDeEgreso: user.yearDeEgreso,
+          orientacion: user.orientacion,
+          profesion: user.profesion,
+          DNI: user.DNI,
+          tituloEgreso: user.tituloEgreso,
+          cellphone: user.cellphone,
+          empresa: false,
+          githubUsername: githubUsername,
+        });
+
+      await this.saveUser(user.uid);
+      /* this.getUser(user.uid).subscribe((userSnapshot) => {
+          localStorage.setItem(
+            'user',
+            JSON.stringify(userSnapshot.payload.data())
+          );
+        }); */
+
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+
+  public getGithubUser(name: string): Promise<GithubUser> {
+    const url = `https://api.github.com/users/${name}`;
+    return this.http.get<GithubUser>(url).toPromise();
+  }
+
+  public async checkGithubUser(githubUsername: string): Promise<boolean> {
+    let mensajeDeError: string;
+    await this.getGithubUser(githubUsername).then((result) => {
+      mensajeDeError = result.message;
+    });
+    if (mensajeDeError == 'Not Found') {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

@@ -1,9 +1,11 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { User } from 'src/app/shared/interfaces/user';
+import { Renderer2, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-perfil',
@@ -48,6 +50,10 @@ export class PerfilComponent implements OnInit {
   public cellphonePattern = this.editarForm.get('cellphone');
   public profesionPattern = this.editarForm.get('profesion');
 
+  githubForm = new FormGroup({
+    githubUsername: new FormControl('', [Validators.required]),
+  });
+
   // Variable para guardar los datos del usuario
   public user: any;
   public userAux: User;
@@ -80,10 +86,20 @@ export class PerfilComponent implements OnInit {
     public authSvc: AuthService,
     public router: Router,
     public ngZone: NgZone,
-    public http: HttpClient
+    public http: HttpClient,
+    private renderer2: Renderer2,
+    private element: ElementRef,
+    @Inject(DOCUMENT) private _document
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const s = this.renderer2.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'https://unpkg.com/github-card@1.2.1/dist/widget.js';
+    s.text = ``;
+    this.renderer2.appendChild(this._document.body, s);
+    await this.authSvc.getUserFirebase();
+    await this.authSvc.getUserAndUID();
     this.user = JSON.parse(localStorage.getItem('user'));
     const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
     this.uid = localStorage.getItem('uid');
@@ -270,14 +286,11 @@ export class PerfilComponent implements OnInit {
   }
 
   async getCapacitaciones() {
-    /* let refCapacitaciones = this.authSvc.getCapacitaciones(this.uid); */
     await this.authSvc.getCapacitaciones(this.uid).then((capacitaciones) => {
-      /* console.log(ref.capacitaciones);
-      localStorage.setItem('capacitaciones', ref.capacitaciones);
-      let aux = localStorage.getItem('capacitaciones') */
+      console.log(capacitaciones);
       this.capacitaciones = capacitaciones.capacitaciones;
       this.capacitacionesLength = this.capacitaciones.length;
-      let i : number = 0
+      let i: number = 0;
       for (const capacitacion of this.capacitaciones) {
         console.log(i);
         i = i + 1;
@@ -299,4 +312,21 @@ export class PerfilComponent implements OnInit {
     await this.authSvc.deleteCapacitacion(indice);
     window.location.reload();
   }
+
+  async onAddGithub() {
+    await this.agregarGithub();
+    window.location.reload();
+  }
+
+  async agregarGithub() {
+    const { githubUsername } = this.githubForm.value;
+
+    console.log(githubUsername)
+    await this.authSvc.agregarGithub(
+      githubUsername,
+      this.user,
+    );
+  }
+
+  editGithubUsername() {}
 }
