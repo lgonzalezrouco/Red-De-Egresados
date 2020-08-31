@@ -14,6 +14,8 @@ Corra los siguientes comandos en la consola dentro de la carpeta:
 - ng serve (para crear un servidor local)
 - Vaya a `http://localhost:4200/`. Cada cambio en el codigo recargara la pagina.
 
+Sino dirijase a: `red-egresados-online.web.app/` donde se encuentra hosteada la pagina.
+
 ## Creacion de componentes
 
 Escriba `ng generate component component-name` para generar un nuevo componente. Tambien se puede usar `ng generate directive|pipe|service|class|guard|interface|enum|module`.
