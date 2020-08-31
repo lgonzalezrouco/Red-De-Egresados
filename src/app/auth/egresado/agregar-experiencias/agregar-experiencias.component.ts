@@ -81,7 +81,22 @@ export class AgregarExperienciasComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    await this.authSvc.getUserFirebase();
+    await this.authSvc.getUserAndUID();
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
+    const uid = localStorage.getItem('uid');
+    if (user && uid) {
+      if (!userFirebase.emailVerified) {
+        this.router.navigate(['/wait-verification']);
+      } else {
+        if (user.empresa && uid) {
+          this.router.navigate(['/perfil-empresa']);
+        }
+      }
+    }
+  }
 
   setFirstFormGroupEmpresa() {
     this.firstFormGroup.patchValue({

@@ -16,8 +16,9 @@ export class WaitVerificationComponent implements OnInit {
   constructor(private authSvc: AuthService, private router: Router) { }
 
   async ngOnInit(): Promise<void> {
+    await this.authSvc.getUserFirebase();
+    await this.authSvc.getUserAndUID();
     const uid = localStorage.getItem('uid');
-    await this.getUserFirebase();
     const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user);
@@ -39,10 +40,4 @@ export class WaitVerificationComponent implements OnInit {
     this.authSvc.sendVerificationEmail();
   }
 
-  async getUserFirebase(): Promise<void> {
-    this.authSvc.afAuth.user.subscribe((user) => {
-      localStorage.setItem('userFirebase', JSON.stringify(user));
-      console.log(user);
-    });
-  }
 }

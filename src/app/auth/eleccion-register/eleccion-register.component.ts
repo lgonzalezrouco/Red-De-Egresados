@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-eleccion-register',
@@ -7,9 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./eleccion-register.component.scss'],
 })
 export class EleccionRegisterComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authSvc: AuthService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.authSvc.getUserFirebase();
+    await this.authSvc.getUserAndUID();
     const user = JSON.parse(localStorage.getItem('user'));
     const uid = localStorage.getItem('uid');
     const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));

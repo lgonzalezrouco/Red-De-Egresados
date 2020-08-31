@@ -49,7 +49,9 @@ export class HomeEgresadoComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.authSvc.getUserFirebase();
+    await this.authSvc.getUserAndUID();
      this.user = JSON.parse(localStorage.getItem('user'));
     const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
     const uid = localStorage.getItem('uid');

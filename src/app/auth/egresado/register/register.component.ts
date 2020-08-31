@@ -159,7 +159,9 @@ export class RegisterComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.authSvc.getUserFirebase();
+    await this.authSvc.getUserAndUID();
     const user = JSON.parse(localStorage.getItem('user'));
     const uid = localStorage.getItem('uid');
     const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));

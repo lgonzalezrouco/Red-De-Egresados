@@ -47,9 +47,10 @@ export class PerfilEmpresaComponent implements OnInit {
     public ngZone: NgZone
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.authSvc.getUserFirebase();
+    await this.authSvc.getUserAndUID();
     const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
-
     this.user = JSON.parse(localStorage.getItem('user'));
     this.uid = localStorage.getItem('uid');
     console.log(this.user);

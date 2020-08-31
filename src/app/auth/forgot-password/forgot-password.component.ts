@@ -23,7 +23,9 @@ export class ForgotPasswordComponent implements OnInit {
 
   constructor(private authSvc: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.authSvc.getUserFirebase();
+    await this.authSvc.getUserAndUID();
     const uid = localStorage.getItem('uid');
     if(uid != null) {
       this.router.navigate(['/home']);
