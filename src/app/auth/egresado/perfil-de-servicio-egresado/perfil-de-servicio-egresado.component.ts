@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
 
 @Component({
   selector: 'app-perfil-de-servicio-egresado',
@@ -73,5 +74,15 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
         console.log(capacitacion);
       }
     });
+  }
+
+  sendEmail(e: Event) {
+    e.preventDefault();
+    emailjs.sendForm('service_Red_De_Egresados', 'template_u9u10q7', e.target as HTMLFormElement, 'user_OFf0cr3nYd4ETarAexhwk')
+      .then((result: EmailJSResponseStatus) => {
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      });
   }
 }
