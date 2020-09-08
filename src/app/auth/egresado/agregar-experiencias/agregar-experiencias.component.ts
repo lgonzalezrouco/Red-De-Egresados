@@ -104,7 +104,7 @@ export class AgregarExperienciasComponent implements OnInit {
     });
     this.backgroundColorEmpresa = '#51799f';
     this.backgroundColorEgresado = '#ffffff';
-    this.srcImgEmpresa = 'agregar imagen nueva';
+    this.srcImgEmpresa = '../../../assets/images/empresaselec.png';
     this.srcImgEgresado = '../../../assets/images/eleccion_egresado.png';
     const { relacionDeCapacitacion } = this.firstFormGroup.value;
     console.log(relacionDeCapacitacion);
@@ -116,7 +116,7 @@ export class AgregarExperienciasComponent implements OnInit {
     this.backgroundColorEmpresa = '#ffffff';
     this.backgroundColorEgresado = '#51799f';
     this.srcImgEmpresa = '../../../assets/images/eleccion_empresa.png';
-    this.srcImgEgresado = 'agregar imagen nueva';
+    this.srcImgEgresado = '../../../assets/images/egresadoselec.png';
     const { relacionDeCapacitacion } = this.firstFormGroup.value;
     console.log(relacionDeCapacitacion);
   }
