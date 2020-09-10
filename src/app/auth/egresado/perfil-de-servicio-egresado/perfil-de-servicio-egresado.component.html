@@ -37,7 +37,7 @@
               </h1>
             </div>
             <div class="col-2 col-md-1 px-0 contactar">
-              <button class="boton-editar vertical-align">
+              <button (click)="abrirFormularioDeContacto()" class="boton-editar vertical-align">
                 <img mat-icon class="imagen-contacto" src="../../assets/images/contactar.png">
               </button>
             </div>
@@ -144,14 +144,3 @@
     </div>
   </mat-card>
 </div>
-
-<!-- Este es el formulario para enviar mails -->
-<!-- <form class="contact-form" (submit)="sendEmail($event)">
-  <label>Name</label>
-  <input type="text" name="user_name">
-  <label>Email</label>
-  <input type="email" name="user_email">
-  <label>Message</label>
-  <textarea name="message"></textarea>
-  <input type="submit" value="Send">
-</form> -->
