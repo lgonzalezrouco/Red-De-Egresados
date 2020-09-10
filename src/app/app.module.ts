@@ -108,6 +108,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent],
 })
