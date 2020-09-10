@@ -39,4 +39,3 @@ Para mas ayuda en el CLI de Angular use `ng help` o cheque [Angular CLI README](
 ## COSAS PARA MODIFICAR
 
 - Aprender a usar Auth Guards - NO ES IMPORTANTE POR AHORA
-- Falta foto de agregar experiencia y fotos de cruces
