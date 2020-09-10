@@ -48,6 +48,7 @@ import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresa
 import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.component';
 import { AgregarExperienciasComponent } from './auth/egresado/agregar-experiencias/agregar-experiencias.component';
 import { EmailContactComponent } from './auth/egresado/email-contact/email-contact.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -106,7 +107,8 @@ import { EmailContactComponent } from './auth/egresado/email-contact/email-conta
     MatSelectModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    /* {provide: LocationStrategy, useClass: HashLocationStrategy} */
   ],
   bootstrap: [AppComponent],
 })
