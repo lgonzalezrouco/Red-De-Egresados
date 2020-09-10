@@ -37,7 +37,7 @@
 }
 
 .margin-top-content {
-  margin-top: 1.5rem!important;
+  margin-top: 1.5rem !important;
 }
 
 .alinear-centro {
@@ -209,10 +209,9 @@
     margin-right: -15px;
     margin-left: -15px;
   }
-  .descrip{
+  .descrip {
     margin-right: 8%;
   }
-
 }
 
 @media all and (max-width: 767px) {
@@ -229,7 +228,7 @@
     text-align: center;
   }
   .margin-top-content {
-    margin-top: 0rem!important;
+    margin-top: 0rem !important;
   }
   .sm-alinear-centro {
     display: flex;
@@ -252,14 +251,13 @@
     display: block;
     width: 100%;
   }
-  .descrip{
+  .descrip {
     margin-right: 0%;
   }
   .agregar-cursos {
     margin-left: 0rem;
   }
-  .sm-margen-bottom-editar{
+  .sm-margen-bottom-editar {
     margin-bottom: 0.7rem;
   }
 }
-

@@ -148,9 +148,9 @@ export class HomeEmpresaComponent implements OnInit {
   }
 
   getEdad(fecha): number {
-    const timeStamp = fecha.toString();
-    let [, res] = timeStamp.match(/seconds=(\d+)/);
-    let fechaDeNacimiento = new Date(+res * 1000);
+    console.log(fecha)
+    const timestamp = fecha.seconds;
+    let fechaDeNacimiento = new Date(timestamp * 1000);
 
     let today: Date = new Date();
 
