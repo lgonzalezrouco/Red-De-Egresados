@@ -172,7 +172,7 @@ export class PerfilComponent implements OnInit {
       this.mostrar = false;
     } else {
       this.mostrar = true;
-      window.location.reload();
+      window.location.replace(this.router.url);
     }
   }
 
@@ -321,11 +321,8 @@ export class PerfilComponent implements OnInit {
   async agregarGithub() {
     const { githubUsername } = this.githubForm.value;
 
-    console.log(githubUsername)
-    await this.authSvc.agregarGithub(
-      githubUsername,
-      this.user,
-    );
+    console.log(githubUsername);
+    await this.authSvc.agregarGithub(githubUsername, this.user);
   }
 
   editGithubUsername() {}
