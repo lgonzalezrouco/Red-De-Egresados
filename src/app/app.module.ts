@@ -39,6 +39,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { HttpClientModule } from "@angular/common/http"
 
@@ -46,6 +47,8 @@ import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
 import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.component';
 import { AgregarExperienciasComponent } from './auth/egresado/agregar-experiencias/agregar-experiencias.component';
+import { EmailContactComponent } from './auth/egresado/email-contact/email-contact.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -68,6 +71,7 @@ import { AgregarExperienciasComponent } from './auth/egresado/agregar-experienci
     HomeEgresadoComponent,
     HomeEmpresaComponent,
     AgregarExperienciasComponent,
+    EmailContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +94,8 @@ import { AgregarExperienciasComponent } from './auth/egresado/agregar-experienci
     MatStepperModule,
     MatToolbarModule,
     HttpClientModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -102,7 +107,8 @@ import { AgregarExperienciasComponent } from './auth/egresado/agregar-experienci
     MatSelectModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    /* {provide: LocationStrategy, useClass: HashLocationStrategy} */
   ],
   bootstrap: [AppComponent],
 })

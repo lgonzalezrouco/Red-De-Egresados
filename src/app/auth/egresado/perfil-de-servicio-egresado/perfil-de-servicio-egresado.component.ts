@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+import { MatDialog } from '@angular/material/dialog';
+import { EmailContactComponent } from '../email-contact/email-contact.component';
 
 @Component({
   selector: 'app-perfil-de-servicio-egresado',
@@ -16,11 +18,11 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
   public capacitaciones;
   public capacitacionesLength: number;
 
-
   constructor(
     private authSvc: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -48,9 +50,8 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
           } else {
             // Sino muestra los datos correspondientes
             this.usuarioIngresado = await this.authSvc.getUser(this.uid);
-            const timeStamp = this.usuarioIngresado.birthday.toString();
-            let [, res] = timeStamp.match(/seconds=(\d+)/);
-            this.fechaDeNacimiento = new Date(+res * 1000);
+            const timestamp = this.usuarioIngresado.birthday.seconds;
+            this.fechaDeNacimiento = new Date(timestamp * 1000);
             console.log(this.fechaDeNacimiento);
             this.getCapacitaciones();
           }
@@ -67,7 +68,7 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
       let aux = localStorage.getItem('capacitaciones') */
       this.capacitaciones = capacitaciones.capacitaciones;
       this.capacitacionesLength = this.capacitaciones.length;
-      let i : number = 0
+      let i: number = 0;
       for (const capacitacion of this.capacitaciones) {
         console.log(i);
         i = i + 1;
@@ -76,13 +77,10 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
     });
   }
 
-  sendEmail(e: Event) {
-    e.preventDefault();
-    emailjs.sendForm('service_Red_De_Egresados', 'template_u9u10q7', e.target as HTMLFormElement, 'user_OFf0cr3nYd4ETarAexhwk')
-      .then((result: EmailJSResponseStatus) => {
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-      });
+  abrirFormularioDeContacto() {
+    let nombreDelUsuario: string = this.usuarioIngresado.firstName + ' ' + this.usuarioIngresado.lastName
+    this.dialog.open(EmailContactComponent, {
+      data: {name: nombreDelUsuario, email: this.usuarioIngresado.email}
+    });
   }
 }

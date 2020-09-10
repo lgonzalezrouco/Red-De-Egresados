@@ -38,7 +38,7 @@
               </p>
             </div> -->
             <div class="col 12 ">
-              <h3 >
+              <h3>
                 <p class="mt-3 descrip">
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
                   nec ornare tortor, et volutpat augue. In tincidunt auctor nisl eget
@@ -54,7 +54,12 @@
       </ng-template>
       <ng-template #editarDatos>
         <div class="col-12 col-md-8 px-0 mt-4 mb-4">
-          <form [formGroup]="editarForm" (ngSubmit)="onEdit()" class="sm-margen mt-5 mb-3">
+          <div class="col-10 col-md-11">
+            <h1 class="line-height-normal sm-text-left titulo vertical-align">
+              Edite sus datos
+            </h1>
+          </div>
+          <form [formGroup]="editarForm" (ngSubmit)="onEdit()" class="sm-margen mt-4 mb-3">
             <div class="form-row mb-2">
               <div class="offset-md-1 col-md-5 col-12 float-left">
                 <mat-form-field class="full-width-height">
@@ -73,8 +78,8 @@
             <div class="form-row mb-2">
               <div class="offset-md-1 col-md-5 col-12 float-left">
                 <label for="Cambiar Foto">Foto de perfil</label>
-                <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file"
-                  id="inputFile" formControlName="photoURL" (change)="cambioArchivo($event)" />
+                <input type="file" accept="image/jpeg, image/png, image/jpg" class="form-control-file" id="inputFile"
+                  (change)="cambioArchivo($event)" />
               </div>
               <div class="col-md-5 col-12">
                 <div class="row">

@@ -61,7 +61,12 @@
       </ng-template>
       <ng-template #editarDatos>
         <div class="col-12 col-md-8 px-0 mt-4 mb-4">
-          <form [formGroup]="editarForm" (ngSubmit)="onEdit()" class="sm-margen mt-5 mb-3">
+          <div class="col-10 col-md-11">
+            <h1 class="line-height-normal sm-text-left titulo vertical-align">
+              Edite sus datos
+            </h1>
+          </div>
+          <form [formGroup]="editarForm" (ngSubmit)="onEdit()" class="sm-margen mt-4 mb-3">
             <div class="form-row mb-2">
               <div class="offset-md-1 col-md-5 col-12 float-left">
                 <mat-form-field class="full-width-height">
@@ -236,7 +241,7 @@
                     <div class="col-4 mt-2 mb-2">
                       <img src="{{
                         capacitacion.relacionDeCapacitacion == 'empresa' ? '../../../assets/images/eleccion_empresa.png' : '../../../assets/images/eleccion_egresado.png'
-                      }}" alt="Eleccion egresado" class="img-fluid ">
+                      }}" alt="Eleccion egresado" class="img-fluid">
                     </div>
                     <div class="col-8 mt-2 mb-2">
                       <div>{{capacitacion.lugarDeCapacitacion}}</div>
@@ -287,6 +292,20 @@
 
 <div class="margen container-fluid">
   <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5">
+    <div class="row">
+      <div class="col-6 float-left">
+        <h2 class="subtitulo-experiencia ml-2">
+          Redes Sociales
+        </h2>
+      </div>
+      <div class="offset-4 offset-md-5 col-2 col-md-1 px-0 float-right">
+        <button class="boton-editar vertical-align">
+          <img mat-icon class="img-fluid sm-margen-bottom-editar"
+            src="{{mostrarEdicionCapacitaciones == false ? '../../assets/images/editar.png' : '../../assets/images/cruz.png'}}"
+            alt="agregar imagen de cruz">
+        </button>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12 col-md-6 text-center alinear-centro px-0">
         <ng-container *ngIf="user.githubUsername ; then mostrarCard ; else agregarGithub"></ng-container>
