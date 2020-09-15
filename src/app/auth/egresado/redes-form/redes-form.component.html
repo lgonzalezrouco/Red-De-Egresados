@@ -1,0 +1,23 @@
+<div class="pb-4 pt-3 px-5">
+  <h1 mat-dialog-title class="titulo text-center mt-3 pb-3">{{ red }}</h1>
+  <form [formGroup]="redesForm" (ngSubmit)="onAddUsername()">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-row">
+          <mat-form-field class="full-width-height">
+            <mat-label>Ingrese su nombre de usuario de {{red}}</mat-label>
+            <input matInput formControlName="username">
+            <mat-error *ngIf="usernamePattern.hasError('required')">
+              El nombre de usuario es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <button mat-button class="btn btn-dark btn-block" type="submit">Agregar</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -24,6 +24,29 @@
   margin-left: 2rem;
 }
 
+.social-icons {
+  font-family: Roboto-Light;
+  font-size: medium;
+  font-weight: 900;
+}
+
+.github-icon-text {
+  font-family: Roboto-Bold;
+  font-size: xx-large;
+}
+
+.set-pointer {
+  cursor: pointer;
+}
+
+.center {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
 .-ml-02 {
   margin-left: -0.2rem;
 }
@@ -58,6 +81,42 @@
   font-family: Roboto-Medium;
   font-weight: 500;
   color: #51799f;
+}
+
+.nombre-github {
+  font-family: Roboto-Light;
+  font-size: x-large;
+}
+
+.localizacion-github {
+  font-family: Roboto-Light;
+  font-size: smaller;
+}
+
+.github-number {
+  justify-content: center;
+  font-family: Roboto-Light;
+}
+
+.github-text {
+  font-family: Roboto-Light;
+  font-size: smaller;
+  justify-content: center;
+  color: #356089;
+}
+
+.texto-repositorio {
+  font-family: Roboto-Light;
+  color: #2c2c2c;
+}
+
+.nombre-repo {
+  font-family: Roboto-Light;
+  color: #356089;
+}
+
+.descripcion-repo {
+  font-family: Roboto-Light;
 }
 
 .float-left {

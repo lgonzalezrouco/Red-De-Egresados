@@ -180,6 +180,13 @@ export class AuthService {
     });
   }
 
+  async getSocial(): Promise<void> {
+    this.afAuth.user.subscribe(async (user) => {
+      const dataUser = await this.getUserSocial(user.uid);
+      localStorage.setItem('social', JSON.stringify(dataUser));
+    });
+  }
+
   /*
   ┌─────────────────────────────────────────────┐
   │                   LOG OUT                   │
@@ -314,7 +321,6 @@ export class AuthService {
       tituloEgreso: values.tituloEgreso,
       cellphone: values.cellphone,
       empresa: false,
-      githubUsername: '',
     };
 
     const capacitacionData = {
@@ -407,7 +413,6 @@ export class AuthService {
           tituloEgreso: user.tituloEgreso,
           cellphone: data.cellphone,
           empresa: false,
-          githubUsername: user.githubUsername
         });
 
       await this.saveUser(user.uid);
@@ -470,6 +475,22 @@ export class AuthService {
     let user = await this.getUser(id);
     console.log(user);
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  // Se usa para traer a un usuario especifico
+  public async getUserSocial(id: string) {
+    //Trae de la collection 'users', el documento con el id que se pasa como argumento
+    let user = await this.angularFirestore
+      .collection('social')
+      .doc(id)
+      .get()
+      .toPromise();
+    return user.data();
+  }
+
+  public async saveUserSocial(id) {
+    let user = await this.getUserSocial(id);
+    localStorage.setItem('social', JSON.stringify(user))
   }
   /*
   public getUser(id: string) {
@@ -553,7 +574,7 @@ export class AuthService {
   └─────────────────────────────────────────┘
   */
 
-  public async agregarGithub(githubUsername, user) {
+  public async agregarGithub (githubUsername, user): Promise<any> {
     try {
       if (!this.checkGithubUser(githubUsername)) {
         console.log("entre")
@@ -562,33 +583,13 @@ export class AuthService {
 
       // Se actualizan todos los datos del documento del usuario
       const result = this.angularFirestore
-        .collection('users')
+        .collection('social')
         .doc(user.uid)
         .set({
-          uid: user.uid,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          gender: user.gender,
-          photoURL: user.photoURL,
-          birthday: user.birthday,
-          yearDeEgreso: user.yearDeEgreso,
-          orientacion: user.orientacion,
-          profesion: user.profesion,
-          DNI: user.DNI,
-          tituloEgreso: user.tituloEgreso,
-          cellphone: user.cellphone,
-          empresa: false,
           githubUsername: githubUsername,
         });
 
-      await this.saveUser(user.uid);
-      /* this.getUser(user.uid).subscribe((userSnapshot) => {
-          localStorage.setItem(
-            'user',
-            JSON.stringify(userSnapshot.payload.data())
-          );
-        }); */
+      await this.saveUserSocial(user.uid);
 
       return result;
     } catch (error) {

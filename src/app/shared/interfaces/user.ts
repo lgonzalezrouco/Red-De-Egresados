@@ -13,5 +13,4 @@ export interface User {
   DNI: string;
   tituloEgreso: string;
   empresa: boolean;
-  githubUsername: string
 }

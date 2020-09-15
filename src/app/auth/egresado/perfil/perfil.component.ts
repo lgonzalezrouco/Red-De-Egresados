@@ -6,6 +6,9 @@ import { AuthService } from '../../services/auth.service';
 import { User } from 'src/app/shared/interfaces/user';
 import { Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { RedesFormComponent } from '../redes-form/redes-form.component';
+import { GithubUser } from 'src/app/shared/interfaces/githubUser';
 
 @Component({
   selector: 'app-perfil',
@@ -60,10 +63,14 @@ export class PerfilComponent implements OnInit {
   public uid;
   public capacitaciones;
   public capacitacionesLength: number;
+  public social;
+  public githubUser: GithubUser;
+  public githubRepos;
 
   // Variable para saber si se tiene que mostrar el formulario editable
   public mostrar: boolean = true;
   public mostrarEdicionCapacitaciones: boolean = false;
+  public mostrarEdicionRedes: boolean = false;
 
   // Variables para la subida de fotos al Storage
   public nombreArchivo = '';
@@ -87,6 +94,7 @@ export class PerfilComponent implements OnInit {
     public router: Router,
     public ngZone: NgZone,
     public http: HttpClient,
+    private dialog: MatDialog,
     private renderer2: Renderer2,
     private element: ElementRef,
     @Inject(DOCUMENT) private _document
@@ -100,10 +108,12 @@ export class PerfilComponent implements OnInit {
     this.renderer2.appendChild(this._document.body, s);
     await this.authSvc.getUserFirebase();
     await this.authSvc.getUserAndUID();
+    await this.authSvc.getSocial();
     this.user = JSON.parse(localStorage.getItem('user'));
     const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
     this.uid = localStorage.getItem('uid');
     this.capacitaciones = localStorage.getItem('capacitaciones');
+    this.social = JSON.parse(localStorage.getItem('social'));
     console.log(this.user);
     if (this.user && this.uid) {
       if (!userFirebase.emailVerified) {
@@ -113,6 +123,13 @@ export class PerfilComponent implements OnInit {
           this.router.navigate(['/perfil-empresa']);
         } else {
           this.getCapacitaciones();
+          this.githubUser = await this.authSvc.getGithubUser(
+            this.social.githubUsername
+          );
+          this.getGithubRepos().then((result) => {
+            this.githubRepos = result;
+            this.githubRepos = this.githubRepos.slice(0, 3);
+          });
         }
       }
     }
@@ -313,17 +330,73 @@ export class PerfilComponent implements OnInit {
     window.location.reload();
   }
 
-  async onAddGithub() {
-    await this.agregarGithub();
-    window.location.reload();
+  editarRedes() {
+    if (this.mostrarEdicionRedes) {
+      this.mostrarEdicionRedes = false;
+      window.location.reload();
+    } else {
+      this.mostrarEdicionRedes = true;
+    }
   }
 
-  async agregarGithub() {
-    const { githubUsername } = this.githubForm.value;
+  abrirFormularioDeInstagram() {
+    let user: User = this.user;
+    let dialogRef = this.dialog.open(RedesFormComponent, {
+      data: { uid: this.uid, red: 'Instagram', user: user },
+    });
 
-    console.log(githubUsername);
-    await this.authSvc.agregarGithub(githubUsername, this.user);
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload()
+    });
   }
 
-  editGithubUsername() {}
+  abrirFormularioDeBehance() {
+    let user: User = this.user;
+    let dialogRef = this.dialog.open(RedesFormComponent, {
+      data: { uid: this.uid, red: 'Behance', user: user },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload()
+    });
+  }
+
+  abrirFormularioDeFlickr() {
+    let user: User = this.user;
+    let dialogRef = this.dialog.open(RedesFormComponent, {
+      data: { uid: this.uid, red: 'Flickr', user: user },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload()
+    });
+  }
+
+  abrirFormularioDeFacebook() {
+    let user: User = this.user;
+    let dialogRef = this.dialog.open(RedesFormComponent, {
+      data: { uid: this.uid, red: 'Facebook', user: user },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload()
+    });
+  }
+
+  abrirFormularioDeGithub() {
+    let user: User = this.user;
+    let dialogRef = this.dialog.open(RedesFormComponent, {
+      data: { uid: this.uid, red: 'GitHub', user: user },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload()
+    });
+  }
+
+  getGithubRepos() {
+    const url = this.githubUser.repos_url;
+    return this.http.get<any>(url).toPromise();
+  }
+
 }
