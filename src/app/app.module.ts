@@ -49,6 +49,7 @@ import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.c
 import { AgregarExperienciasComponent } from './auth/egresado/agregar-experiencias/agregar-experiencias.component';
 import { EmailContactComponent } from './auth/egresado/email-contact/email-contact.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { RedesFormComponent } from './auth/egresado/redes-form/redes-form.component';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     HomeEmpresaComponent,
     AgregarExperienciasComponent,
     EmailContactComponent,
+    RedesFormComponent,
   ],
   imports: [
     BrowserModule,
