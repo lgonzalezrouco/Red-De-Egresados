@@ -15,8 +15,72 @@
 
 .texto-dato {
   font-weight: 500;
-
   margin-top: -5%;
+}
+.agregar-cursos {
+  font-weight: 500;
+  font-size: larger;
+  font-family: Roboto-Medium;
+  margin-left: 2rem;
+}
+
+.social-icons {
+  font-family: Roboto-Light;
+  font-size: medium;
+  font-weight: 900;
+}
+
+.github-icon-text {
+  font-family: Roboto-Bold;
+  font-size: xx-large;
+}
+
+.nombre-github {
+  font-family: Roboto-Light;
+  font-size: x-large;
+}
+
+.localizacion-github {
+  font-family: Roboto-Light;
+  font-size: smaller;
+}
+
+.github-number {
+  justify-content: center;
+  font-family: Roboto-Light;
+}
+
+.github-text {
+  font-family: Roboto-Light;
+  font-size: smaller;
+  justify-content: center;
+  color: #356089;
+}
+
+.texto-repositorio {
+  font-family: Roboto-Light;
+  color: #2c2c2c;
+}
+
+.nombre-repo {
+  font-family: Roboto-Light;
+  color: #356089;
+}
+
+.descripcion-repo {
+  font-family: Roboto-Light;
+}
+
+.set-pointer {
+  cursor: pointer;
+}
+
+.center {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
 }
 
 .-ml-02 {

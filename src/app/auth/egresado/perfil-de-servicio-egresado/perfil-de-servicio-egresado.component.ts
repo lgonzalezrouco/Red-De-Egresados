@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
 import { MatDialog } from '@angular/material/dialog';
 import { EmailContactComponent } from '../email-contact/email-contact.component';
+import { GithubUser } from 'src/app/shared/interfaces/githubUser';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-perfil-de-servicio-egresado',
@@ -17,12 +19,16 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
   public uidDelUsuarioLogeado;
   public capacitaciones;
   public capacitacionesLength: number;
+  public social;
+  public githubUser: GithubUser;
+  public githubRepos;
 
   constructor(
     private authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public http: HttpClient,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -50,10 +56,18 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
           } else {
             // Sino muestra los datos correspondientes
             this.usuarioIngresado = await this.authSvc.getUser(this.uid);
+            this.social = await this.authSvc.getUserSocial(this.uid)
             const timestamp = this.usuarioIngresado.birthday.seconds;
             this.fechaDeNacimiento = new Date(timestamp * 1000);
             console.log(this.fechaDeNacimiento);
             this.getCapacitaciones();
+            this.githubUser = await this.authSvc.getGithubUser(
+              this.social.githubUsername
+            );
+            this.getGithubRepos().then((result) => {
+              this.githubRepos = result;
+              this.githubRepos = this.githubRepos.slice(0, 3);
+            });
           }
         });
       }
@@ -82,5 +96,10 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
     this.dialog.open(EmailContactComponent, {
       data: {name: nombreDelUsuario, email: this.usuarioIngresado.email}
     });
+  }
+
+  getGithubRepos() {
+    const url = this.githubUser.repos_url;
+    return this.http.get<any>(url).toPromise();
   }
 }
