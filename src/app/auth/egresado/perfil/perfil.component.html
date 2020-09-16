@@ -389,7 +389,7 @@
                     <img src="{{ githubUser.avatar_url }}" class="rounded-circle img-fluid center" alt="" />
                   </div>
                   <div class="col-8">
-                    <div class="row">
+                    <a href="{{githubUser.html_url}}" class="row center">
                       <div class="container nombre-github mt-1">
                         {{ githubUser.name }}
                       </div>
@@ -402,25 +402,19 @@
                             d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                         </svg> {{ githubUser.location }}
                       </div>
-                    </div>
+                    </a>
                     <div class="row text-center mt-2">
                       <div class="col-4 text-center">
                         <div class="row text-center github-number">{{githubUser.followers}}</div>
                         <div class="row text-center github-text">Seguidores</div>
-                        <!-- <div class="container">{{githubUser.followers}}</div>
-                        <div class="row">Seguidores</div> -->
                       </div>
                       <div class="col-4 text-center">
                         <div class="row text-center github-number">{{githubUser.following}}</div>
                         <div class="row text-center github-text">Seguidos</div>
-                        <!-- <div class="container">{{githubUser.following}}</div>
-                        <div class="row">Seguidos</div> -->
                       </div>
                       <div class="col-4 text-center">
                         <div class="row text-center github-number">{{githubUser.public_repos}}</div>
                         <div class="row text-center github-text">Repositorios</div>
-                        <!-- <div class="container">{{githubUser.public_repos}}</div>
-                        <div class="row">Repositorios</div> -->
                       </div>
                     </div>
                   </div>
@@ -435,7 +429,6 @@
                     <a href="{{repo.html_url}}" class="line-height-normal text-center nombre-repo">
                       {{repo.name}}
                     </a>
-                    <!-- <div class="col-9 alinear-centro vertical-align center descripcion-repo"> {{repo.stargazers_count}} </div> -->
                   </div>
                 </div>
               </div>
