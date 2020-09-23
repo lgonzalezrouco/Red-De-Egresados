@@ -24,10 +24,16 @@ Estos datos se pegan en 'src/environments'
 
   - Service ID
     ![service_ID](/src/assets/images/emailJS_service_ID.png)
+    ![service_ID](/src/assets/images/emailJS_service_ID_closeup.png)
   - template ID
     ![template_ID](/src/assets/images/emailJS_template_ID.png)
+    ![template_ID](/src/assets/images/emailJS_template_ID_closeup.png)
+  - user ID
+    ![user_ID](/src/assets/images/emailJS_user_ID.png)
+    ![user_ID](/src/assets/images/emailJS_user_ID_closeup.png)
   - plantilla de email y html
     ![plantilla emailJS](/src/assets/images/plantilla_emailJS.png)
+    ![plantilla emailJS](/src/assets/images/plantilla_emailJS_closeup.png)
     Los datos que se enceuentran entre **{}** en el html se encuetran en name
     ![plantilla html](/src/assets/images/html_emailJS.png)
 

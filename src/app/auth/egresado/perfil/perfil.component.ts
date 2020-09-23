@@ -101,11 +101,11 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    const s = this.renderer2.createElement('script');
+    /* const s = this.renderer2.createElement('script');
     s.type = 'text/javascript';
     s.src = 'https://unpkg.com/github-card@1.2.1/dist/widget.js';
     s.text = ``;
-    this.renderer2.appendChild(this._document.body, s);
+    this.renderer2.appendChild(this._document.body, s); */
     await this.authSvc.getUserFirebase();
     await this.authSvc.getUserAndUID();
     await this.authSvc.getSocial();

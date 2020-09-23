@@ -93,8 +93,11 @@ export class PerfilDeServicioEgresadoComponent implements OnInit {
 
   abrirFormularioDeContacto() {
     let nombreDelUsuario: string = this.usuarioIngresado.firstName + ' ' + this.usuarioIngresado.lastName
-    this.dialog.open(EmailContactComponent, {
+    let dialogRef = this.dialog.open(EmailContactComponent, {
       data: {name: nombreDelUsuario, email: this.usuarioIngresado.email}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload()
     });
   }
 

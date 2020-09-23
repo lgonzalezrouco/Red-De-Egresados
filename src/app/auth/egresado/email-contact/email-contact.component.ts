@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
 import { AuthService } from '../../services/auth.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { keys } from 'config';
 
 @Component({
@@ -12,7 +12,8 @@ import { keys } from 'config';
 export class EmailContactComponent implements OnInit {
   constructor(
     private authSvc: AuthService,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data,
+    public dialogRef: MatDialogRef<EmailContactComponent>
   ) {}
 
   public user: any;
@@ -50,6 +51,7 @@ export class EmailContactComponent implements OnInit {
         (result: EmailJSResponseStatus) => {
           this.result = result.text;
           console.log(result.text);
+          this.dialogRef.close();
         },
         (error) => {
           console.log(error.text);

@@ -298,6 +298,10 @@ export class AuthService {
       `capacitaciones/${user.uid}`
     );
 
+    const socialRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
+      `social/${user.uid}`
+    );
+
     if (typeof photoURL === 'undefined') {
       photoURL = '';
     }
@@ -326,10 +330,16 @@ export class AuthService {
     const capacitacionData = {
       capacitaciones: [],
     };
+
+    const socialData = {};
+
     /*
      * Se guarda la informacion que esta dentro de userData en el
      * Firestore usando la referencia creada antes
      */
+    socialRef.set(socialData, {
+      merge: true,
+    });
     capacitacionesRef.set(capacitacionData, {
       merge: true,
     });
@@ -490,7 +500,7 @@ export class AuthService {
 
   public async saveUserSocial(id) {
     let user = await this.getUserSocial(id);
-    localStorage.setItem('social', JSON.stringify(user))
+    localStorage.setItem('social', JSON.stringify(user));
   }
   /*
   public getUser(id: string) {
@@ -574,10 +584,10 @@ export class AuthService {
   └─────────────────────────────────────────┘
   */
 
-  public async agregarGithub (githubUsername, user): Promise<any> {
+  public async agregarGithub(githubUsername, user): Promise<any> {
     try {
       if (!this.checkGithubUser(githubUsername)) {
-        console.log("entre")
+        console.log('entre');
         return 'El usuario no existe';
       }
 
