@@ -23,5 +23,3 @@ export const keys = {
   templateID: 'template_u9u10q7',
   userID: 'user_OFf0cr3nYd4ETarAexhwk',
 };
-
-asasdasdasd
