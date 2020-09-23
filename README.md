@@ -1,10 +1,6 @@
 <h1 style="text-align: center;">Red De Egresados</h1>
 
-<div style="text-align: center;">
-
 ![Logo del IPM](/src/assets/images/logo_ipm.png)
-
-</div>
 
 ##
 
