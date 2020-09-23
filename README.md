@@ -7,6 +7,7 @@
 </div>
 
 ##
+
 ## A tener en cuenta
 
 - Se necesita establecer sus propias variables de firebase en environment
@@ -17,25 +18,44 @@
 Los datos que interesan de ahi son los siguientes:
 ![firebase key de cerca](/src/assets/images/api_keys_firebase_closeup.png)
 
-Estos datos se pegan en 'src/environments'
+Estos datos se pegan en 'src/environments/environment.ts'
 ![firebase key in environment](/src/assets/images/api_keys_firebase_in_environment.png)
 
-- Se necesita establecer sus propias variables relacionadas a mandar emails en 'perfil-de-servicio-egresado'. Estas se obtienen de email.js
+###
+
+- Se necesita establecer sus propias keys para emailJS en 'email-contact'.
+
+  ###
 
   - Service ID
     ![service_ID](/src/assets/images/emailJS_service_ID.png)
     ![service_ID](/src/assets/images/emailJS_service_ID_closeup.png)
+    ###
   - template ID
     ![template_ID](/src/assets/images/emailJS_template_ID.png)
     ![template_ID](/src/assets/images/emailJS_template_ID_closeup.png)
+    ###
   - user ID
     ![user_ID](/src/assets/images/emailJS_user_ID.png)
     ![user_ID](/src/assets/images/emailJS_user_ID_closeup.png)
+
+  ###
+
+  Todas estas variables se pegan en 'src/app/auth/egresado/email-contact/email-contact.component.ts'
+  ![emailJs keys in email-contact](/src/assets/images/emailJS_keys.png)
+
+  ###
+
+- Estos datos son los que tienen que estar en comun entre la plantilla de emailJS y el html que se usa para enviar el mensaje
+  ###
   - plantilla de email y html
     ![plantilla emailJS](/src/assets/images/plantilla_emailJS.png)
     ![plantilla emailJS](/src/assets/images/plantilla_emailJS_closeup.png)
+    ###
     Los datos que se enceuentran entre **{}** en el html se encuetran en name
     ![plantilla html](/src/assets/images/html_emailJS.png)
+
+###
 
 - Se necesitan estas collections en firestore
 
