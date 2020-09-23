@@ -1,41 +1,67 @@
-## Red De Egresados
+<h1 style="text-align: center;">Red De Egresados</h1>
 
-Red de Egresados para el IPM
+<div style="text-align: center;">
 
-## Cosas a tener en cuenta
+![Logo del IPM](/src/assets/images/logo_ipm.png)
 
-Las variables que se encuentran en environment relacionadas a firebase puede que no sean del proyecto que se piensa. Verifique estos datos.
+</div>
 
-## Para su desarrollo y testeo
+##
+## A tener en cuenta
 
-Corra los siguientes comandos en la consola dentro de la carpeta:
+- Se necesita establecer sus propias variables de firebase en environment
+
+1.  ![pagina de firebase](/src/assets/images/firebase.png)
+2.  ![firebase key](/src/assets/images/api_keys_firebase.png)
+
+Los datos que interesan de ahi son los siguientes:
+![firebase key de cerca](/src/assets/images/api_keys_firebase_closeup.png)
+
+Estos datos se pegan en 'src/environments'
+![firebase key in environment](/src/assets/images/api_keys_firebase_in_environment.png)
+
+- Se necesita establecer sus propias variables relacionadas a mandar emails en 'perfil-de-servicio-egresado'. Estas se obtienen de email.js
+
+  - Service ID
+    ![service_ID](/src/assets/images/emailJS_service_ID.png)
+  - template ID
+    ![template_ID](/src/assets/images/emailJS_template_ID.png)
+  - plantilla de email y html
+    ![plantilla emailJS](/src/assets/images/plantilla_emailJS.png)
+    Los datos que se enceuentran entre **{}** en el html se encuetran en name
+    ![plantilla html](/src/assets/images/html_emailJS.png)
+
+- Se necesitan estas collections en firestore
+
+![collections](/src/assets/images/collections_necesarias.png)
+
+## Para desarrollo personal
+
+Una vez descargue el proyecto y haya establecido sus propias api keys, realice los siguientes pasos:
 
 - npm i (esto sirve para instalar dependencias)
 - ng serve (para crear un servidor local)
-- Vaya a `http://localhost:4200/`. Cada cambio en el codigo recargara la pagina.
+- Vaya a [localhost](http://localhost:4200/). Cada cambio en el codigo recargara la pagina.
 
-Sino dirijase a: `red-egresados-online.web.app/` donde se encuentra hosteada la pagina.
+## Live Demo
 
-## Creacion de componentes
+[red-egresados-online.web.app/](http://red-egresados-online.web.app/)
 
-Escriba `ng generate component component-name` para generar un nuevo componente. Tambien se puede usar `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Descripción
 
-## Construccion
+Un usuario es capaz de registrarse siendo una empresa o un egresado.
 
-Escriba `ng build` Para construir el proyecto. Los artefactos de la construccion se almacenaran en el directorio `dist/`. Use la etiqueta `--prod` para una construccion de produccion.
+Si es un egresado debe autenticarse poniendo su titulo de egreso y su DNI durante el registro. Si se es una empresa, un administrador verificara la veracidad de este perfil.
 
-## Correr pruebas unitarias
+Una vez registrados, ambos tipos de usuario van a poder buscar a otros usuarios y contactarse entre ellos. Los egresados ademas podran agregar distintas capacitaciones y experiencias que tuvieron.
 
-Escriba `ng test` para ejecutar pruebas unitarias via [Karma](https://karma-runner.github.io).
+### Tareas
 
-## Correr pruebas punto a punto
-
-Escriba `ng e2e` para ejecutar pruebas de punto a punto via [Protractor](http://www.protractortest.org/).
-
-## Mas ayuda
-
-Para mas ayuda en el CLI de Angular use `ng help` o cheque [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-## COSAS PARA MODIFICAR
-
-- Aprender a usar Auth Guards - NO ES IMPORTANTE POR AHORA
+- [x] Login, Register & Logout
+- [x] CRUD de usuarios
+- [x] Integracion con diseño
+- [x] Ver perfil de otro usuario
+- [x] Contacto entre egresados
+- [x] Busqueda de egresados
+- [x] Agregar Experiencias
+- [ ] Redes Sociales
