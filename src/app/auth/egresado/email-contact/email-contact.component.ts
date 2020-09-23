@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
 import { AuthService } from '../../services/auth.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { keys } from 'config';
 
 @Component({
   selector: 'app-email-contact',
@@ -40,10 +41,10 @@ export class EmailContactComponent implements OnInit {
     e.preventDefault();
     emailjs
       .sendForm(
-        'service_Red_De_Egresados',
-        'template_u9u10q7',
+        keys.serviceID,
+        keys.templateID,
         e.target as HTMLFormElement,
-        'user_OFf0cr3nYd4ETarAexhwk'
+        keys.userID
       )
       .then(
         (result: EmailJSResponseStatus) => {
