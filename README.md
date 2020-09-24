@@ -6,7 +6,7 @@
 
 </div>
 
-##
+#
 
 ## A tener en cuenta
 
