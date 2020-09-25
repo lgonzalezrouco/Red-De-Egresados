@@ -114,7 +114,7 @@ import { AgregarTituloComponent } from './agregar-titulo/agregar-titulo.componen
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    /* {provide: LocationStrategy, useClass: HashLocationStrategy} */
   ],
   bootstrap: [AppComponent],
 })
