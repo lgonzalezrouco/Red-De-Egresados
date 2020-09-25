@@ -50,6 +50,8 @@ import { AgregarExperienciasComponent } from './auth/egresado/agregar-experienci
 import { EmailContactComponent } from './auth/egresado/email-contact/email-contact.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { RedesFormComponent } from './auth/egresado/redes-form/redes-form.component';
+/* import { PruebaComponent } from './prueba/prueba.component';
+import { AgregarTituloComponent } from './agregar-titulo/agregar-titulo.component'; */
 
 
 @NgModule({
@@ -74,6 +76,8 @@ import { RedesFormComponent } from './auth/egresado/redes-form/redes-form.compon
     AgregarExperienciasComponent,
     EmailContactComponent,
     RedesFormComponent,
+    /* PruebaComponent,
+    AgregarTituloComponent, */
   ],
   imports: [
     BrowserModule,

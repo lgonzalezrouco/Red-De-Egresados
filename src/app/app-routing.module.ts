@@ -14,6 +14,7 @@ import { PerfilDeServicioEmpresaComponent } from './auth/empresa/perfil-de-servi
 import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
 import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.component';
 import { AgregarExperienciasComponent } from './auth/egresado/agregar-experiencias/agregar-experiencias.component';
+/* import { PruebaComponent } from './prueba/prueba.component'; */
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -72,11 +73,15 @@ const routes: Routes = [
   {
     path: 'agregar-experiencias',
     component: AgregarExperienciasComponent
-  }
+  },
+  /* {
+    path: 'prueba',
+    component: PruebaComponent
+  } */
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

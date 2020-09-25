@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^9.1.12",
     "@angular/platform-browser-dynamic": "^9.1.12",
     "@angular/router": "^9.1.12",
+    "convert-csv-to-json": "^1.0.0",
     "emailjs-com": "^2.6.3",
     "firebase": "^7.19.1",
     "github-card": "^1.2.1",
