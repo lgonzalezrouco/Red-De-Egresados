@@ -42,21 +42,9 @@ import { AgregarExperienciasComponent } from './perfil/egresado/agregar-experien
 import { EmailContactComponent } from './perfil/egresado/email-contact/email-contact.component';
 import { RedesFormComponent } from './perfil/egresado/redes-form/redes-form.component';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
-<<<<<<< HEAD
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AgregarTituloComponent } from './admin/agregar-titulo/agregar-titulo.component';
 import { AgregarAdminComponent } from './admin/agregar-admin/agregar-admin.component';
-=======
-import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
-import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.component';
-import { AgregarExperienciasComponent } from './auth/egresado/agregar-experiencias/agregar-experiencias.component';
-import { EmailContactComponent } from './auth/egresado/email-contact/email-contact.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { RedesFormComponent } from './auth/egresado/redes-form/redes-form.component';
-/* import { PruebaComponent } from './prueba/prueba.component';
-import { AgregarTituloComponent } from './agregar-titulo/agregar-titulo.component'; */
-
->>>>>>> 4dfd9ffc6278e55aad95b988d2edff2c335f937b
 
 @NgModule({
   declarations: [
@@ -77,15 +65,10 @@ import { AgregarTituloComponent } from './agregar-titulo/agregar-titulo.componen
     AgregarExperienciasComponent,
     EmailContactComponent,
     RedesFormComponent,
-<<<<<<< HEAD
     ToolbarComponent,
     DashboardComponent,
     AgregarTituloComponent,
     AgregarAdminComponent,
-=======
-    /* PruebaComponent,
-    AgregarTituloComponent, */
->>>>>>> 4dfd9ffc6278e55aad95b988d2edff2c335f937b
   ],
   imports: [
     BrowserModule,
