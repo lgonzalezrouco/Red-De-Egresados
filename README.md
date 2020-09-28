@@ -6,7 +6,7 @@
 
 </div>
 
-#
+##
 
 ## A tener en cuenta
 
@@ -91,3 +91,4 @@ Una vez registrados, ambos tipos de usuario van a poder buscar a otros usuarios 
 - [x] Busqueda de egresados
 - [x] Agregar Experiencias
 - [ ] Redes Sociales
+- [ ] Administrador

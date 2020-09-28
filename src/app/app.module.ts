@@ -1,79 +1,74 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
-
+import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { environment } from 'src/environments/environment';
-
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { SearchbarComponent } from './shared/searchbar/searchbar.component';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { AppComponent } from './app.component';
+import { EmpresaRegisterComponent } from './auth/empresa/empresa-register/empresa-register.component';
+import { EgresadoRegisterComponent } from './auth/egresado/egresado-register/egresado-register.component';
+import { LoginComponent } from './auth/login/login.component';
 import { EleccionRegisterComponent } from './auth/eleccion-register/eleccion-register.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WaitVerificationComponent } from './auth/wait-verification/wait-verification.component';
-import { LoginComponent } from './auth/egresado/login/login.component';
-import { PerfilComponent } from './auth/egresado/perfil/perfil.component';
-import { PerfilDeServicioEgresadoComponent } from './auth/egresado/perfil-de-servicio-egresado/perfil-de-servicio-egresado.component';
-import { RegisterComponent } from './auth/egresado/register/register.component';
-import { PerfilDeServicioEmpresaComponent } from './auth/empresa/perfil-de-servicio-empresa/perfil-de-servicio-empresa.component';
-import { PerfilEmpresaComponent } from './auth/empresa/perfil-empresa/perfil-empresa.component';
-import { RegisterEmpresaComponent } from './auth/empresa/register-empresa/register-empresa.component';
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { HomeComponent } from './home/home.component';
-
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
-import {MatIconModule} from '@angular/material/icon';
-import {MatSelectModule} from '@angular/material/select';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatDialogModule} from '@angular/material/dialog';
-
-import { HttpClientModule } from "@angular/common/http"
-
+import { PerfilEmpresaComponent } from './perfil/empresa/perfil-empresa/perfil-empresa.component';
+import { PerfilServicioEmpresaComponent } from './perfil/empresa/perfil-servicio-empresa/perfil-servicio-empresa.component';
+import { PerfilEgresadoComponent } from './perfil/egresado/perfil-egresado/perfil-egresado.component';
+import { PerfilServicioEgresadoComponent } from './perfil/egresado/perfil-servicio-egresado/perfil-servicio-egresado.component';
+import { ForgotPasswordComponent } from './shared/security/forgot-password/forgot-password.component';
+import { WaitVerificationComponent } from './shared/security/wait-verification/wait-verification.component';
+import { HomeEgresadoComponent } from './home/home-egresado/home-egresado.component';
+import { HomeEmpresaComponent } from './home/home-empresa/home-empresa.component';
+import { LandingPageComponent } from './home/landing-page/landing-page.component';
+import { AgregarExperienciasComponent } from './perfil/egresado/agregar-experiencias/agregar-experiencias.component';
+import { EmailContactComponent } from './perfil/egresado/email-contact/email-contact.component';
+import { RedesFormComponent } from './perfil/egresado/redes-form/redes-form.component';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
-import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
-import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.component';
-import { AgregarExperienciasComponent } from './auth/egresado/agregar-experiencias/agregar-experiencias.component';
-import { EmailContactComponent } from './auth/egresado/email-contact/email-contact.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { RedesFormComponent } from './auth/egresado/redes-form/redes-form.component';
-
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { AgregarTituloComponent } from './admin/agregar-titulo/agregar-titulo.component';
+import { AgregarAdminComponent } from './admin/agregar-admin/agregar-admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    SearchbarComponent,
-    EleccionRegisterComponent,
-    WaitVerificationComponent,
+    EmpresaRegisterComponent,
+    EgresadoRegisterComponent,
     LoginComponent,
-    PerfilComponent,
-    PerfilDeServicioEgresadoComponent,
-    RegisterComponent,
-    PerfilDeServicioEmpresaComponent,
+    EleccionRegisterComponent,
     PerfilEmpresaComponent,
-    RegisterEmpresaComponent,
+    PerfilServicioEmpresaComponent,
+    PerfilEgresadoComponent,
+    PerfilServicioEgresadoComponent,
     ForgotPasswordComponent,
-    HomeComponent,
-    ToolbarComponent,
+    WaitVerificationComponent,
     HomeEgresadoComponent,
     HomeEmpresaComponent,
+    LandingPageComponent,
     AgregarExperienciasComponent,
     EmailContactComponent,
     RedesFormComponent,
+    ToolbarComponent,
+    DashboardComponent,
+    AgregarTituloComponent,
+    AgregarAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +92,7 @@ import { RedesFormComponent } from './auth/egresado/redes-form/redes-form.compon
     MatToolbarModule,
     HttpClientModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [
     MatButtonModule,
@@ -106,12 +101,9 @@ import { RedesFormComponent } from './auth/egresado/redes-form/redes-form.compon
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
   ],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
-  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

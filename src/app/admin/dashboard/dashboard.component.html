@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-4">
+    <input type="file" class="form-control-file" id="inputFile" (change)="convertFile($event)" />
+  </div>
+  <div class="col-4">
+    <button (click)="abrirFormularioDeTitulo()" class="btn btn-dark">Agregar Titulo</button>
+  </div>
+  <div class="col-4">
+    <button (click)="abrirFormularioDeRegistroDeAdmin()" class="btn btn-dark">Agregar Administrador</button>
+  </div>
+</div>
+
+<div class="row" *ngFor="let titulo of titulos; index as i">
+  <div class="col-4">
+    {{titulo.id}}
+  </div>
+  <div class="col-4">
+    <ng-container *ngIf="editar == true && idParaEditar == titulo.id ; then editarDNI ; else mostrarDNI"></ng-container>
+    <ng-template #editarDNI>
+      <input matInput type="number" [(ngModel)]="titulo.DNI" />
+    </ng-template>
+    <ng-template #mostrarDNI>
+      {{titulo.DNI}}
+    </ng-template>
+  </div>
+  <div class="col-4">
+    <div class="row">
+      <div class="col-6">
+        <ng-container *ngIf="editar == true && idParaEditar == titulo.id ; then botonGuardar ; else botonEditar">
+        </ng-container>
+        <ng-template #botonGuardar>
+          <button (click)="editarTitulo(titulo.id, titulo.DNI)" class="btn btn-dark">Guardar</button>
+          <button (click)="cancelarEdicion()" class="btn btn-dark">Cancelar</button>
+        </ng-template>
+        <ng-template #botonEditar>
+          <button (click)="editarTitulo(titulo.id, titulo.DNI)" class="btn btn-dark">Editar</button>
+        </ng-template>
+      </div>
+      <div class="col-6">
+        <button (click)="eliminarTitulo(titulo.id, i)" class="btn btn-dark">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngFor="let admin of admins; index as i">
+  <div class="col-4">
+    {{admin.id}}
+  </div>
+  <div class="col-4">
+      {{admin.email}}
+  </div>
+  <div class="col-4">
+    <div class="row">
+      <button (click)="eliminarAdmin(admin.id, i)" class="btn btn-dark">Eliminar</button>
+    </div>
+  </div>
+</div>

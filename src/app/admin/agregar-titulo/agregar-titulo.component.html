@@ -1,0 +1,39 @@
+<div class="pb-4 pt-3 px-5">
+  <h1 mat-dialog-title class="titulo text-center mt-3 pb-3">Agregue un titulo</h1>
+  <form [formGroup]="tituloForm" (ngSubmit)="agregarTitulo()" class="mt-5 mb-3">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field class="full-width-height">
+          <mat-label>ID</mat-label>
+          <input matInput type="text" formControlName="id">
+          <mat-error *ngIf="idPattern.invalid && !idPattern.touched">
+            Por favor, ingrese un ID válido.
+          </mat-error>
+          <mat-error *ngIf="idPattern.touched" >
+            El ID es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="full-width-height">
+          <mat-label>DNI</mat-label>
+          <input matInput type="number" formControlName="DNI">
+          <mat-error *ngIf="DNIPattern.invalid && !DNIPattern.touched">
+            Por favor, ingrese un DNI válido.
+          </mat-error>
+          <mat-error *ngIf="DNIPattern.touched" >
+            El DNI es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-card-actions class="mb-5">
+      <div class="row">
+        <div class="alinear-centro mt-4">
+          <button type="submit" class="btn btn-dark btn-block alinear-centro">Agregar</button>
+        </div>
+      </div>
+    </mat-card-actions>
+  </form>
+</div>
+
