@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { EgresadoRegisterComponent } from './auth/egresado/egresado-register/egresado-register.component';
 import { EleccionRegisterComponent } from './auth/eleccion-register/eleccion-register.component';
+<<<<<<< HEAD
 import { EmpresaRegisterComponent } from './auth/empresa/empresa-register/empresa-register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HomeEgresadoComponent } from './home/home-egresado/home-egresado.component';
@@ -15,6 +16,22 @@ import { PerfilEmpresaComponent } from './perfil/empresa/perfil-empresa/perfil-e
 import { PerfilServicioEmpresaComponent } from './perfil/empresa/perfil-servicio-empresa/perfil-servicio-empresa.component';
 import { ForgotPasswordComponent } from './shared/security/forgot-password/forgot-password.component';
 import { WaitVerificationComponent } from './shared/security/wait-verification/wait-verification.component';
+=======
+import { WaitVerificationComponent } from './auth/wait-verification/wait-verification.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './auth/egresado/login/login.component';
+import { RegisterComponent } from './auth/egresado/register/register.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { PerfilComponent } from './auth/egresado/perfil/perfil.component';
+import { RegisterEmpresaComponent } from './auth/empresa/register-empresa/register-empresa.component';
+import { PerfilEmpresaComponent } from './auth/empresa/perfil-empresa/perfil-empresa.component';
+import { PerfilDeServicioEgresadoComponent } from './auth/egresado/perfil-de-servicio-egresado/perfil-de-servicio-egresado.component';
+import { PerfilDeServicioEmpresaComponent } from './auth/empresa/perfil-de-servicio-empresa/perfil-de-servicio-empresa.component';
+import { HomeEgresadoComponent } from './auth/egresado/home-egresado/home-egresado.component';
+import { HomeEmpresaComponent } from './auth/empresa/home-empresa/home-empresa.component';
+import { AgregarExperienciasComponent } from './auth/egresado/agregar-experiencias/agregar-experiencias.component';
+/* import { PruebaComponent } from './prueba/prueba.component'; */
+>>>>>>> 4dfd9ffc6278e55aad95b988d2edff2c335f937b
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
