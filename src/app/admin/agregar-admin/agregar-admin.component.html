@@ -1,8 +1,7 @@
 <div class="pb-4 pt-3 px-5">
-  <h1 mat-dialog-title class="titulo text-center mt-3 pb-3">Agregue un titulo</h1>
+  <h1 mat-dialog-title class="titulo text-center mt-3 pb-3">Agregue un administrador</h1>
   <form [formGroup]="loginForm" (ngSubmit)="agregarAdmin()" class="mt-5 mb-3">
     <div class="row">
-      <div class="col-6">
         <mat-form-field class="full-width-height">
           <mat-label>email</mat-label>
           <input matInput type="email" formControlName="email">
@@ -13,12 +12,11 @@
             El email es <strong>requerido</strong>
           </mat-error>
         </mat-form-field>
-      </div>
     </div>
     <mat-card-actions class="mb-5">
       <div class="row">
-        <div class="alinear-centro mt-4">
-          <button type="submit" class="btn btn-dark btn-block alinear-centro">Agregar</button>
+        <div class="alinear-centro mt-4 text-center center">
+          <button type="submit" class="text-center center">Agregar</button>
         </div>
       </div>
     </mat-card-actions>

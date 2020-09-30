@@ -1,58 +1,123 @@
-<div class="row">
-  <div class="col-4">
-    <input type="file" class="form-control-file" id="inputFile" (change)="convertFile($event)" />
-  </div>
-  <div class="col-4">
-    <button (click)="abrirFormularioDeTitulo()" class="btn btn-dark">Agregar Titulo</button>
-  </div>
-  <div class="col-4">
-    <button (click)="abrirFormularioDeRegistroDeAdmin()" class="btn btn-dark">Agregar Administrador</button>
-  </div>
-</div>
-
-<div class="row" *ngFor="let titulo of titulos; index as i">
-  <div class="col-4">
-    {{titulo.id}}
-  </div>
-  <div class="col-4">
-    <ng-container *ngIf="editar == true && idParaEditar == titulo.id ; then editarDNI ; else mostrarDNI"></ng-container>
-    <ng-template #editarDNI>
-      <input matInput type="number" [(ngModel)]="titulo.DNI" />
-    </ng-template>
-    <ng-template #mostrarDNI>
-      {{titulo.DNI}}
-    </ng-template>
-  </div>
-  <div class="col-4">
-    <div class="row">
-      <div class="col-6">
-        <ng-container *ngIf="editar == true && idParaEditar == titulo.id ; then botonGuardar ; else botonEditar">
-        </ng-container>
-        <ng-template #botonGuardar>
-          <button (click)="editarTitulo(titulo.id, titulo.DNI)" class="btn btn-dark">Guardar</button>
-          <button (click)="cancelarEdicion()" class="btn btn-dark">Cancelar</button>
-        </ng-template>
-        <ng-template #botonEditar>
-          <button (click)="editarTitulo(titulo.id, titulo.DNI)" class="btn btn-dark">Editar</button>
-        </ng-template>
+<app-toolbar></app-toolbar>
+<div class="margen container-fluid">
+  <div class="row">
+    <div class="col-12 offset-md-2 col-md-8 mb-4 mt-5">
+      <div class="row">
+        <div class="col-12 col-md-6 sm-text-center">
+          <h1 class="ml-4 titulo vertical-align">Administrar Titulos</h1>
+        </div>
+        <div class="col-6 offset-md-2 col-md-auto sm-text-center vertical-align float-right">
+          <span (click)="abrirFormularioDeTitulo()" class="agregar-datos set-pointer float-right">+ Agregar
+            Titulo</span>
+        </div>
+        <div class="col-6 col-md-auto vertical-align sm-text-center float-right">
+          <span (click)="abrirFormularioDeRegistroDeAdmin()"
+            class="agregar-datos set-pointer float-right line-height-normal">+ Agregar Administrador</span>
+        </div>
       </div>
-      <div class="col-6">
-        <button (click)="eliminarTitulo(titulo.id, i)" class="btn btn-dark">Eliminar</button>
+    </div>
+    <mat-card class="col-12 offset-md-2 col-md-8 mb-4">
+      <div class="row">
+        <div class="col-12 my-2">
+          <div class="row">
+            <div class="col-4 text-center nombres-titulo">Titulo</div>
+            <div class="col-4 text-center nombres-titulo">DNI</div>
+            <div class="col-4"></div>
+          </div>
+        </div>
+        <mat-divider class="divider mb-3" [inset]="true"></mat-divider>
+        <div class="col-12">
+          <div class="row mb-3" *ngFor="let titulo of titulos; index as i">
+            <div class="col-4 text-center datos-titulo">
+              {{ titulo.id }}
+            </div>
+            <div class="col-4 text-center">
+              <ng-container *ngIf="
+                  editar == true && idParaEditar == titulo.id;
+                  then editarDNI;
+                  else mostrarDNI
+                ">
+              </ng-container>
+              <ng-template #editarDNI>
+                <input matInput type="number" class="datos-titulo" [(ngModel)]="titulo.DNI" />
+              </ng-template>
+              <ng-template #mostrarDNI>
+                <span class="datos-titulo">{{ titulo.DNI }}</span>
+              </ng-template>
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="offset-4 col-auto text-center">
+                  <ng-container *ngIf="
+                      editar == true && idParaEditar == titulo.id;
+                      then botonGuardar;
+                      else botonEditar
+                    ">
+                  </ng-container>
+                  <ng-template #botonGuardar>
+                    <img src="../../../assets/images/editar.png" alt="aceptar"
+                      class="text-center img-fluid set-pointer mr-2" (click)="editarTitulo(titulo.id, titulo.DNI)" />
+                    <img src="../../../assets/images/cruz.png" alt="cancelar"
+                      class="ml-2 text-center img-fluid set-pointer" (click)="cancelarEdicion()" />
+                  </ng-template>
+                  <ng-template #botonEditar>
+                    <img src="../../../assets/images/editar.png" alt="editar" class="text-center img-fluid set-pointer"
+                      (click)="editarTitulo(titulo.id, titulo.DNI)" />
+                  </ng-template>
+                </div>
+                <div class="col-auto text-center">
+                  <img src="../../../assets/images/cruz.png" alt="eliminar"
+                    class="ml-2 text-center img-fluid set-pointer" (click)="eliminarTitulo(titulo.id, i)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-divider class="divider mb-3" [inset]="true"></mat-divider>
+        <div class="col-12 mb-2">
+          <div class="row">
+            <div class="col-4 text-center nombres-titulo">ID</div>
+            <div class="col-4 text-center nombres-titulo">email</div>
+            <div class="col-4"></div>
+          </div>
+        </div>
+        <mat-divider class="divider mb-3" [inset]="true"></mat-divider>
+        <div class="col-12">
+          <div class="row mb-3" *ngFor="let admin of admins; index as i">
+            <div class="col-4 text-center datos-titulo">
+              {{ admin.id }}
+            </div>
+            <div class="col-4 text-center datos-titulo">
+              {{ admin.email }}
+            </div>
+            <div class="col-4 text-center">
+              <img src="../../../assets/images/cruz.png" alt="eliminar" class="ml-2 text-center img-fluid set-pointer"
+                (click)="eliminarAdmin(admin.id, i)" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <div class="col-12 offset-md-2 col-md-8 mb-5">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="line-height-normal titulo ml-4">
+            Cargar a la Base de Datos
+          </h1>
+        </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-auto ml-4">
+              <input type="file" class="form-control-file" id="inputFile" (change)="convertFile($event)" />
+            </div>
+            <div class="col-auto">
+              <button (click)="subirArchivo()" class="">Subir</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="row" *ngFor="let admin of admins; index as i">
-  <div class="col-4">
-    {{admin.id}}
-  </div>
-  <div class="col-4">
-      {{admin.email}}
-  </div>
-  <div class="col-4">
-    <div class="row">
-      <button (click)="eliminarAdmin(admin.id, i)" class="btn btn-dark">Eliminar</button>
-    </div>
-  </div>
-</div>
+<button (click)="prueba()">asasasa</button>

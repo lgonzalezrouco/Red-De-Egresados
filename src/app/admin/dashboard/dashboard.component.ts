@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   admins: any[];
   editar: boolean = false;
   idParaEditar;
+  mensajeDeCargaABD: string;
+  titulosASubir = [];
 
   constructor(
     private miscSvc: MiscService,
@@ -65,17 +67,12 @@ export class DashboardComponent implements OnInit {
           }
         }
 
-        let titulosASubir = [];
-
         titulos.forEach((titulo) => {
-          titulosASubir.push({
+          this.titulosASubir.push({
             id: titulo[0],
             DNI: titulo[1],
           });
         });
-
-        await this.firestoreSvc.uploadTitulos(titulosASubir);
-        this.titulos = await this.firestoreSvc.getTitulos();
       } else {
         for (let i = 0; i < allTextLines.length; i++) {
           const object = allTextLines[i].split(';');
@@ -84,19 +81,35 @@ export class DashboardComponent implements OnInit {
           }
         }
 
-        let titulosASubir = [];
-
         titulos.forEach((titulo) => {
-          titulosASubir.push({
+          this.titulosASubir.push({
             id: titulo[0],
             DNI: titulo[1],
           });
         });
-
-        await this.firestoreSvc.uploadTitulos(titulosASubir);
-        this.titulos = await this.firestoreSvc.getTitulos();
       }
     };
+  }
+
+  async subirArchivo() {
+    try {
+      if (this.titulosASubir == []) {
+        throw new Error('No hay nada para subir');
+      } else {
+        let respuesta = await this.firestoreSvc.uploadTitulos(
+          this.titulosASubir
+        );
+        if (typeof respuesta !== 'string') {
+          this.mensajeDeCargaABD = 'Se cargaron los titulos correctamente';
+          this.titulos = await this.firestoreSvc.getTitulos();
+          this.ordenarTitulos();
+        } else {
+          this.mensajeDeCargaABD = 'Hubo un problema al cargar los titulos';
+        }
+      }
+    } catch (error) {
+      this.mensajeDeCargaABD = error.message;
+    }
   }
 
   editarTitulo(id, DNI) {
@@ -184,5 +197,16 @@ export class DashboardComponent implements OnInit {
     if (indice > -1) {
       this.admins.splice(indice, 1);
     }
+  }
+
+  async prueba() {
+    this.titulos = await this.firestoreSvc.getFewTitulos(5);
+    let lengthTitulos = this.titulos.length;
+    console.log(this.titulos);
+    this.titulos = await this.firestoreSvc.getFewTitulos(
+      5,
+      this.titulos[lengthTitulos - 1]
+    );
+    console.log(this.titulos);
   }
 }

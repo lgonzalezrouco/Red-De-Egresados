@@ -7,6 +7,7 @@ import { User } from '../interfaces/user';
 import { Empresa } from '../interfaces/empresa';
 import { MiscService } from './misc.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -362,19 +363,23 @@ export class FirestoreService {
   // AGREGAR TITULOS CON CSV
 
   uploadTitulos(titulos): Promise<void> {
-    return titulos.forEach((titulo) => {
-      let titulosRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
-        `titulos/${titulo.id}`
-      );
+    try {
+      return titulos.forEach((titulo) => {
+        let titulosRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
+          `titulos/${titulo.id}`
+        );
 
-      const tituloData = {
-        DNI: titulo.DNI,
-      };
+        const tituloData = {
+          DNI: titulo.DNI,
+        };
 
-      titulosRef.set(tituloData, {
-        merge: true,
+        titulosRef.set(tituloData, {
+          merge: true,
+        });
       });
-    });
+    } catch (error) {
+      return error.message;
+    }
   }
 
   // CONSEGUIR TODOS LOS TITULOS
@@ -388,6 +393,35 @@ export class FirestoreService {
         titulos.push(titulo);
       });
     });
+    return titulos;
+  }
+
+  // CONSEGUIR DE A 10 TITULOS
+
+  async getFewTitulos(limit, doc?) {
+    let query: Promise<any>;
+    let titulos = [];
+    if (doc) {
+      query = this.angularFirestore
+        .collection('titulos', (ref) =>
+          ref.limit(limit).orderBy('DNI').startAfter(doc)
+        )
+        .get()
+        .toPromise();
+    } else {
+      query = this.angularFirestore
+        .collection('titulos', (ref) => ref.limit(limit).orderBy('DNI'))
+        .get()
+        .toPromise();
+    }
+
+    await query.then((documentos) => {
+      documentos.forEach((doc) => {
+        let titulo = { id: doc.id, DNI: doc.data().DNI };
+        titulos.push(titulo);
+      });
+    });
+
     return titulos;
   }
 
@@ -461,8 +495,7 @@ export class FirestoreService {
   // AGREGAR UN ADMIN
 
   async agregarAdmin(email): Promise<void> {
-
-    let id = this.angularFirestore.createId();
+    let id: string = this.angularFirestore.createId();
 
     // Se hace una referencia al documento del usuario teniendo en cuenta su uid
     const adminRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
@@ -473,7 +506,7 @@ export class FirestoreService {
      * Se guarda en la variable adminData el mail que permite logearse como admin
      */
     const adminData = {
-      email: email
+      email: email,
     };
 
     /*
