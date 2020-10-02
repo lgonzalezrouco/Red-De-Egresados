@@ -1,5 +1,5 @@
 <div class="pb-4 pt-3 px-5">
-  <h1 mat-dialog-title class="titulo text-center mt-3 pb-3">Envia un mensaje</h1>
+  <h1 mat-dialog-title class="titulo text-center mt-3 pb-3">Envía un mensaje</h1>
   <form (ngSubmit)="sendEmail($event)">
     <div class="row">
       <ng-container *ngIf="user.empresa; then nombreEmpresa ; else nombreEgresado"></ng-container>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div *ngIf="result == 'OK'" class="row">
-      <h2 class="text-center">Se envio correctamente el email</h2>
+      <h2 class="text-center">Se envió correctamente el email</h2>
     </div>
   </form>
 </div>

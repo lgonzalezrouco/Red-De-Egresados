@@ -5,11 +5,11 @@
   <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-5 mt-5">
     <mat-card-title class="text-center mt-4 mb-4">
       <h1 class="line-height-normal titulo">
-        Crea tu cuenta
+        Creá tu cuenta
       </h1>
     </mat-card-title>
     <mat-card-subtitle class="subtitulo line-height-normal text-center mt-1">
-      Inrgesa tus datos para crear tu perfil de egresado<br />y ser contratado
+      Inrgesá tus datos para crear tu perfil de egresado<br />y ser contratado
       por las mejores empresas
     </mat-card-subtitle>
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="mt-1 mb-3">
@@ -30,7 +30,7 @@
                       firstNamePattern.hasError('minlength')
                     ">
                     El nombre solo esta compuesto por
-                    <strong>letras</strong> y debe tener minimo 2
+                    <strong>letras</strong> y debe tener mínimo 2
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -43,7 +43,7 @@
                     El teléfono es <strong>requerido</strong>
                   </mat-error>
                   <mat-error *ngIf="cellphonePattern.hasError('pattern')">
-                    El teléfono solo esta compuesto por <strong>numeros</strong>
+                    El teléfono solo esta compuesto por <strong>números</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -61,7 +61,7 @@
                       lastNamePattern.hasError('minlength')
                     ">
                     El apellido solo esta compuesto por
-                    <strong>numeros</strong> y debe tener minimo 2
+                    <strong>números</strong> y debe tener mínimo 2
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -69,10 +69,10 @@
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Sexo</mat-label>
                   <mat-select formControlName="gender">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option value="Masculino">Masculino</mat-option>
                     <mat-option value="Femenino">Femenino</mat-option>
-                    <mat-option value="Prefiero no decirlo">Prefiero no decrilo</mat-option>
+                    <mat-option value="Prefiero no decirlo">Prefiero no decirlo</mat-option>
                   </mat-select>
                   <mat-error *ngIf="genderPattern.hasError('required')">
                     El Sexo es <strong>requerido</strong>
@@ -88,7 +88,7 @@
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="birthdayPattern.hasError('matDatepickerParse')">
-                    La fecha de nacimiento no es <strong>valida</strong>
+                    La fecha de nacimiento no es <strong>válida</strong>
                   </mat-error>
                   <mat-error *ngIf="
                       birthdayPattern.hasError('required') &&
@@ -102,7 +102,7 @@
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Fecha de Egreso</mat-label>
                   <mat-select formControlName="yearDeEgreso">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option *ngFor="let year of years | async" [value]="year.value">
                       {{ year.viewValue }}
                     </mat-option>
@@ -135,21 +135,21 @@
                       DNIPattern.hasError('pattern') ||
                       DNIPattern.hasError('minlength')
                     ">
-                    El DNI solo esta compuesto por <strong>numeros</strong> y
-                    debe tener <strong>solo 8 digitos</strong>
+                    El DNI solo esta compuesto por <strong>números</strong> y
+                    debe tener <strong>solo 8 dígitos</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-4 col-12">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Orientacion</mat-label>
+                  <mat-label>Orientación</mat-label>
                   <mat-select formControlName="orientacion">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option value="Computacion">Computación</mat-option>
                     <mat-option value="Mecanica">Mecánica</mat-option>
                   </mat-select>
                   <mat-error *ngIf="orientacionPattern.hasError('required')">
-                    La orientacion es <strong>requerida</strong>
+                    La orientación es <strong>requerida</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -163,21 +163,21 @@
                     El email es <strong>requerido</strong>
                   </mat-error>
                   <mat-error *ngIf="emailPattern.hasError('pattern')">
-                    El email no es <strong>valido</strong>
+                    El email no es <strong>válido</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-4 col-12">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Profesion</mat-label>
+                  <mat-label>Profesión</mat-label>
                   <mat-select formControlName="profesion">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
                       {{ profesion.viewValue }}
                     </mat-option>
                   </mat-select>
                   <mat-error *ngIf="profesionPattern.hasError('required')">
-                    La profesion es <strong>requerida</strong>
+                    La profesión es <strong>requerida</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -185,7 +185,7 @@
             <div class="form-row mb-3">
               <div class="offset-md-2 col-md-4 col-12">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Password</mat-label>
+                  <mat-label>Contraseña</mat-label>
                   <input matInput type="password" formControlName="password" [type]="hide ? 'password' : 'text'" />
                   <mat-icon class="material-icons" matSuffix (click)="hide = !hide">
                     {{ hide ? "visibility" : "visibility_off" }}
@@ -194,19 +194,19 @@
                     La contraseña es <strong>requerida</strong>
                   </mat-error>
                   <mat-error *ngIf="passwordPattern.hasError('minlength')">
-                    La contraseña no es <strong>valida</strong>
+                    La contraseña no es <strong>válida</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-4 col-12">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Codigo del Titulo de Egreso</mat-label>
+                  <mat-label>Código del Título de Egreso</mat-label>
                   <input matInput type="text" formControlName="tituloEgreso" />
                   <mat-error *ngIf="tituloEgresoPattern.hasError('required')">
-                    El codigo del titulo de egreso es <strong>requerido</strong>
+                    El código del título de egreso es <strong>requerido</strong>
                   </mat-error>
                   <mat-error *ngIf="tituloEgresoPattern.hasError('minlength')">
-                    El codigo del titulo de egreso no es <strong>valido</strong>
+                    El código del título de egreso no es <strong>válido</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -239,8 +239,5 @@
         </div>
       </div>
     </form>
-    <div *ngFor="let year of years">
-      {{year.value}}
-    </div>
   </mat-card>
 </div>

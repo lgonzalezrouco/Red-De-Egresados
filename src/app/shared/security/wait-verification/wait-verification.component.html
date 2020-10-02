@@ -14,7 +14,7 @@
           Hemos recibido sus datos
         </p>
         <p class="text-center mt-3 line-height-normal roboto-light">
-          Pronto enviaremos un mail de verificacion a
+          Pronto enviaremos un email de verificación a
         </p>
         <p class="text-center line-height-normal roboto-light">
           <strong>{{ user?.email }}</strong>
@@ -23,7 +23,7 @@
       <mat-card-actions class="mb-5">
         <div class="col-12 set-pointer">
           <div class="alinear-centro mt-4">
-            <button (click)="onSendEmail()" class="btn btn-dark alinear-centro">Reenviar verificacion</button>
+            <button (click)="onSendEmail()" class="btn btn-dark alinear-centro">Reenviar verificación</button>
           </div>
         </div>
       </mat-card-actions>
@@ -34,16 +34,16 @@
 <ng-template #loading>
   <div class="text-center mt-5">
     <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
+      <span class="sr-only">Cargando...</span>
     </div>
     <h3 class="mt-3">
       <a [routerLink]="['/login']">
-        Try to login again!
+        Trate de logearse nuevamente!
       </a>
     </h3>
     <h3>
       <a [routerLink]="['/register']">
-        Try to sign up again!
+        Si no tiene una cuenta, registrese!
       </a>
     </h3>
   </div>

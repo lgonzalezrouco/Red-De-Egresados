@@ -84,7 +84,7 @@
                       firstNamePattern.hasError('minlength')
                     ">
                     El nombre solo esta compuesto por
-                    <strong>letras</strong> y debe tener minimo 2
+                    <strong>letras</strong> y debe tener mínimo 2
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -100,7 +100,7 @@
                       lastNamePattern.hasError('minlength')
                     ">
                     El apellido solo esta compuesto por
-                    <strong>letras</strong> y debe tener minimo 2
+                    <strong>letras</strong> y debe tener mínimo 2
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -108,14 +108,14 @@
             <div class="form-row mb-2">
               <div class="offset-md-1 col-md-5 col-12 float-left">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Genero</mat-label>
+                  <mat-label>Género</mat-label>
                   <mat-select [(ngModel)]="userAux.gender" formControlName="gender">
                     <mat-option value="Masculino">Masculino</mat-option>
                     <mat-option value="Femenino">Femenino</mat-option>
-                    <mat-option value="Prefiero no decirlo">Prefiero no decrilo</mat-option>
+                    <mat-option value="Prefiero no decirlo">Prefiero no decirlo</mat-option>
                   </mat-select>
                   <mat-error *ngIf="genderPattern.hasError('required')">
-                    El genero es <strong>requerido</strong>
+                    El género es <strong>requerido</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -127,7 +127,7 @@
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="birthdayPattern.hasError('matDatepickerParse')">
-                    La fecha de nacimiento no es <strong>valida</strong>
+                    La fecha de nacimiento no es <strong>válida</strong>
                   </mat-error>
                   <mat-error *ngIf="
                       birthdayPattern.hasError('required') &&
@@ -141,26 +141,26 @@
             <div class="form-row mb-2">
               <div class="offset-md-1 col-md-5 col-12 float-left">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Telefono</mat-label>
+                  <mat-label>Teléfono</mat-label>
                   <span matPrefix>+45 &nbsp;</span>
                   <input matInput formControlName="cellphone" type="number" [(ngModel)]="userAux.cellphone" />
                   <mat-error *ngIf="cellphonePattern.hasError('required')">
                     El teléfono es <strong>requerido</strong>
                   </mat-error>
                   <mat-error *ngIf="cellphonePattern.hasError('pattern')">
-                    El teléfono solo esta compuesto por <strong>numeros</strong>
+                    El teléfono solo esta compuesto por <strong>números</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-5 col-12 float-right">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Profesion</mat-label>
+                  <mat-label>Profesión</mat-label>
                   <mat-select [(ngModel)]="userAux.profesion" formControlName="profesion">
                     <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
                       {{ profesion.viewValue }}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="profesionPattern.hasError('required')">
-                    La profesion es <strong>requerida</strong>
+                    La profesión es <strong>requerida</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -218,10 +218,10 @@
               <div class="col-12 offset-md-1 col-md-9">
                 <div class="row">
                   <div class="col-12">
-                    <mat-card-subtitle class="subtitulo-capacitacion">Ingresa tus datos acerca de tu experiencia laboral
+                    <mat-card-subtitle class="subtitulo-capacitacion">Ingresá tus datos acerca de tu experiencia laboral
                       y
                       estudiantil para que las empresas <br />conozcan un poco
-                      mas de vos
+                      más de vos
                     </mat-card-subtitle>
                   </div>
                   <div class="sm-text-center offset-md-7 col-md-5">

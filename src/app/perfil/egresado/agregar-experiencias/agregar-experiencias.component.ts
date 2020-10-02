@@ -84,7 +84,8 @@ export class AgregarExperienciasComponent implements OnInit {
   constructor(
     private miscSvc: MiscService,
     private firestoreSvc: FirestoreService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -95,6 +96,8 @@ export class AgregarExperienciasComponent implements OnInit {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
       this.uid = localStorage.getItem('uid');
+      this.yearsInicio = this.http.get('../../../../assets/JSON/egresoYear.json');
+      this.yearsFinal = this.http.get('../../../../assets/JSON/egresoYear.json');
     }
   }
 

@@ -7,7 +7,7 @@
       </h1>
     </mat-card-title>
     <mat-card-subtitle class="subtitulo line-height-normal text-center mt-1">
-      Inrgesa tus datos para modificar su perfil de egresado<br />y que los demas
+      Ingresá tus datos para modificar su perfil de egresado<br />y que los demás
       vean todas sus capacidades
     </mat-card-subtitle>
     <form [formGroup]="capacitacionForm" (ngSubmit)="onAddCapacitation()" class="mt-1 mb-3">
@@ -50,14 +50,14 @@
         </mat-step>
         <mat-step [stepControl]="secondFormGroup">
           <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Complete los datos restantes sobre la capacitacion/experiencia</ng-template>
+            <ng-template matStepLabel>Complete los datos restantes sobre la capacitación/experiencia</ng-template>
             <div class="form-row mb-2">
               <div class="offset-md-2 col-md-4 col-12">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Capacitacion</mat-label>
+                  <mat-label>Capacitación</mat-label>
                   <input matInput formControlName="capacitacion" type="text" />
                   <mat-error *ngIf="capacitacionPattern.hasError('required')">
-                    Una descripcion de la capacitacion es <strong>requerida</strong>
+                    Una descripción de la capacitación es <strong>requerida</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -65,12 +65,12 @@
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Area relacionada</mat-label>
                   <mat-select formControlName="areaRelacionada">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option value="Computacion">Computación</mat-option>
                     <mat-option value="Mecanica">Mecánica</mat-option>
                   </mat-select>
                   <mat-error *ngIf="areaRelacionadaPattern.hasError('required')">
-                    El area con la que se relaciona la capacitacion es <strong>requerida</strong>
+                    El área con la que se relaciona la capacitación es <strong>requerida</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -80,9 +80,10 @@
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Año de Inicio</mat-label>
                   <mat-select formControlName="yearDeInicio">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
-                    <mat-option value="2020">2020</mat-option>
-                    <mat-option value="2019">2019</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
+                    <mat-option *ngFor="let year of yearsInicio | async" [value]="year.value">
+                      {{ year.viewValue }}
+                    </mat-option>
                   </mat-select>
                   <mat-error *ngIf="yearDeInicioPattern.hasError('required')">
                     El año de inicio es <strong>requerido</strong>
@@ -91,12 +92,13 @@
               </div>
               <div class="col-md-4 col-12">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Año de finalizacion</mat-label>
+                  <mat-label>Año de finalización</mat-label>
                   <mat-select formControlName="yearDeFinal">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option value="Actualidad">Actualidad</mat-option>
-                    <mat-option value="2020">2020</mat-option>
-                    <mat-option value="2019">2019</mat-option>
+                    <mat-option *ngFor="let year of yearsFinal | async" [value]="year.value">
+                      {{ year.viewValue }}
+                    </mat-option>
                   </mat-select>
                   <mat-error *ngIf="yearDeFinalPattern.hasError('required')">
                     El año de finalizacion es <strong>requerido</strong>
@@ -107,10 +109,10 @@
             <div class="form-row mb-3">
               <div class="offset-md-2 col-md-4 col-12">
                 <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Lugar de capacitacion</mat-label>
+                  <mat-label>Lugar de capacitación</mat-label>
                   <input matInput type="text" formControlName="lugarDeCapacitacion" />
                   <mat-error *ngIf="lugarDeCapacitacionPattern.hasError('required')">
-                    El lugar de la capacitacion es <strong>requerido</strong>
+                    El lugar de la capacitación es <strong>requerido</strong>
                   </mat-error>
                 </mat-form-field>
               </div>

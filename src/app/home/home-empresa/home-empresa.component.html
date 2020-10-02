@@ -44,7 +44,7 @@
               <span matPrefix>
                 <mat-icon>search</mat-icon>&nbsp;
               </span>
-              <input type="text" matInput placeholder="Juan Perez" (change)="getSearchData($event)" />
+              <input type="text" matInput (change)="getSearchData($event)" />
             </mat-form-field>
           </div>
           <div class="sm-text-center col-md-2">
@@ -61,7 +61,7 @@
             ¿Problemas encontrando al egresado indicado?
           </h1>
         </mat-card-title>
-        <mat-card-subtitle class="text-center alinear-centro subtitulo mb-5">No pasa nada, busca a los egresados segun las
+        <mat-card-subtitle class="text-center alinear-centro subtitulo mb-5">No pasa nada, busca a los egresados según las
           preferencias que quieras</mat-card-subtitle>
         <div class="row">
           <div class="col-md-2">
@@ -71,9 +71,9 @@
             <div class="form-row">
               <div class="offset-md-1 col-md-5 col-12">
                 <mat-form-field class="full-width-height">
-                  <mat-label>Profesion</mat-label>
+                  <mat-label>Profesión</mat-label>
                   <mat-select formControlName="profesion">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
                       {{ profesion.viewValue }}
                     </mat-option>
@@ -82,9 +82,9 @@
               </div>
               <div class="col-md-5 col-12">
                 <mat-form-field class="full-width-height">
-                  <mat-label>Orientacion</mat-label>
+                  <mat-label>Orientación</mat-label>
                   <mat-select formControlName="orientacion">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option value="Computacion">Computación</mat-option>
                     <mat-option value="Mecanica">Mecánica</mat-option>
                   </mat-select>
@@ -94,13 +94,13 @@
             <div class="form-row">
               <div class="offset-md-1 col-md-5 col-12">
                 <mat-form-field class="full-width-height">
-                  <mat-label>Edad Minima</mat-label>
+                  <mat-label>Edad Mínima</mat-label>
                   <input type="number" matInput formControlName="minAge" />
                 </mat-form-field>
               </div>
               <div class="col-md-5 col-12">
                 <mat-form-field class="full-width-height">
-                  <mat-label>Edad Maxima</mat-label>
+                  <mat-label>Edad Máxima</mat-label>
                   <input type="number" matInput formControlName="maxAge" />
                 </mat-form-field>
               </div>
@@ -123,7 +123,7 @@
               <span matPrefix>
                 <mat-icon>search</mat-icon>&nbsp;
               </span>
-              <input type="text" matInput placeholder="Juan Perez" (change)="getSearchData($event)" />
+              <input type="text" matInput (change)="getSearchData($event)" />
             </mat-form-field>
           </div>
           <div class="sm-text-center col-md-2">
@@ -140,9 +140,9 @@
             <div class="form-row">
               <div class="offset-md-1 col-md-4 col-12">
                 <mat-form-field class="full-width-height">
-                  <mat-label>Profesion</mat-label>
+                  <mat-label>Profesión</mat-label>
                   <mat-select formControlName="profesion">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
                       {{ profesion.viewValue }}
                     </mat-option>
@@ -151,9 +151,9 @@
               </div>
               <div class="col-md-4 col-12">
                 <mat-form-field class="full-width-height">
-                  <mat-label>Orientacion</mat-label>
+                  <mat-label>Orientación</mat-label>
                   <mat-select formControlName="orientacion">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+                    <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
                     <mat-option value="Computacion">Computación</mat-option>
                     <mat-option value="Mecanica">Mecánica</mat-option>
                   </mat-select>
@@ -163,13 +163,13 @@
             <div class="form-row">
               <div class="offset-md-1 col-md-4 col-12">
                 <mat-form-field class="full-width-height">
-                  <mat-label>Edad Minima</mat-label>
+                  <mat-label>Edad Mínima</mat-label>
                   <input type="number" matInput formControlName="minAge" />
                 </mat-form-field>
               </div>
               <div class="col-md-4 col-12">
                 <mat-form-field class="full-width-height">
-                  <mat-label>Edad Maxima</mat-label>
+                  <mat-label>Edad Máxima</mat-label>
                   <input type="number" matInput formControlName="maxAge" />
                 </mat-form-field>
               </div>
