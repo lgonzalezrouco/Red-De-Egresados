@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject, combineLatest } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FirestoreService } from 'src/app/shared/services/firestore.service';
 import { MiscService } from 'src/app/shared/services/misc.service';
@@ -12,6 +14,15 @@ import { AgregarTituloComponent } from '../agregar-titulo/agregar-titulo.compone
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  searchFormGroup = new FormGroup({
+    value: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z ]*'),
+      Validators.minLength(2),
+    ]),
+    campo: new FormControl('', Validators.required),
+  });
+
   fileReaded;
   titulos: any[];
   admins: any[];
@@ -20,6 +31,13 @@ export class DashboardComponent implements OnInit {
   mensajeDeCargaABD: string;
   titulosASubir = [];
 
+  startAt = new Subject();
+  endAt = new Subject();
+  startObservable = this.startAt.asObservable();
+  endObservable = this.endAt.asObservable();
+  public resultadosDeBusqueda = null;
+  valorDeEvent;
+
   constructor(
     private miscSvc: MiscService,
     private firestoreSvc: FirestoreService,
@@ -27,19 +45,11 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    /* let hayUnUsuario: string = await this.miscSvc.checkIfUserIsLogged();
-    if (hayUnUsuario == 'admin') {
-      this.titulos = await this.firestoreSvc.getTitulos();
-      this.ordenarTitulos();
-      this.admins = await this.firestoreSvc.getAdmins();
-      this.ordenarAdmins();
-    } else {
-      this.miscSvc.notAllowed(hayUnUsuario);
-    } */
-    this.titulos = await this.firestoreSvc.getTitulos();
-    this.ordenarTitulos();
-    this.admins = await this.firestoreSvc.getAdmins();
-    this.ordenarAdmins();
+    this.titulos = await this.firestoreSvc.getTitulosInicial();
+    /* this.ordenarTitulos(); */
+    this.getResults();
+    /* this.admins = await this.firestoreSvc.getAdmins();
+    this.ordenarAdmins(); */
   }
 
   convertFile(csv) {
@@ -53,13 +63,14 @@ export class DashboardComponent implements OnInit {
       let allTextLines = csv.split(/\r|\n|\r/);
       let headers = allTextLines[0].split(';');
       let titulos = [];
-
-      if (
-        headers.includes('id') ||
-        headers.includes('ID') ||
-        headers.includes('DNI') ||
-        headers.includes('dni')
-      ) {
+      let containsNumber: boolean = false;
+      for (let i = 0; i < headers.length; i++) {
+        if (headers[i].match(/^[0-9]+$/)) {
+          containsNumber = true;
+          break;
+        }
+      }
+      if (!containsNumber) {
         for (let i = 1; i < allTextLines.length; i++) {
           const object = allTextLines[i].split(';');
           if (object.length === headers.length) {
@@ -71,6 +82,10 @@ export class DashboardComponent implements OnInit {
           this.titulosASubir.push({
             id: titulo[0],
             DNI: titulo[1],
+            nroDeAlumno: titulo[2],
+            apellido: titulo[3],
+            nombre: titulo[4],
+            yearDeEgreso: titulo[5],
           });
         });
       } else {
@@ -85,6 +100,10 @@ export class DashboardComponent implements OnInit {
           this.titulosASubir.push({
             id: titulo[0],
             DNI: titulo[1],
+            nroDeAlumno: titulo[2],
+            apellido: titulo[3],
+            nombre: titulo[4],
+            yearDeEgreso: titulo[5],
           });
         });
       }
@@ -112,14 +131,14 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  editarTitulo(id, DNI) {
+  editarTitulo(id, DNI, nombre, apellido, nroDeAlumno, yearDeEgreso) {
     if (!this.editar) {
       this.editar = true;
       this.idParaEditar = id;
     } else {
       this.editar = false;
       this.idParaEditar = undefined;
-      this.firestoreSvc.editarTitulo(id, DNI);
+      this.firestoreSvc.editarTitulo(id, DNI, nombre, apellido, nroDeAlumno, yearDeEgreso);
     }
   }
 
@@ -199,14 +218,39 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  async prueba() {
-    this.titulos = await this.firestoreSvc.getFewTitulos(5);
-    let lengthTitulos = this.titulos.length;
-    console.log(this.titulos);
-    this.titulos = await this.firestoreSvc.getFewTitulos(
-      5,
-      this.titulos[lengthTitulos - 1]
-    );
-    console.log(this.titulos);
+  getSearchData($event) {
+    this.valorDeEvent = $event.target.value;
   }
+
+  search() {
+    this.startAt.next(this.valorDeEvent);
+    this.endAt.next(this.valorDeEvent + '\uf8ff');
+  }
+
+  makeQuery(start, end) {
+    const { campo } = this.searchFormGroup.value;
+    return this.firestoreSvc.searchTitulo(start, end, campo);
+  }
+
+  getResults() {
+    let subscription = combineLatest(
+      this.startObservable,
+      this.endObservable
+    ).subscribe((value) => {
+      this.makeQuery(value[0], value[1]).then((resultado) => {
+        this.titulos = resultado;
+        this.ordenarTitulos();
+        console.log(this.resultadosDeBusqueda);
+        setTimeout(() => {
+          subscription.unsubscribe;
+          console.log('DESUSCRITO');
+        }, 30000);
+      });
+    });
+  }
+
+  /* async prueba() {
+    let apellido = this.titulos[this.titulos.length - 1].apellido
+    this.titulos = await this.firestoreSvc.getFewTitulos(5, apellido);
+  } */
 }

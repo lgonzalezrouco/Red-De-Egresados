@@ -1,37 +1,68 @@
 <app-toolbar></app-toolbar>
 <div class="margen container-fluid">
   <div class="row">
-    <div class="col-12 offset-md-2 col-md-8 mb-4 mt-5">
+    <div class="col-12 offset-md-2 col-md-8 mb-4 mt-3">
       <div class="row">
         <div class="col-12 col-md-6 sm-text-center">
           <h1 class="ml-4 titulo vertical-align">Administrar Titulos</h1>
         </div>
-        <div class="col-6 offset-md-2 col-md-auto sm-text-center vertical-align float-right">
+        <div class="col-6 offset-md-4 col-md-auto sm-text-center vertical-align float-right">
           <span (click)="abrirFormularioDeTitulo()" class="agregar-datos set-pointer float-right">+ Agregar
             Titulo</span>
         </div>
-        <div class="col-6 col-md-auto vertical-align sm-text-center float-right">
-          <span (click)="abrirFormularioDeRegistroDeAdmin()"
-            class="agregar-datos set-pointer float-right line-height-normal">+ Agregar Administrador</span>
-        </div>
+      </div>
+      <div class="row">
+        <mat-card class="col-12 mt-4 pb-2">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="search()" class="">
+            <div class="form-row">
+              <div class="offset-1 col-2">
+                <mat-form-field class="full-width-height">
+                  <mat-label>Campo</mat-label>
+                  <mat-select formControlName="campo">
+                    <mat-option selected="selected" value="nombre">Nombre</mat-option>
+                    <mat-option value="apellido">Apellido</mat-option>
+                    <mat-option value="yearDeEgreso">Año de Egreso</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-7">
+                <mat-form-field class="full-width-height">
+                  <mat-label>Ingrese un valor con el que buscar</mat-label>
+                  <span matPrefix>
+                    <mat-icon>search</mat-icon>&nbsp;
+                  </span>
+                  <input type="text" matInput formControlName="value" (change)="getSearchData($event)" />
+                </mat-form-field>
+              </div>
+              <div class="sm-text-center col-2">
+                <button type="submit" mat-raised-button class="btn">
+                  Buscar
+                </button>
+              </div>
+            </div>
+          </form>
+        </mat-card>
       </div>
     </div>
     <mat-card class="col-12 offset-md-2 col-md-8 mb-4">
+
       <div class="row">
-        <div class="col-12 my-2">
+        <div class="col-12 my-3">
           <div class="row">
-            <div class="col-4 text-center nombres-titulo">Titulo</div>
-            <div class="col-4 text-center nombres-titulo">DNI</div>
-            <div class="col-4"></div>
+            <div class="col-2 text-center nombres-titulo">Titulo</div>
+            <div class="col-1 text-center nombres-titulo">DNI</div>
+            <div class="col-2 text-center nombres-titulo">Nombre</div>
+            <div class="col-1 text-center nombres-titulo">Apellido</div>
+            <div class="col-3 text-center nombres-titulo">Año De Egreso</div>
           </div>
         </div>
         <mat-divider class="divider mb-3" [inset]="true"></mat-divider>
         <div class="col-12">
           <div class="row mb-3" *ngFor="let titulo of titulos; index as i">
-            <div class="col-4 text-center datos-titulo">
+            <div class="col-2 text-center datos-titulo">
               {{ titulo.id }}
             </div>
-            <div class="col-4 text-center">
+            <div class="col-1 text-center">
               <ng-container *ngIf="
                   editar == true && idParaEditar == titulo.id;
                   then editarDNI;
@@ -45,9 +76,18 @@
                 <span class="datos-titulo">{{ titulo.DNI }}</span>
               </ng-template>
             </div>
-            <div class="col-4">
+            <div class="col-2 text-center datos-titulo">
+              {{ titulo.nombre }}
+            </div>
+            <div class="col-1 text-center datos-titulo">
+              {{ titulo.apellido }}
+            </div>
+            <div class="col-3 text-center datos-titulo">
+              {{ titulo.yearDeEgreso }}
+            </div>
+            <div class="col-3">
               <div class="row">
-                <div class="offset-4 col-auto text-center">
+                <div class="col-6 text-right">
                   <ng-container *ngIf="
                       editar == true && idParaEditar == titulo.id;
                       then botonGuardar;
@@ -56,24 +96,25 @@
                   </ng-container>
                   <ng-template #botonGuardar>
                     <img src="../../../assets/images/editar.png" alt="aceptar"
-                      class="text-center img-fluid set-pointer mr-2" (click)="editarTitulo(titulo.id, titulo.DNI)" />
+                      class="text-center img-fluid set-pointer mr-2"
+                      (click)="editarTitulo(titulo.id, titulo.DNI, titulo.nombre, titulo.apellido, titulo.nroDeAlumno, titulo.yearDeEgreso)" />
                     <img src="../../../assets/images/cruz.png" alt="cancelar"
                       class="ml-2 text-center img-fluid set-pointer" (click)="cancelarEdicion()" />
                   </ng-template>
                   <ng-template #botonEditar>
                     <img src="../../../assets/images/editar.png" alt="editar" class="text-center img-fluid set-pointer"
-                      (click)="editarTitulo(titulo.id, titulo.DNI)" />
+                      (click)="editarTitulo(titulo.id, titulo.DNI, titulo.nombre, titulo.apellido, titulo.nroDeAlumno, titulo.yearDeEgreso)" />
                   </ng-template>
                 </div>
-                <div class="col-auto text-center">
-                  <img src="../../../assets/images/cruz.png" alt="eliminar"
+                <div class="col-6 text-left">
+                  <img src="../../../assets/images/eliminar.png" alt="eliminar"
                     class="ml-2 text-center img-fluid set-pointer" (click)="eliminarTitulo(titulo.id, i)" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <mat-divider class="divider mb-3" [inset]="true"></mat-divider>
+        <!-- <mat-divider class="divider mb-3" [inset]="true"></mat-divider>
         <div class="col-12 mb-2">
           <div class="row">
             <div class="col-4 text-center nombres-titulo">ID</div>
@@ -95,7 +136,18 @@
                 (click)="eliminarAdmin(admin.id, i)" />
             </div>
           </div>
-        </div>
+        </div> -->
+        <!-- <div class="col-auto text-center center mt-3">
+          <nav aria-label="...">
+            <ul class="pagination pagination-lg">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+            </ul>
+          </nav>
+        </div> -->
       </div>
     </mat-card>
     <div class="col-12 offset-md-2 col-md-8 mb-5">
@@ -113,6 +165,11 @@
             <div class="col-auto">
               <button (click)="subirArchivo()" class="">Subir</button>
             </div>
+            <div class="col-auto">
+              <a [href]="'../../../assets/titulos.csv'">
+                Descargue una plantilla para los titulos
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -120,4 +177,6 @@
   </div>
 </div>
 
-<button (click)="prueba()">asasasa</button>
+<!-- <div>
+  <button (click)="prueba()">algo</button>
+</div> -->

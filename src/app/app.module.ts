@@ -23,6 +23,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { EmpresaRegisterComponent } from './auth/empresa/empresa-register/empresa-register.component';
@@ -93,6 +94,7 @@ import { AgregarAdminComponent } from './admin/agregar-admin/agregar-admin.compo
     HttpClientModule,
     MatDividerModule,
     MatDialogModule,
+    MatPaginatorModule,
   ],
   exports: [
     MatButtonModule,

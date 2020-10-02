@@ -2,7 +2,7 @@
   <h1 mat-dialog-title class="titulo text-center mt-3 pb-3">Agregue un titulo</h1>
   <form [formGroup]="tituloForm" (ngSubmit)="agregarTitulo()" class="mt-5 mb-3">
     <div class="row">
-      <div class="col-12">
+      <div class="col-6">
         <mat-form-field class="full-width-height">
           <mat-label>ID</mat-label>
           <input matInput type="text" formControlName="id">
@@ -14,7 +14,7 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-12">
+      <div class="col-6">
         <mat-form-field class="full-width-height">
           <mat-label>DNI</mat-label>
           <input matInput type="number" formControlName="DNI">
@@ -27,7 +27,61 @@
         </mat-form-field>
       </div>
     </div>
-    <mat-card-actions class="mb-5">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field class="full-width-height">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" formControlName="nombre">
+          <mat-error *ngIf="nombrePattern.invalid && !nombrePattern.touched">
+            Por favor, ingrese un nombre válido.
+          </mat-error>
+          <mat-error *ngIf="nombrePattern.touched" >
+            El nombre es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="full-width-height">
+          <mat-label>Apellido</mat-label>
+          <input matInput type="text" formControlName="apellido">
+          <mat-error *ngIf="apellidoPattern.invalid && !apellidoPattern.touched">
+            Por favor, ingrese un apellido válido.
+          </mat-error>
+          <mat-error *ngIf="apellidoPattern.touched" >
+            El apellido es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field class="full-width-height mt-2">
+          <mat-label>Año de Egreso</mat-label>
+          <mat-select formControlName="yearDeEgreso">
+            <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
+            <mat-option *ngFor="let year of yearsDeEgreso | async" [value]="year.value">
+              {{ year.viewValue }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="egresoPattern.hasError('required')">
+            El año de egreso es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="full-width-height">
+          <mat-label>Numero de Alumno</mat-label>
+          <input matInput type="number" formControlName="nroDeAlumno">
+          <mat-error *ngIf="nroDeAlumnoPattern.invalid && !nroDeAlumnoPattern.touched">
+            Por favor, ingrese un numero válido.
+          </mat-error>
+          <mat-error *ngIf="nroDeAlumnoPattern.touched" >
+            El numero de alumno es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-card-actions class="mb-3">
       <div class="row">
         <div class="alinear-centro mt-4 center">
           <button type="submit" class="center">Agregar</button>
@@ -35,5 +89,6 @@
       </div>
     </mat-card-actions>
   </form>
+  {{mensaje}}
 </div>
 
