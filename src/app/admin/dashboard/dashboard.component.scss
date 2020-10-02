@@ -13,6 +13,32 @@
   src: url("src/assets/fonts/roboto/Roboto-Bold.ttf");
 }
 
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 0%;
+}
+.nombres-titulo {
+  font-family: Roboto-Medium;
+  font-size: large;
+  line-height: normal;
+}
+th.mat-header-cell {
+  text-align: center;
+  line-height: normal;
+}
+tr.mat-row, tr.mat-footer-row {
+  height: 48px;
+  text-align: center !important;
+}
+
 .titulo {
   font-size: 2.45rem;
   font-family: Roboto-Bold;
@@ -32,11 +58,6 @@
 .datos-titulo {
   font-family: Roboto-Light;
   font-size: large;
-}
-
-.nombres-titulo {
-  font-family: Roboto-Bold;
-  font-size: x-large;
 }
 
 .line-height-normal {

@@ -8,6 +8,7 @@ import { Empresa } from '../interfaces/empresa';
 import { MiscService } from './misc.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { Titulos } from '../interfaces/titulos';
 
 @Injectable({
   providedIn: 'root',
@@ -388,13 +389,13 @@ export class FirestoreService {
 
   // CONSEGUIR TODOS LOS TITULOS
 
-  async getTitulos() {
-    let query = this.angularFirestore.collection('titulos').get().toPromise();
-    let titulos = [];
+  async getTitulos(): Promise<Titulos[]> {
+    let query = this.angularFirestore.collection('titulos', (ref) => ref.orderBy("apellido")).get().toPromise();
+    let titulos: Titulos[] = [];
     await query.then((documentos) => {
       documentos.forEach((doc) => {
-        let titulo = {
-          id: doc.id,
+        let titulo: Titulos = {
+          titulo: doc.id,
           DNI: doc.data().DNI,
           nroDeAlumno: doc.data().nroDeAlumno,
           nombre: doc.data().nombre,

@@ -30,3 +30,7 @@ a{
 .mat-form-field.mat-focused .mat-form-field-label{
   color: #51799f !important;
 }
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #356089 !important;
+}

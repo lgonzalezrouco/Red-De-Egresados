@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subject, combineLatest } from 'rxjs';
+import { Titulos } from 'src/app/shared/interfaces/titulos';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FirestoreService } from 'src/app/shared/services/firestore.service';
 import { MiscService } from 'src/app/shared/services/misc.service';
@@ -13,30 +17,27 @@ import { AgregarTituloComponent } from '../agregar-titulo/agregar-titulo.compone
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
-  searchFormGroup = new FormGroup({
-    value: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[a-zA-Z ]*'),
-      Validators.minLength(2),
-    ]),
-    campo: new FormControl('', Validators.required),
-  });
+export class DashboardComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = [
+    'Título',
+    'DNI',
+    'Nombre',
+    'Apellido',
+    'Año de Egreso',
+    'editar',
+    'eliminar',
+  ];
+  dataSource: MatTableDataSource<Titulos>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   fileReaded;
-  titulos: any[];
-  admins: any[];
   editar: boolean = false;
   idParaEditar;
   mensajeDeCargaABD: string;
   titulosASubir = [];
-
-  startAt = new Subject();
-  endAt = new Subject();
-  startObservable = this.startAt.asObservable();
-  endObservable = this.endAt.asObservable();
-  public resultadosDeBusqueda = null;
-  valorDeEvent;
+  titulos: Titulos[];
 
   constructor(
     private miscSvc: MiscService,
@@ -45,11 +46,22 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.titulos = await this.firestoreSvc.getTitulosInicial();
-    /* this.ordenarTitulos(); */
-    this.getResults();
-    /* this.admins = await this.firestoreSvc.getAdmins();
-    this.ordenarAdmins(); */
+    this.titulos = await this.firestoreSvc.getTitulos();
+    this.dataSource = new MatTableDataSource(this.titulos);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   convertFile(csv) {
@@ -121,7 +133,9 @@ export class DashboardComponent implements OnInit {
         if (typeof respuesta !== 'string') {
           this.mensajeDeCargaABD = 'Se cargaron los titulos correctamente';
           this.titulos = await this.firestoreSvc.getTitulos();
-          this.ordenarTitulos();
+          this.dataSource = new MatTableDataSource(this.titulos);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         } else {
           this.mensajeDeCargaABD = 'Hubo un problema al cargar los titulos';
         }
@@ -138,7 +152,14 @@ export class DashboardComponent implements OnInit {
     } else {
       this.editar = false;
       this.idParaEditar = undefined;
-      this.firestoreSvc.editarTitulo(id, DNI, nombre, apellido, nroDeAlumno, yearDeEgreso);
+      this.firestoreSvc.editarTitulo(
+        id,
+        DNI,
+        nombre,
+        apellido,
+        nroDeAlumno,
+        yearDeEgreso
+      );
     }
   }
 
@@ -146,18 +167,30 @@ export class DashboardComponent implements OnInit {
     this.editar = false;
     this.idParaEditar = undefined;
     this.titulos = await this.firestoreSvc.getTitulos();
-    this.ordenarTitulos();
+    this.dataSource = new MatTableDataSource(this.titulos);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  async eliminarTitulo(id, indice) {
-    await this.firestoreSvc.eliminarTitulo(id);
+  async eliminarTitulo(titulo) {
+    await this.firestoreSvc.eliminarTitulo(titulo);
+    let indice: number;
+    for (let i = 0; i < this.titulos.length; i++) {
+      if(this.titulos[i].titulo == titulo) {
+        indice = i
+        break;
+      } ;
+    }
+    console.log(titulo, indice);
     if (indice > -1) {
       this.titulos.splice(indice, 1);
     }
-    console.log(this.titulos);
+    this.dataSource = new MatTableDataSource(this.titulos);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  ordenarTitulos() {
+  /* ordenarTitulos() {
     for (let i = 0; i < this.titulos.length; i++) {
       for (let j = 0; j < this.titulos.length - 1; j++) {
         let tempDigitsI: string = this.titulos[j].id;
@@ -177,80 +210,15 @@ export class DashboardComponent implements OnInit {
         }
       }
     }
-  }
-
-  ordenarAdmins() {
-    for (let i = 0; i < this.admins.length; i++) {
-      for (let j = 0; j < this.admins.length - 1; j++) {
-        let lastNameI: string = this.admins[j].lastName;
-
-        let lastNameJ: string = this.admins[j + 1].lastName;
-
-        if (lastNameI > lastNameJ) {
-          let tmp = this.admins[j];
-          this.admins[j] = this.admins[j + 1];
-          this.admins[j + 1] = tmp;
-        }
-      }
-    }
-  }
+  } */
 
   abrirFormularioDeTitulo() {
     let dialogRef = this.dialog.open(AgregarTituloComponent);
     dialogRef.afterClosed().subscribe(async () => {
       this.titulos = await this.firestoreSvc.getTitulos();
-      this.ordenarTitulos();
+      this.dataSource = new MatTableDataSource(this.titulos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
-
-  abrirFormularioDeRegistroDeAdmin() {
-    let dialogRef = this.dialog.open(AgregarAdminComponent);
-    dialogRef.afterClosed().subscribe(async () => {
-      this.admins = await this.firestoreSvc.getAdmins();
-      this.ordenarAdmins();
-    });
-  }
-
-  async eliminarAdmin(id, indice) {
-    await this.firestoreSvc.eliminarAdmin(id);
-    if (indice > -1) {
-      this.admins.splice(indice, 1);
-    }
-  }
-
-  getSearchData($event) {
-    this.valorDeEvent = $event.target.value;
-  }
-
-  search() {
-    this.startAt.next(this.valorDeEvent);
-    this.endAt.next(this.valorDeEvent + '\uf8ff');
-  }
-
-  makeQuery(start, end) {
-    const { campo } = this.searchFormGroup.value;
-    return this.firestoreSvc.searchTitulo(start, end, campo);
-  }
-
-  getResults() {
-    let subscription = combineLatest(
-      this.startObservable,
-      this.endObservable
-    ).subscribe((value) => {
-      this.makeQuery(value[0], value[1]).then((resultado) => {
-        this.titulos = resultado;
-        this.ordenarTitulos();
-        console.log(this.resultadosDeBusqueda);
-        setTimeout(() => {
-          subscription.unsubscribe;
-          console.log('DESUSCRITO');
-        }, 30000);
-      });
-    });
-  }
-
-  /* async prueba() {
-    let apellido = this.titulos[this.titulos.length - 1].apellido
-    this.titulos = await this.firestoreSvc.getFewTitulos(5, apellido);
-  } */
 }

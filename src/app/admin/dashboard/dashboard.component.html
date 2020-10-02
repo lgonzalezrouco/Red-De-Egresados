@@ -1,4 +1,4 @@
-<app-toolbar></app-toolbar>
+<!-- <app-toolbar></app-toolbar>
 <div class="margen container-fluid">
   <div class="row">
     <div class="col-12 offset-md-2 col-md-8 mb-4 mt-3">
@@ -114,40 +114,146 @@
             </div>
           </div>
         </div>
-        <!-- <mat-divider class="divider mb-3" [inset]="true"></mat-divider>
-        <div class="col-12 mb-2">
+      </div>
+    </mat-card>
+    <div class="col-12 offset-md-2 col-md-8 mb-5">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="line-height-normal titulo ml-4">
+            Cargar a la Base de Datos
+          </h1>
+        </div>
+        <div class="col-12">
           <div class="row">
-            <div class="col-4 text-center nombres-titulo">ID</div>
-            <div class="col-4 text-center nombres-titulo">email</div>
-            <div class="col-4"></div>
+            <div class="col-auto ml-4">
+              <input type="file" class="form-control-file" id="inputFile" (change)="convertFile($event)" />
+            </div>
+            <div class="col-auto">
+              <button (click)="subirArchivo()" class="">Subir</button>
+            </div>
+            <div class="col-auto">
+              <a [href]="'../../../assets/titulos.csv'">
+                Descargue una plantilla para los títulos
+              </a>
+            </div>
           </div>
         </div>
-        <mat-divider class="divider mb-3" [inset]="true"></mat-divider>
-        <div class="col-12">
-          <div class="row mb-3" *ngFor="let admin of admins; index as i">
-            <div class="col-4 text-center datos-titulo">
-              {{ admin.id }}
-            </div>
-            <div class="col-4 text-center datos-titulo">
-              {{ admin.email }}
-            </div>
-            <div class="col-4 text-center">
-              <img src="../../../assets/images/cruz.png" alt="eliminar" class="ml-2 text-center img-fluid set-pointer"
-                (click)="eliminarAdmin(admin.id, i)" />
-            </div>
-          </div>
-        </div> -->
-        <!-- <div class="col-auto text-center center mt-3">
-          <nav aria-label="...">
-            <ul class="pagination pagination-lg">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-            </ul>
-          </nav>
-        </div> -->
+      </div>
+    </div>
+  </div>
+</div> -->
+<app-toolbar></app-toolbar>
+<div class="margen container-fluid">
+  <div class="row">
+    <div class="col-12 offset-md-2 col-md-8 mb-4 mt-3">
+      <div class="row">
+        <div class="col-12 col-md-6 sm-text-center">
+          <h1 class="ml-4 titulo vertical-align">Administrar Títulos</h1>
+        </div>
+        <div class="col-6 offset-md-4 col-md-auto sm-text-center vertical-align float-right">
+          <span (click)="abrirFormularioDeTitulo()" class="agregar-datos set-pointer float-right">+ Agregar
+            Título</span>
+        </div>
+      </div>
+    </div>
+    <mat-card class="col-12 offset-md-2 col-md-8 mb-4">
+      <div class="container">
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+        </mat-form-field>
+      </div>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort matSortActive="Apellido" matSortDisableClear
+          matSortDirection="desc">
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="Título">
+            <th mat-header-cell *matHeaderCellDef><span class="nombres-titulo">Título</span></th>
+            <td mat-cell *matCellDef="let titulo" class="datos-titulo"> {{titulo.titulo}} </td>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="DNI">
+            <th mat-header-cell *matHeaderCellDef><span class="nombres-titulo">DNI</span></th>
+            <!-- <td mat-cell *matCellDef="let titulo"> {{titulo.DNI}} </td> -->
+            <td mat-cell *matCellDef="let titulo">
+              <ng-container *ngIf="
+                  editar == true && idParaEditar == titulo.titulo;
+                  then editarDNI;
+                  else mostrarDNI
+                ">
+              </ng-container>
+              <ng-template #editarDNI>
+                <input type="number" class="datos-titulo" [(ngModel)]="titulo.DNI" />
+              </ng-template>
+              <ng-template #mostrarDNI>
+                <span class="datos-titulo">{{ titulo.DNI }}</span>
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="Nombre">
+            <th mat-header-cell *matHeaderCellDef><span class="nombres-titulo">Nombre</span></th>
+            <td mat-cell *matCellDef="let titulo" class="datos-titulo"> {{titulo.nombre}} </td>
+          </ng-container>
+
+          <!-- Last Name Column -->
+          <ng-container matColumnDef="Apellido">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear><span
+                class="nombres-titulo">Apellido</span></th>
+            <td mat-cell *matCellDef="let titulo" class="datos-titulo"> {{titulo.apellido}} </td>
+          </ng-container>
+
+          <!-- Año de Egreso Column -->
+          <ng-container matColumnDef="Año de Egreso">
+            <th mat-header-cell *matHeaderCellDef><span class="nombres-titulo">Año de Egreso</span></th>
+            <td mat-cell *matCellDef="let titulo" class="datos-titulo"> {{titulo.yearDeEgreso}} </td>
+          </ng-container>
+
+          <!-- Año de Egreso Column -->
+          <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let titulo" class="datos-titulo">
+              <ng-container *ngIf="
+                      editar == true && idParaEditar == titulo.titulo;
+                      then botonGuardar;
+                      else botonEditar
+                    ">
+              </ng-container>
+              <ng-template #botonGuardar>
+                <img src="../../../assets/images/editar.png" alt="aceptar"
+                  class="text-center img-fluid set-pointer mr-2"
+                  (click)="editarTitulo(titulo.titulo, titulo.DNI, titulo.nombre, titulo.apellido, titulo.nroDeAlumno, titulo.yearDeEgreso)" />
+                <img src="../../../assets/images/cruz.png" alt="cancelar" class="ml-2 text-center img-fluid set-pointer"
+                  (click)="cancelarEdicion()" />
+              </ng-template>
+              <ng-template #botonEditar>
+                <img src="../../../assets/images/editar.png" alt="editar" class="text-center img-fluid set-pointer"
+                  (click)="editarTitulo(titulo.titulo, titulo.DNI, titulo.nombre, titulo.apellido, titulo.nroDeAlumno, titulo.yearDeEgreso)" />
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <!-- Año de Egreso Column -->
+          <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let titulo">
+              <img src="../../assets/images/eliminar.png" alt="" class="ml-2 text-center img-fluid set-pointer"
+                (click)="eliminarTitulo(titulo.titulo)">
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let titulo; columns: displayedColumns;"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">Nada coincide con "{{input.value}}"</td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" [length]="titulos.length"></mat-paginator>
       </div>
     </mat-card>
     <div class="col-12 offset-md-2 col-md-8 mb-5">
@@ -176,7 +282,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div>
-  <button (click)="prueba()">algo</button>
-</div> -->
