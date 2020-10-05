@@ -90,6 +90,11 @@ export class MiscService {
     });
   }
 
+  async getAdmin(email): Promise<boolean> {
+    const dataAdmin = await this.angularFirestore.collection('admins').doc(email).get().toPromise();
+    return dataAdmin.exists
+  }
+
   async checkIfUserIsLogged(): Promise<string> {
     await this.getUserFirebase();
     await this.getUserAndUID();
@@ -104,9 +109,7 @@ export class MiscService {
       if (!userFirebase.emailVerified) {
         return 'wait-verification';
       } else {
-        if (user.admin) {
-          return 'admin';
-        } else if (user.empresa && uid) {
+        if (user.empresa && uid) {
           return 'empresa';
         } else if (!user.empresa && uid) {
           return 'egresado';

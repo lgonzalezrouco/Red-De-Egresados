@@ -90,7 +90,6 @@ Una vez registrados, ambos tipos de usuario van a poder buscar a otros usuarios 
 - [x] Contacto entre egresados
 - [x] Busqueda de egresados
 - [x] Agregar Experiencias
+- [x] Administrador
 - [ ] Redes Sociales
-- [ ] Administrador (Paginacion y acceso)
-- [ ] Errores Ortograficos
 - [ ] Mensaje de error

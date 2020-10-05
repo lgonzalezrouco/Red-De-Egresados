@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, combineLatest } from 'rxjs';
 import { Titulos } from 'src/app/shared/interfaces/titulos';
+import { User } from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FirestoreService } from 'src/app/shared/services/firestore.service';
 import { MiscService } from 'src/app/shared/services/misc.service';
@@ -46,8 +47,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.titulos = await this.firestoreSvc.getTitulos();
-    this.dataSource = new MatTableDataSource(this.titulos);
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    let admin: boolean = await this.miscSvc.getAdmin(user.email);
+    if (admin) {
+      this.titulos = await this.firestoreSvc.getTitulos();
+      this.dataSource = new MatTableDataSource(this.titulos);
+    } else {
+      let hayUnUsuario: string = await this.miscSvc.checkIfUserIsLogged();
+      await this.miscSvc.notAllowed(hayUnUsuario);
+    }
   }
 
   ngAfterViewInit() {
@@ -176,10 +184,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     await this.firestoreSvc.eliminarTitulo(titulo);
     let indice: number;
     for (let i = 0; i < this.titulos.length; i++) {
-      if(this.titulos[i].titulo == titulo) {
-        indice = i
+      if (this.titulos[i].titulo == titulo) {
+        indice = i;
         break;
-      } ;
+      }
     }
     console.log(titulo, indice);
     if (indice > -1) {
