@@ -10,4 +10,11 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          APIKEY: ${{ secrets.APIKEY }}
+          AUTHDOMAIN: ${{ secrets.AUTHDOMAIN }}
+          DATABASEURL: ${{ secrets.DATABASEURL }}
+          PROJECTID: ${{ secrets.PROJECTID }}
+          STORAGEBUCKET: ${{ secrets.STORAGEBUCKET }}
+          MESSAGINGSENDERID: ${{ secrets.MESSAGINGSENDERID }}
+          APPID: ${{ secrets.APPID }}
+          MEASUREMENTID: ${{ secrets.MEASUREMENTID }}
