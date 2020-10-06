@@ -1,9 +1,3 @@
-name: Host automatico firebase
-on:
-  push:
-    branches:
-      - master
-
 jobs:
   build:
     name: Build
