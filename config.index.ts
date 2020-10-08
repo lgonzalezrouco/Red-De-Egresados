@@ -1,4 +1,5 @@
 import {writeFile} from 'fs';
+import { env } from 'process';
 
 import {name, version} from './package.json';
 
@@ -25,4 +26,5 @@ writeFile(targetPath, envConfigFile, 'utf8', (err) => {
   if (err) {
     return console.log(err);
   }
+  console.log(envConfigFile);
 });
