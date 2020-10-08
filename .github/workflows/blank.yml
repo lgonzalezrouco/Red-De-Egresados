@@ -21,4 +21,12 @@ jobs:
           args: deploy --only hosting --project redegresadospoli
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_PROJECT: redegresadospoli  
+          FIREBASE_PROJECT: redegresadospoli
+          APIKEY: ${{ secrets.APIKEY }}
+          AUTHDOMAIN: ${{ secrets.AUTHDOMAIN }}
+          DATABASEURL: ${{ secrets.DATABASEURL }}
+          PROJECTID: ${{ secrets.PROJECTID }}
+          STORAGEBUCKET: ${{ secrets.STORAGEBUCKET }}
+          MESSAGINGSENDERID: ${{ secrets.MESSAGINGSENDERID }}
+          APPID: ${{ secrets.APPID }}
+          MEASUREMENTID: ${{ secrets.MEASUREMENTID }}
