@@ -3,12 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 import { keys } from 'config';
+import { firebase } from './firebase.environment';
+import { name, version } from 'package.json';
 
 export const environment = {
   production: false,
-  firebaseConfig: keys.keysForHostedRed,
+  /* firebaseConfig: keys.keysForHostedRed, */
+  firebaseConfig: firebase.firebaseConfig,
+  name,
+  version
 };
- 
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

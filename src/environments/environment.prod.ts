@@ -16,8 +16,15 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-       apiKey: 'undefined'
-   },
-   name: 'enviro-replace',
-   version: '0.0.1'
+    apiKey: 'undefined',
+    authDomain: 'undefined',
+    databaseURL: 'undefined',
+    projectId: 'undefined',
+    storageBucket: 'undefined',
+    messagingSenderId: 'undefined',
+    appId: 'undefined',
+    measurementId: 'undefined',
+  },
+  name: 'red-de-egresados',
+  version: '0.0.0',
 };

@@ -1,9 +1,9 @@
 {
   "targets": {
-    "red-de-egresados": {
+    "redegresadospoli": {
       "hosting": {
         "Red-De-Egresados": [
-          "red-de-egresados"
+          "redegresadospoli"
         ]
       }
     }
