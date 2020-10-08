@@ -9,6 +9,7 @@
     }
   },
   "projects": {
-    "default": "red-egresados-online"
+    "default": "redegresadospoli",
+    "RedEgresadosPoli": "redegresadospoli"
   }
 }

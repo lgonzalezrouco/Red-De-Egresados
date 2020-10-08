@@ -7,8 +7,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "config": 
-       "ts-node -O '{\"module\": \"commonjs\"}' ./config.index.ts",
+    "config": "ts-node -O '{\"module\": \"commonjs\"}' ./config.index.ts",
     "build": "npm run config && ng build --prod"
   },
   "private": true,
@@ -27,7 +26,7 @@
     "@angular/router": "^9.1.12",
     "convert-csv-to-json": "^1.0.0",
     "emailjs-com": "^2.6.3",
-    "firebase": "^7.19.1",
+    "firebase": "^7.22.1",
     "github-card": "^1.2.1",
     "ng-github-card": "^2.0.2",
     "ngx-material-file-input": "^2.1.1",
@@ -65,5 +64,4 @@
   "main": "karma.conf.js",
   "author": "",
   "license": "ISC"
-  }
-    
+}

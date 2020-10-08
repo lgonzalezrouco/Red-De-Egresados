@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/Red-De-Egresados",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
