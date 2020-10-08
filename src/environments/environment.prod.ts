@@ -15,7 +15,7 @@
 
 export const environment = {
   production: true,
-  firebase: {
+  firebaseConfig: {
        apiKey: 'undefined'
    },
    name: 'enviro-replace',
