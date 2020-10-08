@@ -390,7 +390,12 @@ export class FirestoreService {
   // CONSEGUIR TODOS LOS TITULOS
 
   async getTitulos(): Promise<Titulos[]> {
-    let query = this.angularFirestore.collection('titulos', (ref) => ref.orderBy("apellido")).get().toPromise();
+    let query = this.angularFirestore
+      .collection('titulos', (ref) =>
+        ref.orderBy('apellido')
+      )
+      .get()
+      .toPromise();
     let titulos: Titulos[] = [];
     await query.then((documentos) => {
       documentos.forEach((doc) => {
@@ -412,7 +417,7 @@ export class FirestoreService {
 
   async getTitulosInicial() {
     let query = this.angularFirestore
-      .collection('titulos', (ref) => ref.limit(10).orderBy("apellido"))
+      .collection('titulos', (ref) => ref.limit(10).orderBy('apellido'))
       .get()
       .toPromise();
     let titulos = [];
@@ -435,10 +440,7 @@ export class FirestoreService {
   async getFewTitulos(limit, startApellido) {
     let query = this.angularFirestore
       .collection('titulos', (ref) =>
-        ref
-          .limit(limit)
-          .orderBy('apellido')
-          .startAfter(startApellido)
+        ref.limit(limit).orderBy('apellido').startAfter(startApellido)
       )
       .get()
       .toPromise();
@@ -635,5 +637,64 @@ export class FirestoreService {
     );
 
     return await titulosRef.delete();
+  }
+
+  /*
+  ┌─────────────────────────────────────────┐
+  │                 GETTERS                 │
+  └─────────────────────────────────────────┘
+  */
+
+  async getAllEgresados() {
+    let query = this.angularFirestore
+      .collection('users', (ref) => ref.where('empresa', '==', false))
+      .get()
+      .toPromise();
+    let egresados: User[] = [];
+    await query.then((documentos) => {
+      documentos.forEach((doc) => {
+        let egresado: User = {
+          uid: doc.id,
+          email: doc.data().email,
+          firstName: doc.data().firstName,
+          lastName: doc.data().lastName,
+          birthday: doc.data().birthday,
+          photoURL: doc.data().photoURL,
+          gender: doc.data().gender,
+          cellphone: doc.data().cellphone,
+          yearDeEgreso: doc.data().yearDeEgreso,
+          orientacion: doc.data().orientacion,
+          profesion: doc.data().profesion,
+          DNI: doc.data().DNI,
+          tituloEgreso: doc.data().tituloEgreso,
+          empresa: doc.data().empresa,
+        };
+        egresados.push(egresado);
+      });
+    });
+    return egresados;
+  }
+
+  async getAllEmpresas() {
+    let query = this.angularFirestore
+      .collection('users', (ref) => ref.where('empresa', '==', true))
+      .get()
+      .toPromise();
+    let empresas: Empresa[] = [];
+    await query.then((documentos) => {
+      documentos.forEach((doc) => {
+        let empresa: Empresa = {
+          uid: doc.id,
+          email: doc.data().email,
+          empresaName: doc.data().empresaName,
+          photoURL: doc.data().photoURL,
+          CUIT: doc.data().CUIT,
+          verificada: doc.data().verificada,
+          empresa: doc.data().empresa,
+        };
+        empresas.push(empresa);
+      });
+    });
+    return empresas;
   }
 }

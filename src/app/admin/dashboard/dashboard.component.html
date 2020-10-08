@@ -272,8 +272,18 @@
               <button (click)="subirArchivo()" class="btn vertical-align">Subir</button>
             </div>
             <div class="col-auto">
-              <a [href]="'../../../assets/titulos.csv'" class="vertical-align">
+              <a [href]="'../../../assets/titulos.csv'" class="vertical-align like-a">
                 Descargue una plantilla para los títulos
+              </a>
+            </div>
+            <div class="col-auto">
+              <a (click)="downloadJsonEgresados()" [href]="" class="vertical-align like-a">
+                Descargue la data de los egresados
+              </a>
+            </div>
+            <div class="col-auto">
+              <a (click)="downloadJsonEmpresas()" [href]="" class="vertical-align like-a">
+                Descargue la data de las empresas
               </a>
             </div>
           </div>

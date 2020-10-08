@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject, combineLatest } from 'rxjs';
+import { Subject, combineLatest, of } from 'rxjs';
 import { Titulos } from 'src/app/shared/interfaces/titulos';
 import { User } from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -47,11 +47,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    await this.miscSvc.getUserAndUID();
     const user: User = JSON.parse(localStorage.getItem('user'));
-    let admin: boolean = await this.miscSvc.getAdmin(user.email);
-    if (admin) {
-      this.titulos = await this.firestoreSvc.getTitulos();
-      this.dataSource = new MatTableDataSource(this.titulos);
+    if (user) {
+      let admin: boolean = await this.miscSvc.getAdmin(user.email);
+      if (admin) {
+        this.titulos = await this.firestoreSvc.getTitulos();
+        console.log(this.titulos)
+        this.dataSource = new MatTableDataSource(this.titulos);
+      } else {
+        let hayUnUsuario: string = await this.miscSvc.checkIfUserIsLogged();
+        await this.miscSvc.notAllowed(hayUnUsuario);
+      }
     } else {
       let hayUnUsuario: string = await this.miscSvc.checkIfUserIsLogged();
       await this.miscSvc.notAllowed(hayUnUsuario);
@@ -228,5 +235,58 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  dataEgresados() {
+    let egresados = this.firestoreSvc.getAllEgresados();
+    return egresados;
+  }
+
+  dataEmpresas() {
+    let empresas = this.firestoreSvc.getAllEmpresas();
+    return empresas;
+  }
+
+  //
+
+  private setting = {
+    element: {
+      dynamicDownload: null as HTMLElement,
+    },
+  };
+
+  downloadJsonEgresados() {
+    this.dataEgresados().then((res) => {
+      this.dyanmicDownloadByHtmlTag({
+        fileName: 'Data Egresados.json',
+        text: JSON.stringify(res),
+      });
+    });
+  }
+
+  downloadJsonEmpresas() {
+    this.dataEmpresas().then((res) => {
+      this.dyanmicDownloadByHtmlTag({
+        fileName: 'Data Empresas.json',
+        text: JSON.stringify(res),
+      });
+    });
+  }
+
+  private dyanmicDownloadByHtmlTag(arg: { fileName: string; text: string }) {
+    if (!this.setting.element.dynamicDownload) {
+      this.setting.element.dynamicDownload = document.createElement('a');
+    }
+    const element = this.setting.element.dynamicDownload;
+    const fileType =
+      arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+    element.setAttribute(
+      'href',
+      `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`
+    );
+    element.setAttribute('download', arg.fileName);
+
+    var event = new MouseEvent('click');
+    element.dispatchEvent(event);
   }
 }

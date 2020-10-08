@@ -148,6 +148,12 @@ tr.mat-row, tr.mat-footer-row {
   cursor: pointer;
 }
 
+.like-a:hover {
+  cursor: pointer;
+  color: #204b75;
+  text-decoration: underline #204b75;
+}
+
 @media all and (max-width: 767px) {
   .set-size-logo {
     max-width: 106px;
