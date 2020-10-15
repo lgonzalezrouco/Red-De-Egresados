@@ -1,4 +1,3 @@
-import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -45,7 +44,6 @@ export class PerfilEgresadoComponent implements OnInit {
     birthday: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
     profesion: new FormControl('', [Validators.required]),
-    photoURL: new FormControl(''),
   });
 
   // Variables para controlar los patrones del formulario
@@ -143,7 +141,7 @@ export class PerfilEgresadoComponent implements OnInit {
       ) {
         for (let i = 0; i < event.target.files.length; i++) {
           this.mensajeArchivo = `Archivo preparado: ${event.target.files[i].name}`;
-          this.nombreArchivo = event.target.files[i].name;
+          this.nombreArchivo = this.user.uid + '-foto-de-perfil'
           this.datosFormulario.delete('archivo');
           this.datosFormulario.append(
             'archivo',
@@ -151,7 +149,6 @@ export class PerfilEgresadoComponent implements OnInit {
             event.target.files[i].name
           );
         }
-        this.datosFormulario.get('archivo');
       } else {
         this.mensajeArchivo =
           'El formato del archivo no es valido (solo JPG, PNG o JPEG)';
@@ -224,16 +221,15 @@ export class PerfilEgresadoComponent implements OnInit {
       this.porcentaje = Math.round(porcentaje);
       if (this.porcentaje == 100) {
         this.finalizado = true;
-        referencia.getDownloadURL().subscribe((URL) => {
-          this.URLPublica = URL;
+        await referencia.getDownloadURL().toPromise().then((res) => {
+          this.URLPublica = res
         });
-        await this.editUser();
+        /* referencia.getDownloadURL().subscribe((URL) => {
+          this.URLPublica = URL;
+        }); */
+        this.editUser();
       }
     });
-    referencia.getDownloadURL().subscribe((URL) => {
-      this.URLPublica = URL;
-    });
-    console.log(this.URLPublica);
   }
 
   async editUser() {
@@ -331,7 +327,9 @@ export class PerfilEgresadoComponent implements OnInit {
     let dialogRef = this.dialog.open(RedesFormComponent, {
       data: { uid: this.uid, red: 'Instagram', user: user },
     });
-    this.editarRedes();
+    dialogRef.afterClosed().subscribe(async (result) => {
+      await this.editarRedes();
+    });
   }
 
   abrirFormularioDeBehance() {
@@ -339,7 +337,9 @@ export class PerfilEgresadoComponent implements OnInit {
     let dialogRef = this.dialog.open(RedesFormComponent, {
       data: { uid: this.uid, red: 'Behance', user: user },
     });
-    this.editarRedes();
+    dialogRef.afterClosed().subscribe(async (result) => {
+      await this.editarRedes();
+    });
   }
 
   abrirFormularioDeFlickr() {
@@ -347,7 +347,9 @@ export class PerfilEgresadoComponent implements OnInit {
     let dialogRef = this.dialog.open(RedesFormComponent, {
       data: { uid: this.uid, red: 'Flickr', user: user },
     });
-    this.editarRedes();
+    dialogRef.afterClosed().subscribe(async (result) => {
+      await this.editarRedes();
+    });
   }
 
   abrirFormularioDeFacebook() {
@@ -355,7 +357,9 @@ export class PerfilEgresadoComponent implements OnInit {
     let dialogRef = this.dialog.open(RedesFormComponent, {
       data: { uid: this.uid, red: 'Facebook', user: user },
     });
-    this.editarRedes();
+    dialogRef.afterClosed().subscribe(async (result) => {
+      await this.editarRedes();
+    });
   }
 
   abrirFormularioDeGithub() {
@@ -363,7 +367,9 @@ export class PerfilEgresadoComponent implements OnInit {
     let dialogRef = this.dialog.open(RedesFormComponent, {
       data: { uid: this.uid, red: 'GitHub', user: user },
     });
-    this.editarRedes();
+    dialogRef.afterClosed().subscribe(async (result) => {
+      await this.editarRedes();
+    });
   }
 
   getGithubRepos() {
