@@ -9,11 +9,15 @@
 ##
 
 ## INDICE
-#####[A Tener En Cuenta](https://github.com/lucasrouco/Red-De-Egresados-IPM#a-tener-en-cuenta)
-#####[Desarrollo Personal](https://github.com/lucasrouco/Red-De-Egresados-IPM#para-desarrollo-personal)
-#####[Live Demo](https://github.com/lucasrouco/Red-De-Egresados-IPM#live-demo)
-#####[Descripción](https://github.com/lucasrouco/Red-De-Egresados-IPM#descripción)
-#####[Tareas](https://github.com/lucasrouco/Red-De-Egresados-IPM#tareas)
+[A Tener En Cuenta](https://github.com/lucasrouco/Red-De-Egresados-IPM#a-tener-en-cuenta)
+
+[Desarrollo Personal](https://github.com/lucasrouco/Red-De-Egresados-IPM#para-desarrollo-personal)
+
+[Live Demo](https://github.com/lucasrouco/Red-De-Egresados-IPM#live-demo)
+
+[Descripción](https://github.com/lucasrouco/Red-De-Egresados-IPM#descripción)
+
+[Tareas](https://github.com/lucasrouco/Red-De-Egresados-IPM#tareas)
 ## A tener en cuenta
 
 - Se necesita establecer sus propias variables de firebase en environment
