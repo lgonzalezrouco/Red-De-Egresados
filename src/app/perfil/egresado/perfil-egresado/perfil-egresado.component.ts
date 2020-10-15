@@ -62,7 +62,6 @@ export class PerfilEgresadoComponent implements OnInit {
 
   // Variable para guardar los datos del usuario
   public user: any;
-  public userAux: User;
   public uid;
   public userFirebase;
   public capacitaciones;
@@ -123,10 +122,10 @@ export class PerfilEgresadoComponent implements OnInit {
         this.githubRepos = result;
         this.githubRepos = this.githubRepos.slice(0, 3);
       });
-      this.userAux = this.user;
 
-      const timestamp = this.user.birthday.seconds;
-      this.fechaDeNacimiento = new Date(timestamp * 1000);
+      /* const timestamp = this.user.birthday.seconds;
+      this.fechaDeNacimiento = new Date(timestamp * 1000); */
+      this.fechaDeNacimiento = new Date(this.user.birthday.seconds * 1000);
 
       // Almacena la informacion de los json en las variables
       this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
@@ -180,8 +179,9 @@ export class PerfilEgresadoComponent implements OnInit {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
         this.uid = localStorage.getItem('uid');
-        const timestamp = this.user.birthday.seconds;
-        this.fechaDeNacimiento = new Date(timestamp * 1000);
+        /* const timestamp = this.user.birthday.seconds;
+        this.fechaDeNacimiento = new Date(timestamp * 1000); */
+        this.fechaDeNacimiento = new Date(this.user.birthday.seconds * 1000);
       }
     }
   }
@@ -220,14 +220,14 @@ export class PerfilEgresadoComponent implements OnInit {
       archivo
     );
 
-    tarea.percentageChanges().subscribe((porcentaje) => {
+    tarea.percentageChanges().subscribe(async (porcentaje) => {
       this.porcentaje = Math.round(porcentaje);
       if (this.porcentaje == 100) {
         this.finalizado = true;
         referencia.getDownloadURL().subscribe((URL) => {
           this.URLPublica = URL;
         });
-        this.editUser();
+        await this.editUser();
       }
     });
     referencia.getDownloadURL().subscribe((URL) => {
@@ -274,7 +274,7 @@ export class PerfilEgresadoComponent implements OnInit {
 
         console.log(user);
 
-        this.editar();
+        await this.editar();
       } else {
         // Si user es un string, significa que hubo un error, por lo tanto se muestra
         this.errorMessage = user;

@@ -75,7 +75,7 @@
               <div class="offset-md-1 col-md-5 col-12 float-left">
                 <mat-form-field class="full-width-height">
                   <mat-label>Nombre</mat-label>
-                  <input matInput formControlName="firstName" type="text" [(ngModel)]="userAux.firstName" />
+                  <input matInput formControlName="firstName" type="text" [(ngModel)]="user.firstName" />
                   <mat-error *ngIf="firstNamePattern.hasError('required')">
                     El nombre es <strong>requerido</strong>
                   </mat-error>
@@ -91,7 +91,7 @@
               <div class="col-md-5 col-12 float-right">
                 <mat-form-field class="full-width-height">
                   <mat-label>Apellido</mat-label>
-                  <input matInput formControlName="lastName" type="text" [(ngModel)]="userAux.lastName" />
+                  <input matInput formControlName="lastName" type="text" [(ngModel)]="user.lastName" />
                   <mat-error *ngIf="lastNamePattern.hasError('required')">
                     El apellido es <strong>requerido</strong>
                   </mat-error>
@@ -109,7 +109,7 @@
               <div class="offset-md-1 col-md-5 col-12 float-left">
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Género</mat-label>
-                  <mat-select [(ngModel)]="userAux.gender" formControlName="gender">
+                  <mat-select [(ngModel)]="user.gender" formControlName="gender">
                     <mat-option value="Masculino">Masculino</mat-option>
                     <mat-option value="Femenino">Femenino</mat-option>
                     <mat-option value="Prefiero no decirlo">Prefiero no decirlo</mat-option>
@@ -143,7 +143,7 @@
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Teléfono</mat-label>
                   <span matPrefix>+45 &nbsp;</span>
-                  <input matInput formControlName="cellphone" type="number" [(ngModel)]="userAux.cellphone" />
+                  <input matInput formControlName="cellphone" type="number" [(ngModel)]="user.cellphone" />
                   <mat-error *ngIf="cellphonePattern.hasError('required')">
                     El teléfono es <strong>requerido</strong>
                   </mat-error>
@@ -155,7 +155,7 @@
               <div class="col-md-5 col-12 float-right">
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Profesión</mat-label>
-                  <mat-select [(ngModel)]="userAux.profesion" formControlName="profesion">
+                  <mat-select [(ngModel)]="user.profesion" formControlName="profesion">
                     <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
                       {{ profesion.viewValue }}</mat-option>
                   </mat-select>
