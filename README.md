@@ -2,7 +2,7 @@
 
 <div style="text-align: center; align-content: center;">
   
-<img src="/src/assets/images/logo_ipm.png">
+<img src="/src/assets/images/logo_ipm.png" style="text-align: center; align-content: center; margin-left: auto; margin-right: auto;">
 
 </div>
 
