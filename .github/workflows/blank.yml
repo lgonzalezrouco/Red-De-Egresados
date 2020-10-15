@@ -5,7 +5,7 @@ on:
       - master
 
 jobs:
-  
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -13,12 +13,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - run: npm install
-      - run: npm i @angular/cli 
+      - run: npm i @angular/cli
       - run: npm run build -- --prod
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting --project redegresadospoli
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT: redegresadospoli
@@ -30,3 +26,10 @@ jobs:
           MESSAGINGSENDERID: ${{ secrets.MESSAGINGSENDERID }}
           APPID: ${{ secrets.APPID }}
           MEASUREMENTID: ${{ secrets.MEASUREMENTID }}
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting --project redegresadospoli
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT: redegresadospoli
