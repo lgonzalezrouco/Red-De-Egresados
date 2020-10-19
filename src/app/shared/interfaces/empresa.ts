@@ -6,4 +6,6 @@ export interface Empresa {
   verificada: boolean;
   photoURL: string;
   empresa: boolean;
+  descripcion: string;
+  lema: string;
 }

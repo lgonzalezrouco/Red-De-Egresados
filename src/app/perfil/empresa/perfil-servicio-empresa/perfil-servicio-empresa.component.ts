@@ -25,16 +25,16 @@ export class PerfilServicioEmpresaComponent implements OnInit {
       const uid = localStorage.getItem('uid');
       const userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
       this.uidDelUsuarioLogeado = localStorage.getItem('uid');
-      this.route.paramMap.subscribe((params) => {
+      this.route.paramMap.subscribe(async (params) => {
         this.uid = params.get('uid');
         console.log(this.uid);
         console.log(this.uidDelUsuarioLogeado);
         // Si el usuario seleccionado es el propio, se navega al propio perfil
         if (this.uid == this.uidDelUsuarioLogeado) {
-          this.router.navigate(['/perfil-empresa']);
+          this.router.navigate(['/home']);
         } else {
           // Sino muestra los datos correspondientes
-          this.empresaIngresada = this.miscSvc.getUser(this.uid);
+          this.empresaIngresada = await this.miscSvc.getUser(this.uid);
         }
       });
     } else {

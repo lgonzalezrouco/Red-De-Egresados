@@ -17,6 +17,8 @@ export class PerfilEmpresaComponent implements OnInit {
       Validators.pattern('[a-zA-Z .]*'),
       Validators.minLength(2),
     ]),
+    descripcion: new FormControl(''),
+    lema: new FormControl('')
   });
 
   // Variables para controlar los patrones del formulario
@@ -113,6 +115,7 @@ export class PerfilEmpresaComponent implements OnInit {
 
   async onEdit() {
     try {
+      this.finalizado == false;
       // Verifica si el usuario metio un archivo para cambiar
       if (this.datosFormulario.get('archivo') != null) {
         // Se encarga de actualizar los datos del usuario, si entre esos datos hay una foto
@@ -146,22 +149,22 @@ export class PerfilEmpresaComponent implements OnInit {
       archivo
     );
 
-    tarea.percentageChanges().subscribe((porcentaje) => {
+    tarea.percentageChanges().subscribe(async (porcentaje) => {
       this.porcentaje = Math.round(porcentaje);
-      if (this.porcentaje == 100) {
+      if (this.porcentaje == 100 && this.finalizado == false) {
         this.finalizado = true;
-        referencia.getDownloadURL().subscribe((URL) => {
+        await referencia
+          .getDownloadURL()
+          .toPromise()
+          .then((res) => {
+            this.URLPublica = res;
+          });
+        /* referencia.getDownloadURL().subscribe((URL) => {
           this.URLPublica = URL;
-        });
-        console.log(this.URLPublica);
-
+        }); */
         this.editEmpresa();
       }
     });
-    referencia.getDownloadURL().subscribe((URL) => {
-      this.URLPublica = URL;
-    });
-    console.log(this.URLPublica);
   }
 
   async editEmpresa() {
