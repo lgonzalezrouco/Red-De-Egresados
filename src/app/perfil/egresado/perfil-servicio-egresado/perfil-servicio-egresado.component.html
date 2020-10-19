@@ -47,16 +47,21 @@
               </p>
             </div>
             <div class="col 12">
-              <h3>
-                <p class="mt-3 descrip">
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-                  nec ornare tortor, et volutpat augue. In tincidunt auctor nisl eget
-                  condimentum. Donec id iaculis sapien. Vivamus pharetra facilisis
-                  quam et sodales. Quisque congue, ipsum et sollicitudin laoreet,
-                  mauris augue condimentum est, in placerat massa odio vel erat.
-                  Mauris sit amet efficitur lorem, id volutpat diam."
-                </p>
-              </h3>
+              <ng-container *ngIf="usuarioIngresado.descripcion; then mostrarDescripcion; else sinDescripcion"></ng-container>
+              <ng-template #mostrarDescripcion>
+                <h3>
+                  <p class="descrip">
+                    {{ usuarioIngresado.descripcion }}
+                  </p>
+                </h3>
+              </ng-template>
+              <ng-template #sinDescripcion>
+                <h3>
+                  <p class="descrip">
+                    Digale a {{ usuarioIngresado.firstName }} que edite su perfil y agregue una descripción
+                  </p>
+                </h3>
+              </ng-template>
             </div>
           </div>
         </div>

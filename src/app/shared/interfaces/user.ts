@@ -13,4 +13,5 @@ export interface User {
   DNI: string;
   tituloEgreso: string;
   empresa: boolean;
+  descripcion: string
 }

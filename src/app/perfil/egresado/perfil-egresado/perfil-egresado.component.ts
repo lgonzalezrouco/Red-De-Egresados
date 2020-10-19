@@ -44,6 +44,7 @@ export class PerfilEgresadoComponent implements OnInit {
     birthday: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
     profesion: new FormControl('', [Validators.required]),
+    descripcion: new FormControl(''),
   });
 
   // Variables para controlar los patrones del formulario
@@ -141,7 +142,7 @@ export class PerfilEgresadoComponent implements OnInit {
       ) {
         for (let i = 0; i < event.target.files.length; i++) {
           this.mensajeArchivo = `Archivo preparado: ${event.target.files[i].name}`;
-          this.nombreArchivo = this.user.uid + '-foto-de-perfil'
+          this.nombreArchivo = this.user.uid + '-foto-de-perfil';
           this.datosFormulario.delete('archivo');
           this.datosFormulario.append(
             'archivo',
@@ -185,6 +186,7 @@ export class PerfilEgresadoComponent implements OnInit {
 
   async onEdit() {
     try {
+      this.finalizado = false;
       // Verifica si el usuario metio un archivo para cambiar
       if (this.datosFormulario.get('archivo') != null) {
         // Se encarga de actualizar los datos del usuario, si entre esos datos hay una foto
@@ -219,11 +221,14 @@ export class PerfilEgresadoComponent implements OnInit {
 
     tarea.percentageChanges().subscribe(async (porcentaje) => {
       this.porcentaje = Math.round(porcentaje);
-      if (this.porcentaje == 100) {
+      if (this.porcentaje == 100 && this.finalizado == false) {
         this.finalizado = true;
-        await referencia.getDownloadURL().toPromise().then((res) => {
-          this.URLPublica = res
-        });
+        await referencia
+          .getDownloadURL()
+          .toPromise()
+          .then((res) => {
+            this.URLPublica = res;
+          });
         /* referencia.getDownloadURL().subscribe((URL) => {
           this.URLPublica = URL;
         }); */
