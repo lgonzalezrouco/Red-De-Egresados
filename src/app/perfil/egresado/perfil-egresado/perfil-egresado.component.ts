@@ -113,7 +113,7 @@ export class PerfilEgresadoComponent implements OnInit {
       this.social = JSON.parse(localStorage.getItem('social'));
       this.getCapacitaciones();
       console.log(this.social);
-
+      await this.getGithubCard();
       /* const timestamp = this.user.birthday.seconds;
       this.fechaDeNacimiento = new Date(timestamp * 1000); */
       this.fechaDeNacimiento = new Date(this.user.birthday.seconds * 1000);
