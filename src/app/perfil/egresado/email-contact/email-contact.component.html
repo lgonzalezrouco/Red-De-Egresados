@@ -4,7 +4,7 @@
     <div class="row">
       <ng-container *ngIf="user.empresa; then nombreEmpresa ; else nombreEgresado"></ng-container>
       <ng-template #nombreEmpresa>
-        <input hidden name="from_name" value="{{user.empresaName}}">
+        <input hidden name="from_name" value="{{user.firstName}}">
       </ng-template>
       <ng-template #nombreEgresado>
         <input hidden name="from_name" value="{{user.firstName}}&nbsp;{{user.lastName}}">

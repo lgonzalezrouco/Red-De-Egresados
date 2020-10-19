@@ -124,7 +124,7 @@ export class FirestoreService {
           tituloEgreso: user.tituloEgreso,
           cellphone: data.cellphone,
           empresa: false,
-          descripcion: data.descripcion
+          descripcion: data.descripcion,
         });
 
       await this.miscSvc.saveUser(user.uid);
@@ -177,13 +177,13 @@ export class FirestoreService {
     const empresaData: Empresa = {
       uid: user.uid,
       email: user.email,
-      empresaName: values.empresaName,
+      firstName: values.firstName,
       CUIT: CUIT,
       verificada: verificada,
       photoURL: photoURL,
       empresa: true,
       descripcion: '',
-      lema: ''
+      lema: '',
     };
 
     /*
@@ -200,7 +200,7 @@ export class FirestoreService {
   // Se usa para editar la empresa
   async editEmpresa(user: any, data: any, url: any) {
     try {
-      if (data.empresaName == '') {
+      if (data.firstName == '') {
         return 'Por favor llene todos los campos obligatorios';
       }
 
@@ -211,13 +211,13 @@ export class FirestoreService {
         .set({
           uid: user.uid,
           email: user.email,
-          empresaName: data.empresaName,
+          firstName: data.firstName,
           CUIT: user.CUIT,
           verificada: user.verificada,
           photoURL: url,
           empresa: true,
           descripcion: data.descripcion,
-          lema: data.lema
+          lema: data.lema,
         });
 
       await this.miscSvc.saveUser(user.uid);
@@ -397,9 +397,7 @@ export class FirestoreService {
 
   async getTitulos(): Promise<Titulos[]> {
     let query = this.angularFirestore
-      .collection('titulos', (ref) =>
-        ref.orderBy('apellido')
-      )
+      .collection('titulos', (ref) => ref.orderBy('apellido'))
       .get()
       .toPromise();
     let titulos: Titulos[] = [];
@@ -674,7 +672,7 @@ export class FirestoreService {
           DNI: doc.data().DNI,
           tituloEgreso: doc.data().tituloEgreso,
           empresa: doc.data().empresa,
-          descripcion: doc.data().descripcion
+          descripcion: doc.data().descripcion,
         };
         egresados.push(egresado);
       });
@@ -693,13 +691,13 @@ export class FirestoreService {
         let empresa: Empresa = {
           uid: doc.id,
           email: doc.data().email,
-          empresaName: doc.data().empresaName,
+          firstName: doc.data().firstName,
           photoURL: doc.data().photoURL,
           CUIT: doc.data().CUIT,
           verificada: doc.data().verificada,
           empresa: doc.data().empresa,
           descripcion: doc.data().descripcion,
-          lema: doc.data().lema
+          lema: doc.data().lema,
         };
         empresas.push(empresa);
       });

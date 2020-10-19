@@ -6,7 +6,7 @@
       <div class="col-12 col-md-4 mt-3 md-margen">
         <img class="offset-md-2 col-md-8 rounded-circle" src="{{
             empresaIngresada.photoURL ? empresaIngresada.photoURL : '../../../assets/images/user8.png'
-          }}" alt="{{ empresaIngresada.empresaName }}" />
+          }}" alt="{{ empresaIngresada.firstName }}" />
         <div class="offset-md-3 mt-4 sm-alinear-centro">
           <h3 class="texto-datos">
             <p class="texto-dato">
@@ -22,7 +22,7 @@
           <div class="row">
             <div class="col-10 col-md-11">
               <h1 class="line-height-normal sm-text-left titulo vertical-align">
-                {{ empresaIngresada.empresaName }}
+                {{ empresaIngresada.firstName }}
               </h1>
             </div>
             <div class="col-12">
@@ -37,7 +37,7 @@
               <ng-template #sinLema>
                 <h3>
                   <p class="subtitulo-profesion mt-2 mb-3">
-                  <strong>Digale a {{ empresaIngresada.empresaName }} que edite su perfil y agregue un lema</strong>
+                  <strong>Digale a {{ empresaIngresada.firstName }} que edite su perfil y agregue un lema</strong>
                   </p>
                 </h3>
               </ng-template>
@@ -54,7 +54,7 @@
               <ng-template #sinDescripcion>
                 <h3>
                   <p class="descrip">
-                    Digale a {{ empresaIngresada.empresaName }} que edite su perfil y agregue una descripción
+                    Digale a {{ empresaIngresada.firstName }} que edite su perfil y agregue una descripción
                   </p>
                 </h3>
               </ng-template>

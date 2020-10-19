@@ -19,7 +19,7 @@ export class EmpresaRegisterComponent implements OnInit {
       Validators.required,
       Validators.minLength(8),
     ]),
-    empresaName: new FormControl('', [
+    firstName: new FormControl('', [
       Validators.required,
       Validators.pattern('[a-zA-Z. ]*'),
       Validators.minLength(2),
@@ -33,7 +33,7 @@ export class EmpresaRegisterComponent implements OnInit {
   // Variables para controlar los patrones del formulario
   public emailPattern = this.registerEmpresaForm.get('email');
   public passwordPattern = this.registerEmpresaForm.get('password');
-  public empresaNamePattern = this.registerEmpresaForm.get('empresaName');
+  public firstNamePattern = this.registerEmpresaForm.get('firstName');
   public cuitPattern = this.registerEmpresaForm.get('CUIT');
 
   // Variable para mostrar si hubo algun error en el formulario
@@ -78,10 +78,10 @@ export class EmpresaRegisterComponent implements OnInit {
       // Si el resultado de la operacion no es un string (osea que no devolvio un error)
       if (typeof user !== 'string') {
         //Se agarran los valores firstName y lastName del registerForm
-        const { empresaName } = this.registerEmpresaForm.value;
+        const { firstName } = this.registerEmpresaForm.value;
 
         // Se actualiza los datos del usuario (estos son los propios de firebase)
-        this.updateUserData(empresaName);
+        this.updateUserData(firstName);
         console.log(user);
 
         // Redirigir a wait-verification
@@ -96,9 +96,9 @@ export class EmpresaRegisterComponent implements OnInit {
     }
   }
 
-  async updateUserData(empresaName) {
+  async updateUserData(firstName) {
     (await this.authSvc.afAuth.currentUser).updateProfile({
-      displayName: empresaName,
+      displayName: firstName,
     });
   }
 }

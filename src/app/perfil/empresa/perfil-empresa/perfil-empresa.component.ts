@@ -12,7 +12,7 @@ import { MiscService } from 'src/app/shared/services/misc.service';
 })
 export class PerfilEmpresaComponent implements OnInit {
   editarForm = new FormGroup({
-    empresaName: new FormControl('', [
+    firstName: new FormControl('', [
       Validators.required,
       Validators.pattern('[a-zA-Z .]*'),
       Validators.minLength(2),
@@ -22,7 +22,7 @@ export class PerfilEmpresaComponent implements OnInit {
   });
 
   // Variables para controlar los patrones del formulario
-  public empresaNamePattern = this.editarForm.get('empresaName');
+  public firstNamePattern = this.editarForm.get('firstName');
 
   // Variable para guardar los datos del usuario
   public user: any;
@@ -92,9 +92,9 @@ export class PerfilEmpresaComponent implements OnInit {
   }
 
   // Se usa para actualizar los datos del usuario propios de firebase
-  async updateUserData(empresaName, photoURL) {
+  async updateUserData(firstName, photoURL) {
     (await this.authSvc.afAuth.currentUser).updateProfile({
-      displayName: empresaName,
+      displayName: firstName,
       photoURL: photoURL,
     });
   }
@@ -177,10 +177,10 @@ export class PerfilEmpresaComponent implements OnInit {
     // Si el resultado de la operacion no es un string (osea que no devolvio un error)
     if (typeof user !== 'string') {
       //Se agarran los valores firstName y lastName del registerForm
-      const { empresaName } = this.editarForm.value;
+      const { firstName } = this.editarForm.value;
 
       // Se actualiza los datos del usuario (estos son los propios de firebase)
-      this.updateUserData(empresaName, this.URLPublica);
+      this.updateUserData(firstName, this.URLPublica);
 
       console.log(user);
 
