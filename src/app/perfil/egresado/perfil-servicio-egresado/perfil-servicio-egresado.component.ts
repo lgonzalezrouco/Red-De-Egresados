@@ -55,16 +55,8 @@ export class PerfilServicioEgresadoComponent implements OnInit {
           this.social = await this.miscSvc.getUserSocial(this.uid);
           const timestamp = this.usuarioIngresado.birthday.seconds;
           this.fechaDeNacimiento = new Date(timestamp * 1000);
-          /* this.miscSvc.getSocialOfLoggedUser();
-          this.social = JSON.parse(localStorage.getItem('social')); */
           this.getCapacitaciones();
-          this.githubUser = await this.apiSvc.getGithubUser(
-            this.social.githubUsername
-          );
-          this.getGithubRepos().then((result) => {
-            this.githubRepos = result;
-            this.githubRepos = this.githubRepos.slice(0, 3);
-          });
+          await this.getGithubCard();
         }
       });
     } else {
@@ -96,5 +88,15 @@ export class PerfilServicioEgresadoComponent implements OnInit {
   getGithubRepos() {
     const url = this.githubUser.repos_url;
     return this.http.get<any>(url).toPromise();
+  }
+
+  async getGithubCard(){
+    this.githubUser = await this.apiSvc.getGithubUser(
+      this.social.githubUsername
+    );
+    this.getGithubRepos().then((result) => {
+      this.githubRepos = result;
+      this.githubRepos = this.githubRepos.slice(0, 3);
+    });
   }
 }

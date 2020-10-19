@@ -83,11 +83,16 @@ export class MiscService {
     });
   }
 
-  async getSocialOfLoggedUser(): Promise<void> {
-    this.afAuth.user.subscribe(async (user) => {
-      const dataUser = await this.getUserSocial(user.uid);
+  async getSocialOfLoggedUser(uid?: string): Promise<void> {
+    if(uid){
+      const dataUser = await this.getUserSocial(uid);
       localStorage.setItem('social', JSON.stringify(dataUser));
-    });
+    } else {
+      this.afAuth.user.subscribe(async (user) => {
+        const dataUser = await this.getUserSocial(user.uid);
+        localStorage.setItem('social', JSON.stringify(dataUser));
+      });
+    }
   }
 
   async getAdmin(email): Promise<boolean> {

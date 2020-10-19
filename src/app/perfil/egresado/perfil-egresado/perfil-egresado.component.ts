@@ -109,18 +109,10 @@ export class PerfilEgresadoComponent implements OnInit {
       this.userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
       this.uid = localStorage.getItem('uid');
       this.capacitaciones = localStorage.getItem('capacitaciones');
-      await this.miscSvc.getSocialOfLoggedUser();
+      await this.miscSvc.getSocialOfLoggedUser(this.uid);
       this.social = JSON.parse(localStorage.getItem('social'));
       this.getCapacitaciones();
       console.log(this.social);
-      this.githubUser = await this.apiSvc.getGithubUser(
-        this.social.githubUsername
-      );
-      console.log(this.githubUser);
-      this.getGithubRepos().then((result) => {
-        this.githubRepos = result;
-        this.githubRepos = this.githubRepos.slice(0, 3);
-      });
 
       /* const timestamp = this.user.birthday.seconds;
       this.fechaDeNacimiento = new Date(timestamp * 1000); */
@@ -177,8 +169,7 @@ export class PerfilEgresadoComponent implements OnInit {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
         this.uid = localStorage.getItem('uid');
-        /* const timestamp = this.user.birthday.seconds;
-        this.fechaDeNacimiento = new Date(timestamp * 1000); */
+        this.getGithubCard();
         this.fechaDeNacimiento = new Date(this.user.birthday.seconds * 1000);
       }
     }
@@ -380,5 +371,15 @@ export class PerfilEgresadoComponent implements OnInit {
   getGithubRepos() {
     const url = this.githubUser.repos_url;
     return this.http.get<any>(url).toPromise();
+  }
+
+  async getGithubCard() {
+    this.githubUser = await this.apiSvc.getGithubUser(
+      this.social.githubUsername
+    );
+    await this.getGithubRepos().then((result) => {
+      this.githubRepos = result;
+      this.githubRepos = this.githubRepos.slice(0, 3);
+    });
   }
 }
