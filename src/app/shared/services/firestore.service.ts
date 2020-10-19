@@ -66,6 +66,7 @@ export class FirestoreService {
       tituloEgreso: values.tituloEgreso,
       cellphone: values.cellphone,
       empresa: false,
+      descripcion: '',
     };
 
     const capacitacionData = {
@@ -123,6 +124,7 @@ export class FirestoreService {
           tituloEgreso: user.tituloEgreso,
           cellphone: data.cellphone,
           empresa: false,
+          descripcion: data.descripcion
         });
 
       await this.miscSvc.saveUser(user.uid);
@@ -180,6 +182,8 @@ export class FirestoreService {
       verificada: verificada,
       photoURL: photoURL,
       empresa: true,
+      descripcion: '',
+      lema: ''
     };
 
     /*
@@ -212,6 +216,8 @@ export class FirestoreService {
           verificada: user.verificada,
           photoURL: url,
           empresa: true,
+          descripcion: data.descripcion,
+          lema: data.lema
         });
 
       await this.miscSvc.saveUser(user.uid);
@@ -668,6 +674,7 @@ export class FirestoreService {
           DNI: doc.data().DNI,
           tituloEgreso: doc.data().tituloEgreso,
           empresa: doc.data().empresa,
+          descripcion: doc.data().descripcion
         };
         egresados.push(egresado);
       });
@@ -691,6 +698,8 @@ export class FirestoreService {
           CUIT: doc.data().CUIT,
           verificada: doc.data().verificada,
           empresa: doc.data().empresa,
+          descripcion: doc.data().descripcion,
+          lema: doc.data().lema
         };
         empresas.push(empresa);
       });
