@@ -400,10 +400,18 @@
                   </div>
                   <div class="col-8">
                     <a href="{{githubUser.html_url}}" class="row center">
-                      <div class="container nombre-github mt-1">
-                        {{ githubUser.name }}
-                      </div>
-                      <div class="container localizacion-github mt-1">
+                      <ng-container *ngIf="githubUser.name; then mostrarNombre; else mostrarUsername"></ng-container>
+                      <ng-template #mostrarNombre>
+                        <div class="container nombre-github mt-1">
+                          {{ githubUser.name }}
+                        </div>
+                      </ng-template>
+                      <ng-template #mostrarUsername>
+                        <div class="container nombre-github mt-1">
+                          {{ githubUser.login }}
+                        </div>
+                      </ng-template>
+                      <div class="container localizacion-github mt-1" *ngIf="githubUser.location">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor"
                           xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd"
