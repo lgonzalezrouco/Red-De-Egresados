@@ -237,8 +237,75 @@ export class FirestoreService {
 
   // CON OPCIONES
 
-  searchWithOption(profesion, minAge, maxAge, orientacion) {
+  searchWithOption(profesion?, minAge?, maxAge?, orientacion?) {
     let today = new Date();
+    let todayYear: number = today.getFullYear();
+    let todayMonth: number = today.getMonth();
+    let todayDay: number = today.getDate();
+    let minAgeDate;
+    let maxAgeDate;
+
+    if (!profesion) {
+      profesion = true;
+    }
+    if (!minAge) {
+      minAgeDate = true;
+    }
+    if (!maxAge) {
+      maxAgeDate = true;
+    }
+    if (!orientacion) {
+      orientacion = true;
+    }
+
+    if (minAgeDate !== true) {
+      minAge = parseInt(minAge);
+      minAgeDate = new Date(todayYear - minAge, todayMonth, todayDay);
+    }
+
+    if (maxAgeDate !== true) {
+      maxAge = parseInt(maxAge);
+      maxAgeDate = new Date(todayYear - maxAge, todayMonth, todayDay);
+    }
+
+    if (minAgeDate !== true && maxAge === true) {
+      return this.angularFirestore
+        .collection('users', (ref) =>
+          ref
+            .where('profesion', '==', profesion)
+            .where('birthday', '<=', minAgeDate)
+            .where('orientacion', '==', orientacion)
+        )
+        .valueChanges();
+    } else if (minAgeDate === true && maxAge !== true) {
+      return this.angularFirestore
+        .collection('users', (ref) =>
+          ref
+            .where('profesion', '==', profesion)
+            .where('birthday', '>=', maxAgeDate)
+            .where('orientacion', '==', orientacion)
+        )
+        .valueChanges();
+    } else if (minAgeDate === true && maxAge === true) {
+      return this.angularFirestore
+        .collection('users', (ref) =>
+          ref
+            .where('profesion', '==', profesion)
+            .where('orientacion', '==', orientacion)
+        )
+        .valueChanges();
+    }
+
+    return this.angularFirestore
+      .collection('users', (ref) =>
+        ref
+          .where('profesion', '==', profesion)
+          .where('birthday', '<=', minAgeDate)
+          .where('birthday', '>=', maxAgeDate)
+          .where('orientacion', '==', orientacion)
+      )
+      .valueChanges();
+    /* let today = new Date();
     let todayYear: number = today.getFullYear();
     let todayMonth: number = today.getMonth();
     let todayDay: number = today.getDate();
@@ -257,7 +324,7 @@ export class FirestoreService {
           .where('birthday', '>=', maxAgeDate)
           .where('orientacion', '==', orientacion)
       )
-      .valueChanges();
+      .valueChanges(); */
   }
 
   // POR NOMBRE

@@ -31,16 +31,10 @@ export class HomeEgresadoComponent implements OnInit {
   });
 
   optionsFormGroup = new FormGroup({
-    profesion: new FormControl('', [Validators.required]),
-    minAge: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[0-9]+$'),
-    ]),
-    maxAge: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[0-9]+$'),
-    ]),
-    orientacion: new FormControl('', [Validators.required]),
+    profesion: new FormControl(''),
+    minAge: new FormControl('', [Validators.pattern('^[0-9]+$')]),
+    maxAge: new FormControl('', [Validators.pattern('^[0-9]+$')]),
+    orientacion: new FormControl(''),
   });
 
   public user: any;
