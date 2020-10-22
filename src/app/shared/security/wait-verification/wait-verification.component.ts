@@ -1,3 +1,4 @@
+import { AfterViewInit } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -8,7 +9,7 @@ import { MiscService } from '../../services/misc.service';
   templateUrl: './wait-verification.component.html',
   styleUrls: ['./wait-verification.component.scss'],
 })
-export class WaitVerificationComponent implements OnInit {
+export class WaitVerificationComponent implements OnInit, AfterViewInit {
   public user$: Observable<any> = this.authSvc.afAuth.user;
   public isVerified: boolean;
 
@@ -18,6 +19,13 @@ export class WaitVerificationComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    let hayUnUsuario: string = await this.miscSvc.checkIfUserIsLogged();
+    if (hayUnUsuario != 'wait-verification') {
+      this.miscSvc.notAllowed(hayUnUsuario);
+    }
+  }
+
+  async ngAfterViewInit() {
     let hayUnUsuario: string = await this.miscSvc.checkIfUserIsLogged();
     if (hayUnUsuario != 'wait-verification') {
       this.miscSvc.notAllowed(hayUnUsuario);
