@@ -374,12 +374,14 @@ export class PerfilEgresadoComponent implements OnInit {
   }
 
   async getGithubCard() {
-    this.githubUser = await this.apiSvc.getGithubUser(
-      this.social.githubUsername
-    );
-    await this.getGithubRepos().then((result) => {
-      this.githubRepos = result;
-      this.githubRepos = this.githubRepos.slice(0, 3);
-    });
+    if(this.social.githubUsername) {
+      this.githubUser = await this.apiSvc.getGithubUser(
+        this.social.githubUsername
+      );
+      await this.getGithubRepos().then((result) => {
+        this.githubRepos = result;
+        this.githubRepos = this.githubRepos.slice(0, 3);
+      });
+    }
   }
 }
