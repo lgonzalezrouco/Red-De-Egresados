@@ -298,6 +298,7 @@ export class PerfilEgresadoComponent implements OnInit {
   async editarCapacitaciones() {
     if (this.mostrarEdicionCapacitaciones) {
       this.mostrarEdicionCapacitaciones = false;
+      this.capacitacionesLength = this.capacitaciones.length;
     } else {
       this.mostrarEdicionCapacitaciones = true;
     }
