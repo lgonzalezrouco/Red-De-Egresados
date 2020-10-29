@@ -84,14 +84,20 @@ export class HomeEgresadoComponent implements OnInit {
       this.startObservable,
       this.endObservable
     ).subscribe((value) => {
-      this.makeQueryWithFirstName(value[0], value[1]).subscribe((resultado) => {
-        this.resultadosDeBusqueda = resultado;
-        console.log(this.resultadosDeBusqueda);
-        setTimeout(() => {
-          subscription.unsubscribe;
-          console.log('DESUSCRITO');
-        }, 30000);
-      });
+      if (value[0] != null || value[0] != undefined) {
+        this.makeQueryWithFirstName(value[0], value[1]).subscribe(
+          (resultado) => {
+            this.resultadosDeBusqueda = resultado;
+            console.log(this.resultadosDeBusqueda);
+            setTimeout(() => {
+              subscription.unsubscribe;
+              console.log('DESUSCRITO');
+            }, 30000);
+          }
+        );
+      } else {
+        console.log('No ingreso nada');
+      }
     });
   }
 

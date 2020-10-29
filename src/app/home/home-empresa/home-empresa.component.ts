@@ -119,8 +119,8 @@ export class HomeEmpresaComponent implements OnInit {
       maxAge,
       orientacion,
     } = this.optionsFormGroup.value;
-    if (profesion == '' || minAge == '' || maxAge == '' || orientacion == '') {
-      console.log('No lleno todos los campos');
+    if (profesion == '' && minAge == '' && maxAge == '' && orientacion == '') {
+      console.log('No se selecciono ningun parametro');
     } else {
       this.makeQueryWithOptions(
         profesion,
@@ -129,7 +129,6 @@ export class HomeEmpresaComponent implements OnInit {
         orientacion
       ).subscribe((resultado) => {
         this.resultadosDeBusqueda = resultado;
-        console.log(this.resultadosDeBusqueda);
       });
     }
   }
