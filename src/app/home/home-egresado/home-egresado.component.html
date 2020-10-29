@@ -1,8 +1,5 @@
 <app-toolbar></app-toolbar>
 <div class="margen container-fluid">
-  <!-- <div class="sm-text-center offset-md-1 set-size-logo">
-    <img src="../../assets/images/titulo.png" class="img-fluid">
-  </div> -->
   <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-3 ">
     <div class="row">
       <div class="col-12 col-md-3 alinear-centro sm-text-center">
@@ -222,7 +219,7 @@
                   <h2 class="profesion">{{ resultado.profesion }}</h2>
                   <h3 class="orientacion">{{ resultado.orientacion }}, {{ resultado.yearDeEgreso }}</h3>
                   <!-- <h3 class="yearDeEgreso">{{ resultado.yearDeEgreso }}</h3> -->
-                  <h3 class="edad">{{ getEdad(resultado.birthday) }} años</h3>
+                  <h3 class="edad">{{ getEdad(resultado.birthday.seconds) }} años</h3>
                 </div>
               </div>
             </ng-template>

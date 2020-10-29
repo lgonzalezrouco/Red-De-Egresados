@@ -1,8 +1,5 @@
 <app-toolbar></app-toolbar>
 <div class="margen container-fluid">
-  <!-- <div class="sm-text-center offset-md-1 set-size-logo">
-    <img src="../../assets/images/titulo.png" class="img-fluid">
-  </div> -->
   <mat-card class="offset-1 col-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6 mb-3 ">
     <div class="row">
       <div class="col-12 col-md-3 alinear-centro sm-text-center">
@@ -181,77 +178,47 @@
             </div>
           </div>
         </div>
-        <!-- <div class="form-row">
-          <div class="offset-md-1 col-md-10">
-            <div class="form-row">
-              <div class="col-md-4 col-12">
-                <mat-form-field class="full-width-height">
-                  <mat-label>Profesion</mat-label>
-                  <mat-select formControlName="profesion">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
-                    <mat-option *ngFor="let profesion of profesions | async" [value]="profesion.value">
-                      {{ profesion.viewValue }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-md-4 col-12">
-                <mat-form-field class="full-width-height">
-                  <mat-label>Edad Minima</mat-label>
-                  <input type="number" matInput formControlName="minAge" />
-                </mat-form-field>
-              </div>
-              <div class="col-md-4 col-12">
-                <mat-form-field class="full-width-height">
-                  <mat-label>Edad Maxima</mat-label>
-                  <input type="number" matInput formControlName="maxAge" />
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-row mb-2">
-          <div class="offset-md-1 col-md-10">
-            <div class="form-row">
-              <div class="col-md-4 col-12">
-                <mat-form-field class="full-width-height">
-                  <mat-label>Orientacion</mat-label>
-                  <mat-select formControlName="orientacion">
-                    <mat-option selected="selected" hidden value="">Elija una opcion</mat-option>
-                    <mat-option value="Computacion">Computación</mat-option>
-                    <mat-option value="Mecanica">Mecánica</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="sm-text-center offset-md-5 col-md-3">
-                <button type="submit" mat-raised-button class="btn">
-                  Buscar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </form>
       <div *ngIf="resultadosDeBusqueda != null">
         <mat-divider [inset]="true"></mat-divider>
         <div *ngFor="let resultado of resultadosDeBusqueda" class="row pt-4">
           <div class="col-12 col-md-6">
-            <div class="row set-pointer" [routerLink]="['/perfil-de-servicio-egresado', resultado.uid]">
-              <div class="col-md-6 set-pointer">
-                <img class="img-fluid foto col-md-12 rounded-circle d-none d-md-block" src="{{
-                    resultado.photoURL
-                      ? resultado.photoURL
-                      : '../../../assets/images/user8.png'
-                  }}" alt="{{ resultado.firstName }}" />
+            <ng-container *ngIf="resultado.empresa; then resultadoEmpresa; else resultadoEgresado"></ng-container>
+            <ng-template #resultadoEmpresa>
+              <div class="row set-pointer" [routerLink]="['/perfil-de-servicio-empresa', resultado.uid]">
+                <div class="col-md-6 set-pointer">
+                  <img class="img-fluid foto col-md-12 rounded-circle d-none d-md-block" src="{{
+                      resultado.photoURL
+                        ? resultado.photoURL
+                        : '../../../assets/images/user8.png'
+                    }}" alt="{{ resultado.firstName }}" />
+                </div>
+                <div class="col-md-6 set-pointer">
+                  <h1 class="nombre">{{ resultado.firstName }}</h1>
+                  <h2 class="profesion">{{ resultado.lema }}</h2>
+                  <h3 class="orientacion">{{ resultado.descripcion }}</h3>
+                  <h3 class="edad">CUIT: {{ resultado.CUIT }} </h3>
+                </div>
               </div>
-              <div class="col-md-6 set-pointer">
-                <h1 class="nombre">{{ resultado.firstName }} {{ resultado.lastName }}</h1>
-                <h2 class="profesion">{{ resultado.profesion }}</h2>
-                <h3 class="orientacion">{{ resultado.orientacion }}, {{ resultado.yearDeEgreso }}</h3>
-                <!-- <h3 class="yearDeEgreso">{{ resultado.yearDeEgreso }}</h3> -->
-                <h3 class="edad">{{ getEdad(resultado.birthday) }} años</h3>
+            </ng-template>
+            <ng-template #resultadoEgresado>
+              <div class="row set-pointer" [routerLink]="['/perfil-de-servicio-egresado', resultado.uid]">
+                <div class="col-md-6 set-pointer">
+                  <img class="img-fluid foto col-md-12 rounded-circle d-none d-md-block" src="{{
+                      resultado.photoURL
+                        ? resultado.photoURL
+                        : '../../../assets/images/user8.png'
+                    }}" alt="{{ resultado.firstName }}" />
+                </div>
+                <div class="col-md-6 set-pointer">
+                  <h1 class="nombre">{{ resultado.firstName }} {{ resultado.lastName }}</h1>
+                  <h2 class="profesion">{{ resultado.profesion }}</h2>
+                  <h3 class="orientacion">{{ resultado.orientacion }}, {{ resultado.yearDeEgreso }}</h3>
+                  <!-- <h3 class="yearDeEgreso">{{ resultado.yearDeEgreso }}</h3> -->
+                  <h3 class="edad">{{ getEdad(resultado.birthday.seconds) }} años</h3>
+                </div>
               </div>
-            </div>
+            </ng-template>
           </div>
         </div>
       </div>

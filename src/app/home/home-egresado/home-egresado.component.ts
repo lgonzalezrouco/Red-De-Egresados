@@ -111,22 +111,25 @@ export class HomeEgresadoComponent implements OnInit {
       maxAge,
       orientacion,
     } = this.optionsFormGroup.value;
-    this.makeQueryWithOptions(profesion, minAge, maxAge, orientacion).subscribe(
-      (resultado) => {
+    if (profesion == '' && minAge == '' && maxAge == '' && orientacion == '') {
+      console.log('No se selecciono ningun parametro');
+    } else {
+      this.makeQueryWithOptions(
+        profesion,
+        minAge,
+        maxAge,
+        orientacion
+      ).subscribe((resultado) => {
         this.resultadosDeBusqueda = resultado;
-        console.log(this.resultadosDeBusqueda);
-      }
-    );
+      });
+    }
   }
 
   getEdad(fecha): number {
-    const timeStamp = fecha.toString();
-    let [, res] = timeStamp.match(/seconds=(\d+)/);
-    let fechaDeNacimiento = new Date(+res * 1000);
-
+    let fechaDeNacimiento = new Date(fecha * 1000);
     let today: Date = new Date();
-
     let edad: number = today.getFullYear() - fechaDeNacimiento.getFullYear();
+
     return edad;
   }
 }

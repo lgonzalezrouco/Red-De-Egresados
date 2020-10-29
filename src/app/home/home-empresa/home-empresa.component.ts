@@ -135,12 +135,8 @@ export class HomeEmpresaComponent implements OnInit {
   }
 
   getEdad(fecha): number {
-    console.log(fecha);
-    const timestamp = fecha.seconds;
-    let fechaDeNacimiento = new Date(timestamp * 1000);
-
+    let fechaDeNacimiento = new Date(fecha * 1000);
     let today: Date = new Date();
-
     let edad: number = today.getFullYear() - fechaDeNacimiento.getFullYear();
     return edad;
   }

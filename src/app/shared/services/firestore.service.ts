@@ -238,93 +238,239 @@ export class FirestoreService {
   // CON OPCIONES
 
   searchWithOption(profesion?, minAge?, maxAge?, orientacion?) {
-    let today = new Date();
-    let todayYear: number = today.getFullYear();
-    let todayMonth: number = today.getMonth();
-    let todayDay: number = today.getDate();
-    let minAgeDate;
-    let maxAgeDate;
+    try {
+      let today = new Date();
+      let todayYear: number = today.getFullYear();
+      let todayMonth: number = today.getMonth();
+      let todayDay: number = today.getDate();
+      let minAgeDate;
+      let maxAgeDate;
+      let noHayProfesion: boolean = false;
+      let noHayOrientacion: boolean = false;
+      let noHayMaxAge: boolean = false;
+      let noHayMinAge: boolean = false;
 
-    if (!profesion) {
-      profesion = true;
+      if (!profesion) {
+        noHayProfesion = true;
+      }
+      if (!minAge) {
+        noHayMinAge = true;
+      }
+      if (!maxAge) {
+        noHayMaxAge = true;
+      }
+      if (!orientacion) {
+        noHayOrientacion = true;
+      }
+
+      if (!noHayMinAge) {
+        minAge = parseInt(minAge);
+        minAgeDate = new Date(todayYear - minAge, todayMonth, todayDay);
+      }
+
+      if (!noHayMaxAge) {
+        maxAge = parseInt(maxAge);
+        maxAgeDate = new Date(todayYear - maxAge, todayMonth, todayDay);
+      }
+
+      if (
+        noHayOrientacion === true &&
+        noHayProfesion === true &&
+        noHayMaxAge === true &&
+        noHayMinAge === true
+      ) {
+        return new Error('No se selecciono ningun parametro');
+      } else if (
+        noHayOrientacion === true &&
+        noHayProfesion === true &&
+        noHayMaxAge === true &&
+        noHayMinAge === false
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) => ref.where('birthday', '<=', minAgeDate))
+          .valueChanges();
+      } else if (
+        noHayOrientacion === true &&
+        noHayProfesion === true &&
+        noHayMaxAge === false &&
+        noHayMinAge === true
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) => ref.where('birthday', '>=', maxAgeDate))
+          .valueChanges();
+      } else if (
+        noHayOrientacion === true &&
+        noHayProfesion === true &&
+        noHayMaxAge === false &&
+        noHayMinAge === false
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('birthday', '<=', minAgeDate)
+              .where('birthday', '>=', maxAgeDate)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === true &&
+        noHayProfesion === false &&
+        noHayMaxAge === true &&
+        noHayMinAge === true
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) => ref.where('profesion', '==', profesion))
+          .valueChanges();
+      } else if (
+        noHayOrientacion === true &&
+        noHayProfesion === false &&
+        noHayMaxAge === true &&
+        noHayMinAge === false
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('profesion', '==', profesion)
+              .where('birthday', '<=', minAgeDate)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === true &&
+        noHayProfesion === false &&
+        noHayMaxAge === false &&
+        noHayMinAge === true
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('profesion', '==', profesion)
+              .where('birthday', '>=', maxAgeDate)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === true &&
+        noHayProfesion === false &&
+        noHayMaxAge === false &&
+        noHayMinAge === false
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('profesion', '==', profesion)
+              .where('birthday', '<=', minAgeDate)
+              .where('birthday', '>=', maxAgeDate)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === false &&
+        noHayProfesion === true &&
+        noHayMaxAge === true &&
+        noHayMinAge === true
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref.where('orientacion', '==', orientacion)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === false &&
+        noHayProfesion === true &&
+        noHayMaxAge === true &&
+        noHayMinAge === false
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('birthday', '<=', minAgeDate)
+              .where('orientacion', '==', orientacion)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === false &&
+        noHayProfesion === true &&
+        noHayMaxAge === false &&
+        noHayMinAge === true
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('birthday', '>=', maxAgeDate)
+              .where('orientacion', '==', orientacion)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === false &&
+        noHayProfesion === true &&
+        noHayMaxAge === false &&
+        noHayMinAge === false
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('birthday', '<=', minAgeDate)
+              .where('birthday', '>=', maxAgeDate)
+              .where('orientacion', '==', orientacion)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === false &&
+        noHayProfesion === false &&
+        noHayMaxAge === true &&
+        noHayMinAge === true
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('profesion', '==', profesion)
+              .where('orientacion', '==', orientacion)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === false &&
+        noHayProfesion === false &&
+        noHayMaxAge === true &&
+        noHayMinAge === false
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('profesion', '==', profesion)
+              .where('birthday', '<=', minAgeDate)
+              .where('orientacion', '==', orientacion)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === false &&
+        noHayProfesion === false &&
+        noHayMaxAge === false &&
+        noHayMinAge === true
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('profesion', '==', profesion)
+              .where('birthday', '>=', maxAgeDate)
+              .where('orientacion', '==', orientacion)
+          )
+          .valueChanges();
+      } else if (
+        noHayOrientacion === false &&
+        noHayProfesion === false &&
+        noHayMaxAge === false &&
+        noHayMinAge === false
+      ) {
+        return this.angularFirestore
+          .collection('users', (ref) =>
+            ref
+              .where('profesion', '==', profesion)
+              .where('birthday', '<=', minAgeDate)
+              .where('birthday', '>=', maxAgeDate)
+              .where('orientacion', '==', orientacion)
+          )
+          .valueChanges();
+      }
+    } catch (error) {
+      return error.message;
     }
-    if (!minAge) {
-      minAgeDate = true;
-    }
-    if (!maxAge) {
-      maxAgeDate = true;
-    }
-    if (!orientacion) {
-      orientacion = true;
-    }
-
-    if (minAgeDate !== true) {
-      minAge = parseInt(minAge);
-      minAgeDate = new Date(todayYear - minAge, todayMonth, todayDay);
-    }
-
-    if (maxAgeDate !== true) {
-      maxAge = parseInt(maxAge);
-      maxAgeDate = new Date(todayYear - maxAge, todayMonth, todayDay);
-    }
-
-    if (minAgeDate !== true && maxAge === true) {
-      return this.angularFirestore
-        .collection('users', (ref) =>
-          ref
-            .where('profesion', '==', profesion)
-            .where('birthday', '<=', minAgeDate)
-            .where('orientacion', '==', orientacion)
-        )
-        .valueChanges();
-    } else if (minAgeDate === true && maxAge !== true) {
-      return this.angularFirestore
-        .collection('users', (ref) =>
-          ref
-            .where('profesion', '==', profesion)
-            .where('birthday', '>=', maxAgeDate)
-            .where('orientacion', '==', orientacion)
-        )
-        .valueChanges();
-    } else if (minAgeDate === true && maxAge === true) {
-      return this.angularFirestore
-        .collection('users', (ref) =>
-          ref
-            .where('profesion', '==', profesion)
-            .where('orientacion', '==', orientacion)
-        )
-        .valueChanges();
-    }
-
-    return this.angularFirestore
-      .collection('users', (ref) =>
-        ref
-          .where('profesion', '==', profesion)
-          .where('birthday', '<=', minAgeDate)
-          .where('birthday', '>=', maxAgeDate)
-          .where('orientacion', '==', orientacion)
-      )
-      .valueChanges();
-    /* let today = new Date();
-    let todayYear: number = today.getFullYear();
-    let todayMonth: number = today.getMonth();
-    let todayDay: number = today.getDate();
-
-    minAge = parseInt(minAge);
-    maxAge = parseInt(maxAge);
-
-    let minAgeDate = new Date(todayYear - minAge, todayMonth, todayDay);
-    let maxAgeDate = new Date(todayYear - maxAge, todayMonth, todayDay);
-
-    return this.angularFirestore
-      .collection('users', (ref) =>
-        ref
-          .where('profesion', '==', profesion)
-          .where('birthday', '<=', minAgeDate)
-          .where('birthday', '>=', maxAgeDate)
-          .where('orientacion', '==', orientacion)
-      )
-      .valueChanges(); */
   }
 
   // POR NOMBRE
