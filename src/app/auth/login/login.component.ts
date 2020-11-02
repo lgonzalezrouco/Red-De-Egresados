@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
   // Variable para saber si la contraseña es visible o no
   public hide = true;
 
+  public seApretoElBoton: boolean = false;
+
   constructor(
     private authSvc: AuthService,
     private router: Router,
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   async onLogin() {
+    this.seApretoElBoton = true;
     const { email, password } = this.loginForm.value;
     try {
       const user = await this.authSvc.login(email, password);
@@ -61,11 +64,13 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/register']);
         }
       } else {
-        this.errorMessage = user;
+        this.errorMessage = "El email y/o la contraseña son incorrectos";
         console.log(user);
+        this.seApretoElBoton = false;
       }
     } catch (error) {
-      this.errorMessage = error;
+      this.errorMessage = "El email y/o la contraseña son incorrectos";
+      this.seApretoElBoton = false
     }
   }
 }

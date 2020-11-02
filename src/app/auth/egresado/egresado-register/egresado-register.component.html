@@ -37,7 +37,7 @@
               <div class="col-md-4 col-12">
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Telefono</mat-label>
-                  <span matPrefix>+45 &nbsp;</span>
+                  <span matPrefix>+54 &nbsp;</span>
                   <input matInput formControlName="cellphone" type="number" />
                   <mat-error *ngIf="cellphonePattern.hasError('required')">
                     El teléfono es <strong>requerido</strong>
@@ -61,7 +61,7 @@
                       lastNamePattern.hasError('minlength')
                     ">
                     El apellido solo esta compuesto por
-                    <strong>números</strong> y debe tener mínimo 2
+                    <strong>letras</strong> y debe tener mínimo 2
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -198,25 +198,13 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-md-4 col-12">
-                <mat-form-field class="full-width-height mt-2">
-                  <mat-label>Código del Título de Egreso</mat-label>
-                  <input matInput type="text" formControlName="tituloEgreso" />
-                  <mat-error *ngIf="tituloEgresoPattern.hasError('required')">
-                    El código del título de egreso es <strong>requerido</strong>
-                  </mat-error>
-                  <mat-error *ngIf="tituloEgresoPattern.hasError('minlength')">
-                    El código del título de egreso no es <strong>válido</strong>
-                  </mat-error>
-                </mat-form-field>
-              </div>
             </div>
           </form>
         </mat-step>
       </mat-vertical-stepper>
       <div class="form-row" *ngIf="errorMessage">
         <div class="offset-2 col-8">
-          <small class="form-text alert-danger text-center mt-2 pt-1 pb-1">
+          <small class="form-text texto-alerta alert-danger text-center mt-2 pt-1 pb-1">
             {{ errorMessage }}
           </small>
         </div>
@@ -232,11 +220,19 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="text-center offset-md-8 col-md-4">
-          <button type="submit" mat-raised-button class="btn">
-            Registrarse
-          </button>
-        </div>
+        <ng-container *ngIf="seApretoElBoton; then mostrarSpinner; else noMostrarSpinner"></ng-container>
+        <ng-template #noMostrarSpinner>
+          <div class="text-center offset-md-8 col-md-4">
+            <button type="submit" mat-raised-button class="btn">
+              Registrarse
+            </button>
+          </div>
+        </ng-template>
+        <ng-template #mostrarSpinner>
+          <div class="text-center offset-md-8 col-md-4">
+            <div class="spinner-border" role="status"></div>
+          </div>
+        </ng-template>
       </div>
     </form>
   </mat-card>

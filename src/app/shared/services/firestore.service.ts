@@ -47,6 +47,11 @@ export class FirestoreService {
       photoURL = '';
     }
 
+    values.firstName =
+      values.firstName.charAt(0).toUpperCase() + values.firstName.slice(1);
+    values.lastName =
+      values.lastName.charAt(0).toUpperCase() + values.lastName.slice(1);
+
     /*
      * Se guarda en la variable userData toda la informacion del usuario
      * usando la interfaz User
@@ -63,7 +68,6 @@ export class FirestoreService {
       orientacion: values.orientacion,
       profesion: values.profesion,
       DNI: values.DNI,
-      tituloEgreso: values.tituloEgreso,
       cellphone: values.cellphone,
       empresa: false,
       descripcion: '',
@@ -105,6 +109,11 @@ export class FirestoreService {
         return 'Por favor llene todos los campos obligatorios';
       }
 
+      data.firstName =
+        data.firstName.charAt(0).toUpperCase() + data.firstName.slice(1);
+      data.lastName =
+        data.lastName.charAt(0).toUpperCase() + data.lastName.slice(1);
+
       // Se actualizan todos los datos del documento del usuario
       const result = this.angularFirestore
         .collection('users')
@@ -121,7 +130,6 @@ export class FirestoreService {
           orientacion: user.orientacion,
           profesion: data.profesion,
           DNI: user.DNI,
-          tituloEgreso: user.tituloEgreso,
           cellphone: data.cellphone,
           empresa: false,
           descripcion: data.descripcion,
@@ -504,6 +512,16 @@ export class FirestoreService {
     return capacitaciones.data();
   }
 
+  public async getFewCapacitaciones(id: string) {
+    //Trae de la collection 'capacitaciones', el documento con el id que se pasa como argumento
+    let capacitaciones = await this.angularFirestore
+      .collection('capacitaciones', (ref) => ref.limit(2))
+      .doc(id)
+      .get()
+      .toPromise();
+    return capacitaciones.data();
+  }
+
   // AGREGAR EXEPRIENCIA
 
   // Se usa para almacenar las capacitaciones en Firestore
@@ -586,14 +604,12 @@ export class FirestoreService {
     try {
       return titulos.forEach((titulo) => {
         let titulosRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
-          `titulos/${titulo.id}`
+          `titulos/${titulo.DNI}`
         );
 
         const tituloData = {
-          DNI: titulo.DNI,
           nombre: titulo.nombre,
           apellido: titulo.apellido,
-          nroDeAlumno: titulo.nroDeAlumno,
           yearDeEgreso: titulo.yearDeEgreso,
         };
 
@@ -602,6 +618,7 @@ export class FirestoreService {
         });
       });
     } catch (error) {
+      console.log(error)
       return error.message;
     }
   }
@@ -617,57 +634,7 @@ export class FirestoreService {
     await query.then((documentos) => {
       documentos.forEach((doc) => {
         let titulo: Titulos = {
-          titulo: doc.id,
-          DNI: doc.data().DNI,
-          nroDeAlumno: doc.data().nroDeAlumno,
-          nombre: doc.data().nombre,
-          apellido: doc.data().apellido,
-          yearDeEgreso: doc.data().yearDeEgreso,
-        };
-        titulos.push(titulo);
-      });
-    });
-    return titulos;
-  }
-
-  // CONSEGUIR DE A 10 TITULOS
-
-  async getTitulosInicial() {
-    let query = this.angularFirestore
-      .collection('titulos', (ref) => ref.limit(10).orderBy('apellido'))
-      .get()
-      .toPromise();
-    let titulos = [];
-    await query.then((documentos) => {
-      documentos.forEach((doc) => {
-        let titulo = {
-          id: doc.id,
-          DNI: doc.data().DNI,
-          nroDeAlumno: doc.data().nroDeAlumno,
-          nombre: doc.data().nombre,
-          apellido: doc.data().apellido,
-          yearDeEgreso: doc.data().yearDeEgreso,
-        };
-        titulos.push(titulo);
-      });
-    });
-    return titulos;
-  }
-
-  async getFewTitulos(limit, startApellido) {
-    let query = this.angularFirestore
-      .collection('titulos', (ref) =>
-        ref.limit(limit).orderBy('apellido').startAfter(startApellido)
-      )
-      .get()
-      .toPromise();
-    let titulos = [];
-    await query.then((documentos) => {
-      documentos.forEach((doc) => {
-        let titulo = {
-          id: doc.id,
-          DNI: doc.data().DNI,
-          nroDeAlumno: doc.data().nroDeAlumno,
+          DNI: doc.id,
           nombre: doc.data().nombre,
           apellido: doc.data().apellido,
           yearDeEgreso: doc.data().yearDeEgreso,
@@ -680,9 +647,9 @@ export class FirestoreService {
 
   // ELIMINAR UN TITULO
 
-  async eliminarTitulo(id) {
+  async eliminarTitulo(DNI) {
     let titulosRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
-      `titulos/${id}`
+      `titulos/${DNI}`
     );
 
     return await titulosRef.delete();
@@ -690,18 +657,14 @@ export class FirestoreService {
 
   // EDITAR UN TITULO
 
-  editarTitulo(id, DNI, nombre, apellido, nroDeAlumno, yearDeEgreso) {
+  editarTitulo(DNI, nombre, apellido, yearDeEgreso) {
     let titulosRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
-      `titulos/${id}`
+      `titulos/${DNI}`
     );
 
-    let DNIString: string = DNI;
-
     const tituloData = {
-      DNI: DNIString,
       nombre: nombre,
       apellido: apellido,
-      nroDeAlumno: nroDeAlumno,
       yearDeEgreso: yearDeEgreso,
     };
 
@@ -712,89 +675,39 @@ export class FirestoreService {
 
   // AGREGAR UN TITULO
 
-  async agregarTitulo(
-    id,
-    DNI,
-    nombre,
-    apellido,
-    nroDeAlumno,
-    yearDeEgreso
-  ): Promise<string> {
+  async agregarTitulo(DNI, nombre, apellido, yearDeEgreso): Promise<string> {
     try {
-      let query: Promise<any>;
-      let titulos = [];
-      query = this.angularFirestore
-        .collection('titulos', (ref) => ref.where('DNI', '==', DNI))
+      DNI = DNI.toString();
+
+      let query = await this.angularFirestore
+        .collection('titulos')
+        .doc(DNI)
         .get()
         .toPromise();
 
-      await query.then((documentos) => {
-        documentos.forEach((doc) => {
-          let titulo = {
-            id: doc.id,
-            DNI: doc.data().DNI,
-            nroDeAlumno: doc.data().nroDeAlumno,
-            nombre: doc.data().nombre,
-            apellido: doc.data().apellido,
-            yearDeEgreso: doc.data().yearDeEgreso,
-          };
-          titulos.push(titulo);
-        });
-      });
-
-      if (titulos.length > 0) {
+      if (query.exists) {
         throw new Error('Ya existe un titulo con ese DNI');
+      } else {
+        let titulosRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
+          `titulos/${DNI}`
+        );
+
+        const tituloData = {
+          nombre: nombre,
+          apellido: apellido,
+          yearDeEgreso: yearDeEgreso,
+        };
+
+        titulosRef.set(tituloData, {
+          merge: true,
+        });
+
+        return 'OK';
       }
-
-      let titulosRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
-        `titulos/${id}`
-      );
-
-      const tituloData = {
-        DNI: DNI,
-        nombre: nombre,
-        apellido: apellido,
-        nroDeAlumno: nroDeAlumno,
-        yearDeEgreso: yearDeEgreso,
-      };
-
-      titulosRef.set(tituloData, {
-        merge: true,
-      });
-
-      return 'OK';
     } catch (error) {
+      console.log(error);
       return error.message;
     }
-  }
-
-  //  BUSCAR UN TITULO
-
-  async searchTitulo(start, end, campo) {
-    let query: Promise<any>;
-    let titulos = [];
-    query = this.angularFirestore
-      .collection('titulos', (ref) =>
-        ref.orderBy(campo).startAt(start).endAt(end)
-      )
-      .get()
-      .toPromise();
-
-    await query.then((documentos) => {
-      documentos.forEach((doc) => {
-        let titulo = {
-          id: doc.id,
-          DNI: doc.data().DNI,
-          nroDeAlumno: doc.data().nroDeAlumno,
-          nombre: doc.data().nombre,
-          apellido: doc.data().apellido,
-          yearDeEgreso: doc.data().yearDeEgreso,
-        };
-        titulos.push(titulo);
-      });
-    });
-
-    return titulos;
   }
 
   /*
@@ -883,7 +796,6 @@ export class FirestoreService {
           orientacion: doc.data().orientacion,
           profesion: doc.data().profesion,
           DNI: doc.data().DNI,
-          tituloEgreso: doc.data().tituloEgreso,
           empresa: doc.data().empresa,
           descripcion: doc.data().descripcion,
         };

@@ -24,6 +24,7 @@ export class PerfilServicioEgresadoComponent implements OnInit {
   public social;
   public githubUser: GithubUser;
   public githubRepos;
+  public telefono: string;
 
   constructor(
     private miscSvc: MiscService,
@@ -57,6 +58,7 @@ export class PerfilServicioEgresadoComponent implements OnInit {
           this.fechaDeNacimiento = new Date(timestamp * 1000);
           this.getCapacitaciones();
           await this.getGithubCard();
+          this.telefono = '549' + this.usuarioIngresado.cellphone;
         }
       });
     } else {
@@ -98,5 +100,9 @@ export class PerfilServicioEgresadoComponent implements OnInit {
       this.githubRepos = result;
       this.githubRepos = this.githubRepos.slice(0, 3);
     });
+  }
+
+  abrirFormularioDeContactoWhatsapp(){
+    window.location.href = 'https://api.whatsapp.com/send?phone=' + this.telefono;
   }
 }

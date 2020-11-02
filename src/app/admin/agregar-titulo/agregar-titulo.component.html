@@ -4,18 +4,6 @@
     <div class="row">
       <div class="col-6">
         <mat-form-field class="full-width-height">
-          <mat-label>ID</mat-label>
-          <input matInput type="text" formControlName="id">
-          <mat-error *ngIf="idPattern.invalid && !idPattern.touched">
-            Por favor, ingrese un ID válido.
-          </mat-error>
-          <mat-error *ngIf="idPattern.touched" >
-            El ID es <strong>requerido</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-6">
-        <mat-form-field class="full-width-height">
           <mat-label>DNI</mat-label>
           <input matInput type="number" formControlName="DNI">
           <mat-error *ngIf="DNIPattern.invalid && !DNIPattern.touched">
@@ -23,6 +11,20 @@
           </mat-error>
           <mat-error *ngIf="DNIPattern.touched" >
             El DNI es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="full-width-height">
+          <mat-label>Año de Egreso</mat-label>
+          <mat-select formControlName="yearDeEgreso">
+            <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
+            <mat-option *ngFor="let year of yearsDeEgreso | async" [value]="year.value">
+              {{ year.viewValue }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="egresoPattern.hasError('required')">
+            El año de egreso es <strong>requerido</strong>
           </mat-error>
         </mat-form-field>
       </div>
@@ -49,34 +51,6 @@
           </mat-error>
           <mat-error *ngIf="apellidoPattern.touched" >
             El apellido es <strong>requerido</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <mat-form-field class="full-width-height">
-          <mat-label>Año de Egreso</mat-label>
-          <mat-select formControlName="yearDeEgreso">
-            <mat-option selected="selected" hidden value="">Elija una opción</mat-option>
-            <mat-option *ngFor="let year of yearsDeEgreso | async" [value]="year.value">
-              {{ year.viewValue }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="egresoPattern.hasError('required')">
-            El año de egreso es <strong>requerido</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-6">
-        <mat-form-field class="full-width-height">
-          <mat-label>Número de Alumno</mat-label>
-          <input matInput type="number" formControlName="nroDeAlumno">
-          <mat-error *ngIf="nroDeAlumnoPattern.invalid && !nroDeAlumnoPattern.touched">
-            Por favor, ingrese un número válido.
-          </mat-error>
-          <mat-error *ngIf="nroDeAlumnoPattern.touched" >
-            El número de alumno es <strong>requerido</strong>
           </mat-error>
         </mat-form-field>
       </div>

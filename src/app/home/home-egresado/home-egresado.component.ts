@@ -63,6 +63,8 @@ export class HomeEgresadoComponent implements OnInit {
   // Es para conseguir la informacion para el parametro de busqueda
   getSearchData($event) {
     this.valorDeEvent = $event.target.value;
+    this.valorDeEvent =
+      this.valorDeEvent.charAt(0).toUpperCase() + this.valorDeEvent.slice(1);
   }
 
   searchWithFirstName() {
@@ -137,5 +139,13 @@ export class HomeEgresadoComponent implements OnInit {
     let edad: number = today.getFullYear() - fechaDeNacimiento.getFullYear();
 
     return edad;
+  }
+
+  async getCapacitaciones(uid) {
+    let resultado: Array<any>
+    await this.firestoreSvc.getFewCapacitaciones(uid).then((capacitaciones) => {
+      resultado = capacitaciones.capacitaciones;
+    });
+    return resultado;
   }
 }

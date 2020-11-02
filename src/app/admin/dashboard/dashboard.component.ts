@@ -20,7 +20,6 @@ import { AgregarTituloComponent } from '../agregar-titulo/agregar-titulo.compone
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
-    'Título',
     'DNI',
     'Nombre',
     'Apellido',
@@ -35,7 +34,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   fileReaded;
   editar: boolean = false;
-  idParaEditar;
+  DNIParaEditar;
   mensajeDeCargaABD: string;
   titulosASubir = [];
   titulos: Titulos[];
@@ -107,12 +106,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
         titulos.forEach((titulo) => {
           this.titulosASubir.push({
-            id: titulo[0],
-            DNI: titulo[1],
-            nroDeAlumno: titulo[2],
-            apellido: titulo[3],
-            nombre: titulo[4],
-            yearDeEgreso: titulo[5],
+            DNI: titulo[0],
+            apellido: titulo[1],
+            nombre: titulo[2],
+            yearDeEgreso: titulo[3],
           });
         });
       } else {
@@ -125,12 +122,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
         titulos.forEach((titulo) => {
           this.titulosASubir.push({
-            id: titulo[0],
-            DNI: titulo[1],
-            nroDeAlumno: titulo[2],
-            apellido: titulo[3],
-            nombre: titulo[4],
-            yearDeEgreso: titulo[5],
+            DNI: titulo[0],
+            apellido: titulo[1],
+            nombre: titulo[2],
+            yearDeEgreso: titulo[3],
           });
         });
       }
@@ -139,6 +134,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   async subirArchivo() {
     try {
+      console.log(this.titulosASubir)
       if (this.titulosASubir == []) {
         throw new Error('No hay nada para subir');
       } else {
@@ -160,19 +156,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  editarTitulo(id, DNI, nombre, apellido, nroDeAlumno, yearDeEgreso) {
+  editarTitulo(DNI, nombre, apellido, yearDeEgreso) {
     if (!this.editar) {
       this.editar = true;
-      this.idParaEditar = id;
+      this.DNIParaEditar = DNI;
     } else {
       this.editar = false;
-      this.idParaEditar = undefined;
+      this.DNIParaEditar = undefined;
       this.firestoreSvc.editarTitulo(
-        id,
         DNI,
         nombre,
         apellido,
-        nroDeAlumno,
         yearDeEgreso
       );
     }
@@ -180,23 +174,23 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   async cancelarEdicion() {
     this.editar = false;
-    this.idParaEditar = undefined;
+    this.DNIParaEditar = undefined;
     this.titulos = await this.firestoreSvc.getTitulos();
     this.dataSource = new MatTableDataSource(this.titulos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  async eliminarTitulo(titulo) {
-    await this.firestoreSvc.eliminarTitulo(titulo);
+  async eliminarTitulo(DNI) {
+    await this.firestoreSvc.eliminarTitulo(DNI);
     let indice: number;
     for (let i = 0; i < this.titulos.length; i++) {
-      if (this.titulos[i].titulo == titulo) {
+      if (this.titulos[i].DNI == DNI) {
         indice = i;
         break;
       }
     }
-    console.log(titulo, indice);
+    console.log(DNI, indice);
     if (indice > -1) {
       this.titulos.splice(indice, 1);
     }
@@ -204,28 +198,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
-  /* ordenarTitulos() {
-    for (let i = 0; i < this.titulos.length; i++) {
-      for (let j = 0; j < this.titulos.length - 1; j++) {
-        let tempDigitsI: string = this.titulos[j].id;
-        let digitsI: number;
-        tempDigitsI = tempDigitsI.slice(5);
-        digitsI = Number(tempDigitsI);
-
-        let tempDigitsJ: string = this.titulos[j + 1].id;
-        let digitsJ: number;
-        tempDigitsJ = tempDigitsJ.slice(5);
-        digitsJ = Number(tempDigitsJ);
-
-        if (digitsI > digitsJ) {
-          let tmp = this.titulos[j];
-          this.titulos[j] = this.titulos[j + 1];
-          this.titulos[j + 1] = tmp;
-        }
-      }
-    }
-  } */
 
   abrirFormularioDeTitulo() {
     let dialogRef = this.dialog.open(AgregarTituloComponent);

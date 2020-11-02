@@ -31,15 +31,24 @@
         </div>
         <div class="col-12 col-md-8 px-0 margin-top-content mb-4">
           <div class="row">
-            <div class="col-10 col-md-11">
+            <div class="col-8 col-md-10">
               <h1 class="line-height-normal sm-text-left titulo vertical-align">
                 {{ usuarioIngresado.firstName }} {{usuarioIngresado.lastName}}
               </h1>
             </div>
-            <div class="col-2 col-md-1 px-0 contactar">
-              <button (click)="abrirFormularioDeContacto()" class="boton-editar vertical-align">
-                <img mat-icon class="imagen-contacto" src="../../assets/images/contactar.png">
-              </button>
+            <div class="col-4 col-md-2">
+              <div class="row contactar">
+                <div class="col-6">
+                  <button (click)="abrirFormularioDeContactoWhatsapp()" class="boton-editar vertical-align">
+                    <img mat-icon class="imagen-contacto" src="../../assets/images/contactar.png">
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button (click)="abrirFormularioDeContacto()" class="boton-editar vertical-align">
+                    <img mat-icon class="imagen-contacto" src="" alt="imagen correo">
+                  </button>
+                </div>
+              </div>
             </div>
             <div class="col-12">
               <p class="subtitulo-profesion mt-2 mb-3">

@@ -64,6 +64,7 @@ export class HomeEmpresaComponent implements OnInit {
   // Es para conseguir la informacion para el parametro de busqueda
   getSearchData($event) {
     this.valorDeEvent = $event.target.value;
+    this.valorDeEvent = this.valorDeEvent.charAt(0).toUpperCase() + this.valorDeEvent.slice(1)
   }
 
   searchWithFirstName() {

@@ -70,7 +70,6 @@ export class EgresadoRegisterComponent implements OnInit {
       Validators.minLength(8),
       Validators.maxLength(8),
     ]),
-    tituloEgreso: new FormControl('', [Validators.required]),
   });
 
   // Variables para controlar los patrones del formulario
@@ -79,7 +78,6 @@ export class EgresadoRegisterComponent implements OnInit {
   public orientacionPattern = this.secondFormGroup.get('orientacion');
   public profesionPattern = this.secondFormGroup.get('profesion');
   public DNIPattern = this.secondFormGroup.get('DNI');
-  public tituloEgresoPattern = this.secondFormGroup.get('tituloEgreso');
 
   // Es el formGroup que se pasa a la base de datos y ambos formGroup anteriores en uno solo
   registerForm = new FormGroup({
@@ -116,7 +114,6 @@ export class EgresadoRegisterComponent implements OnInit {
       Validators.minLength(8),
       Validators.maxLength(8),
     ]),
-    tituloEgreso: new FormControl('', [Validators.required]),
   });
 
   // Variable para mostrar si hubo algun error en el formulario
@@ -130,6 +127,8 @@ export class EgresadoRegisterComponent implements OnInit {
 
   // Se usa para almacenar todas las profesiones disponibles
   public profesions;
+
+  public seApretoElBoton: boolean = false;
 
   constructor(
     private authSvc: AuthService,
@@ -151,6 +150,7 @@ export class EgresadoRegisterComponent implements OnInit {
 
   async onRegister() {
     try {
+      this.seApretoElBoton = true;
       // Se agarran los datos del primer formGroup
       const {
         firstName,
@@ -166,7 +166,6 @@ export class EgresadoRegisterComponent implements OnInit {
         email,
         password,
         DNI,
-        tituloEgreso,
         orientacion,
         profesion,
       } = this.secondFormGroup.value;
@@ -176,7 +175,6 @@ export class EgresadoRegisterComponent implements OnInit {
         email == '' ||
         password == '' ||
         DNI == '' ||
-        tituloEgreso == '' ||
         firstName == '' ||
         cellphone == '' ||
         lastName == '' ||
@@ -203,43 +201,44 @@ export class EgresadoRegisterComponent implements OnInit {
         orientacion: orientacion,
         profesion: profesion,
         DNI: DNI,
-        tituloEgreso: tituloEgreso,
       });
       this.createUser();
     } catch (error) {
+      this.seApretoElBoton = false;
       console.log(error);
     }
   }
 
   async createUser() {
     // guarda los valores del email, password, photoURL, firstName y lastName
-    const { email, password, DNI, tituloEgreso } = this.registerForm.value;
+    const { email, password, DNI, yearDeEgreso } = this.registerForm.value;
     // Guarda los datos del usuario registrado o un error
     let user;
     // Se usa para saber si existe el titulo del egresado
     let existeEgresado: boolean;
     // Se usa para verificar el DNI en la DB
-    let DNIEnFirestore: number;
+    let yearDeEgresoEnFirestore: number;
 
     try {
       // Verifica si el titulo de Egreso que fue proveido existe
       this.miscSvc
-        .existeElEgresado(tituloEgreso)
+        .existeElEgresado(DNI)
         .subscribe(async (userSnapshot) => {
           this.egresado = userSnapshot.payload.data();
           existeEgresado = userSnapshot.payload.exists;
           // Si el titulo existe...
           if (existeEgresado) {
             // Se guarda el DNI en una variable
-            DNIEnFirestore = this.egresado.DNI;
+            yearDeEgresoEnFirestore = this.egresado.yearDeEgreso;
           } else {
             // Pero si no, tira un error
             this.errorMessage = 'Ese titulo de egresado no existe';
+            this.seApretoElBoton = false;
             throw new Error(this.errorMessage);
           }
 
           // Si el DNI y el titulo de Egreso coninciden...
-          if (DNIEnFirestore == DNI && existeEgresado) {
+          if (yearDeEgresoEnFirestore == yearDeEgreso && existeEgresado) {
             // Intenta hacer el register con los datos del formulario
             user = await this.authSvc.register(
               email,
@@ -262,23 +261,25 @@ export class EgresadoRegisterComponent implements OnInit {
             } else {
               // Si user es un undefined, significa que hubo un error, por lo tanto se muestra
               if (user == undefined) {
-                console.log('LLegue aca');
+                this.seApretoElBoton = false;
                 this.errorMessage =
                   'El titulo de egreso o el DNI el incorrecto';
               } else {
                 // Si user es un string, significa que hubo un error, por lo tanto se muestra
                 this.errorMessage = user;
-                console.log(user);
+                this.seApretoElBoton = false;
               }
             }
           } else {
             // Si no coinciden se muestra el mensaje en la pantalla.
             this.errorMessage = 'El titulo de egreso o el DNI el incorrecto';
+            this.seApretoElBoton = false;
             throw new Error(this.errorMessage);
           }
         });
     } catch (error) {
       console.log(error);
+      this.seApretoElBoton = false;
     }
   }
 

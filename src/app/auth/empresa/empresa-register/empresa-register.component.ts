@@ -42,6 +42,8 @@ export class EmpresaRegisterComponent implements OnInit {
   // Variable para saber si la contraseña es visible o no
   public hide = true;
 
+  public seApretoElBoton: boolean = false;
+
   constructor(
     private authSvc: AuthService,
     private router: Router,
@@ -57,9 +59,11 @@ export class EmpresaRegisterComponent implements OnInit {
 
   onRegister() {
     try {
+      this.seApretoElBoton = true;
       this.createUser();
     } catch (error) {
       console.log(error);
+      this.seApretoElBoton = false;
     }
   }
 
@@ -89,10 +93,11 @@ export class EmpresaRegisterComponent implements OnInit {
       } else {
         // Si user es un string, significa que hubo un error, por lo tanto se muestra
         this.errorMessage = user;
-        console.log(user);
+        this.seApretoElBoton = true;
       }
     } catch (error) {
-      console.log(error);
+      this.errorMessage = error.message;
+      this.seApretoElBoton = true;
     }
   }
 

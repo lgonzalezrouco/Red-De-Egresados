@@ -46,27 +46,39 @@
           </p>
         </div>
       </div>
-      <!-- <div class="form-row mt-4 mb-4" *ngIf="errorMessage">
+      <div class="form-row mt-4" *ngIf="errorMessage">
         <div class="offset-2 col-8">
-          <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ errorMessage }} </small>
+          <small class="form-text texto-alerta alert-danger text-center mt-2 pt-1 pb-1">
+            {{ errorMessage }}
+          </small>
         </div>
-      </div> -->
+      </div>
       <mat-card-actions class="mb-5">
-        <div class="offset-3 col-6">
-          <div class="alinear-centro mt-4">
-            <button type="submit" class="btn btn-dark btn-block alinear-centro">Iniciar Sesión</button>
+        <ng-container *ngIf="seApretoElBoton; then mostrarSpinner; else noMostrarSpinner"></ng-container>
+        <ng-template #noMostrarSpinner>
+          <div class="offset-3 col-6">
+            <div class="alinear-centro mt-4">
+              <button type="submit" class="btn btn-dark btn-block alinear-centro">Iniciar Sesión</button>
+            </div>
           </div>
-        </div>
-        <div class="col-12 mt-4">
-          <div class="alinear-centro mt-4">
-            <p class="sm-text-center float-left mb-0">
-              ¿No tienes una cuenta?
-              <a [routerLink]="['/eleccion-register']">
-                Regístrate
-              </a>
-            </p>
+          <div class="col-12 mt-4">
+            <div class="alinear-centro mt-4">
+              <p class="sm-text-center float-left mb-0">
+                ¿No tienes una cuenta?
+                <a [routerLink]="['/eleccion-register']">
+                  Regístrate
+                </a>
+              </p>
+            </div>
           </div>
-        </div>
+        </ng-template>
+        <ng-template #mostrarSpinner>
+          <div class="offset-3 col-6">
+            <div class="alinear-centro mt-4">
+              <div class="spinner-border" role="status"></div>
+            </div>
+          </div>
+        </ng-template>
       </mat-card-actions>
     </form>
   </mat-card>

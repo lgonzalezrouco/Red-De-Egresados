@@ -70,7 +70,9 @@
       </div>
       <div class="form-row" *ngIf="errorMessage">
         <div class="offset-2 col-8">
-          <small class="form-text alert-danger text-center mt-2 pt-1 pb-1"> {{ errorMessage }} </small>
+          <small class="form-text texto-alerta alert-danger text-center mt-2 pt-1 pb-1">
+            {{ errorMessage }}
+          </small>
         </div>
       </div>
       <div class="form-row">
@@ -84,11 +86,19 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="text-center offset-md-8 col-md-4">
-          <button type="submit" mat-raised-button class="btn">
-            Registrarse
-          </button>
-        </div>
+        <ng-container *ngIf="seApretoElBoton; then mostrarSpinner; else noMostrarSpinner"></ng-container>
+        <ng-template #noMostrarSpinner>
+          <div class="text-center offset-md-8 col-md-4">
+            <button type="submit" mat-raised-button class="btn">
+              Registrarse
+            </button>
+          </div>
+        </ng-template>
+        <ng-template #mostrarSpinner>
+          <div class="text-center offset-md-8 col-md-4">
+            <div class="spinner-border" role="status"></div>
+          </div>
+        </ng-template>
       </div>
     </form>
   </mat-card>

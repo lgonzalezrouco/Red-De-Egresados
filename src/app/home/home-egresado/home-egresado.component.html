@@ -186,18 +186,18 @@
       <div *ngIf="resultadosDeBusqueda != null">
         <mat-divider [inset]="true"></mat-divider>
         <div *ngFor="let resultado of resultadosDeBusqueda" class="row pt-4">
-          <div class="col-12 col-md-6">
+          <div class="col-12">
             <ng-container *ngIf="resultado.empresa; then resultadoEmpresa; else resultadoEgresado"></ng-container>
             <ng-template #resultadoEmpresa>
               <div class="row set-pointer" [routerLink]="['/perfil-de-servicio-empresa', resultado.uid]">
-                <div class="col-md-6 set-pointer">
-                  <img class="img-fluid foto col-md-12 rounded-circle d-none d-md-block" src="{{
+                <div class="offset-md-1 col-md-auto set-pointer">
+                  <img class="img-fluid foto rounded-circle d-none d-md-block" src="{{
                       resultado.photoURL
                         ? resultado.photoURL
                         : '../../../assets/images/user8.png'
                     }}" alt="{{ resultado.firstName }}" />
                 </div>
-                <div class="col-md-6 set-pointer">
+                <div class="col-md-auto set-pointer">
                   <h1 class="nombre">{{ resultado.firstName }}</h1>
                   <h2 class="profesion">{{ resultado.lema }}</h2>
                   <h3 class="orientacion">{{ resultado.descripcion }}</h3>
@@ -207,21 +207,22 @@
             </ng-template>
             <ng-template #resultadoEgresado>
               <div class="row set-pointer" [routerLink]="['/perfil-de-servicio-egresado', resultado.uid]">
-                <div class="col-md-6 set-pointer">
-                  <img class="img-fluid foto col-md-12 rounded-circle d-none d-md-block" src="{{
+                <div class="offset-md-1 col-md-auto set-pointer">
+                  <img class="img-fluid foto rounded-circle d-none d-md-block" src="{{
                       resultado.photoURL
                         ? resultado.photoURL
                         : '../../../assets/images/user8.png'
                     }}" alt="{{ resultado.firstName }}" />
                 </div>
-                <div class="col-md-6 set-pointer">
+                <div class="col-md-auto set-pointer">
                   <h1 class="nombre">{{ resultado.firstName }} {{ resultado.lastName }}</h1>
                   <h2 class="profesion">{{ resultado.profesion }}</h2>
                   <h3 class="orientacion">{{ resultado.orientacion }}, {{ resultado.yearDeEgreso }}</h3>
-                  <!-- <h3 class="yearDeEgreso">{{ resultado.yearDeEgreso }}</h3> -->
+                  <h3 class="descripcion">{{ resultado.descripcion }}</h3>
                   <h3 class="edad">{{ getEdad(resultado.birthday.seconds) }} años</h3>
                 </div>
               </div>
+              <button (click)="getCapacitaciones(resultado.uid)">click</button>
             </ng-template>
           </div>
         </div>

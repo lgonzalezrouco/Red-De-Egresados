@@ -53,11 +53,11 @@ export class MiscService {
   }
 
   // Se usa para traer un titulo
-  public existeElEgresado(tituloEgreso) {
-    tituloEgreso = tituloEgreso.toString();
+  public existeElEgresado(DNI) {
+    DNI = DNI.toString();
     return this.angularFirestore
       .collection('titulos')
-      .doc(tituloEgreso)
+      .doc(DNI)
       .snapshotChanges();
   }
 
@@ -84,7 +84,7 @@ export class MiscService {
   }
 
   async getSocialOfLoggedUser(uid?: string): Promise<void> {
-    if(uid){
+    if (uid) {
       const dataUser = await this.getUserSocial(uid);
       localStorage.setItem('social', JSON.stringify(dataUser));
     } else {
@@ -96,8 +96,12 @@ export class MiscService {
   }
 
   async getAdmin(email): Promise<boolean> {
-    const dataAdmin = await this.angularFirestore.collection('admins').doc(email).get().toPromise();
-    return dataAdmin.exists
+    const dataAdmin = await this.angularFirestore
+      .collection('admins')
+      .doc(email)
+      .get()
+      .toPromise();
+    return dataAdmin.exists;
   }
 
   async checkIfUserIsLogged(): Promise<string> {
@@ -126,20 +130,30 @@ export class MiscService {
   }
 
   async notAllowed(tipoDeUsuario: string): Promise<void> {
-    if (tipoDeUsuario == 'wait-verification') {
-      this.router.navigate(['/wait-verification']);
-    } else if (tipoDeUsuario == 'empresa') {
-      this.router.navigate(['/home-empresa']);
-    } else if (tipoDeUsuario == 'egresado') {
-      this.router.navigate(['/home-egresado']);
-    } else if (tipoDeUsuario == 'admin') {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.router.navigate(['/home']);
-      localStorage.removeItem('user');
-      localStorage.removeItem('userFirebase');
-      localStorage.removeItem('uid');
-      localStorage.removeItem('social');
+    switch (tipoDeUsuario) {
+      case 'wait-verification':
+        this.router.navigate(['/wait-verification']);
+        break;
+
+      case 'empresa':
+        this.router.navigate(['/home-empresa']);
+        break;
+
+      case 'egresado':
+        this.router.navigate(['/home-egresado']);
+        break;
+
+      case 'admin':
+        this.router.navigate(['/dashboard']);
+        break;
+
+      default:
+        this.router.navigate(['/home']);
+        localStorage.removeItem('user');
+        localStorage.removeItem('userFirebase');
+        localStorage.removeItem('uid');
+        localStorage.removeItem('social');
+        break;
     }
   }
 }

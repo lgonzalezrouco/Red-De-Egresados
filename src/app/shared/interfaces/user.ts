@@ -11,7 +11,6 @@ export interface User {
   orientacion: string;
   profesion: string;
   DNI: string;
-  tituloEgreso: string;
   empresa: boolean;
   descripcion: string
 }
