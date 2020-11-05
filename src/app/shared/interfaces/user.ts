@@ -12,5 +12,6 @@ export interface User {
   profesion: string;
   DNI: string;
   empresa: boolean;
-  descripcion: string
+  descripcion: string;
+  fechaDeRegistro: number;
 }

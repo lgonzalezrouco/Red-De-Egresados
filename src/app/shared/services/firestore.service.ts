@@ -7,7 +7,6 @@ import { User } from '../interfaces/user';
 import { Empresa } from '../interfaces/empresa';
 import { MiscService } from './misc.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
 import { Titulos } from '../interfaces/titulos';
 
 @Injectable({
@@ -71,6 +70,7 @@ export class FirestoreService {
       cellphone: values.cellphone,
       empresa: false,
       descripcion: '',
+      fechaDeRegistro: Date.now(),
     };
 
     const capacitacionData = {
@@ -133,15 +133,10 @@ export class FirestoreService {
           cellphone: data.cellphone,
           empresa: false,
           descripcion: data.descripcion,
+          fechaDeRegistro: user.fechaDeRegistro,
         });
 
       await this.miscSvc.saveUser(user.uid);
-      /* this.getUser(user.uid).subscribe((userSnapshot) => {
-        localStorage.setItem(
-          'user',
-          JSON.stringify(userSnapshot.payload.data())
-        );
-      }); */
 
       return result;
     } catch (error) {
@@ -493,6 +488,105 @@ export class FirestoreService {
       .valueChanges();
   }
 
+  async searchWithEveryParameter(palabra){
+    const userRef = this.angularFirestore.collection('users');
+
+    let auxPalabra = palabra;
+    auxPalabra = auxPalabra.charAt(0).toUpperCase() + auxPalabra.slice(1);
+
+    const nombreSearch = userRef.ref.where('firstName', '==', auxPalabra).get();
+    const apellidoSearch = userRef.ref.where('lastName', '==', palabra).get();
+    const emailSearch = userRef.ref.where('email', '==', palabra).get();
+    const telefonoSearch = userRef.ref.where('cellphone', '==', palabra).get();
+    const profesionSearch = userRef.ref.where('profesion', '==', palabra).get();
+    const descripcionSearch = userRef.ref
+      .where('descripcion', '>=', palabra)
+      .where('descripcion', '<=', palabra + '\uf8ff').get();
+
+    const [
+      nombreSnapshot,
+      apellidoSnapshot,
+      emailSnapshot,
+      telefonoSnapshot,
+      profesionSnapshot,
+      descripcionSnapshot,
+    ] = await Promise.all([
+      nombreSearch,
+      apellidoSearch,
+      emailSearch,
+      telefonoSearch,
+      profesionSearch,
+      descripcionSearch,
+    ]);
+
+    const nombreArray = nombreSnapshot.docs;
+    const apellidoArray = apellidoSnapshot.docs;
+    const emailArray = emailSnapshot.docs;
+    const telefonoArray = telefonoSnapshot.docs;
+    const profesionArray = profesionSnapshot.docs;
+    const descripcionArray = descripcionSnapshot.docs;
+
+    const busquedaArray = nombreArray
+      .concat(apellidoArray)
+      .concat(emailArray)
+      .concat(telefonoArray)
+      .concat(profesionArray)
+      .concat(descripcionArray);
+
+    console.log(busquedaArray);
+
+    return busquedaArray;
+
+    /* const userRef = this.angularFirestore.collection('users');
+
+    let auxStart = start;
+    let auxEnd = end;
+
+    auxStart = auxStart.charAt(0).toUpperCase() + auxStart.slice(1);
+    auxEnd = auxEnd.charAt(0).toUpperCase() + auxEnd.slice(1);
+
+    const nombreSearch = userRef.ref.limit(25).orderBy('firstName').startAt(auxStart).endAt(auxEnd).get();
+    const apellidoSearch = userRef.ref.limit(25).orderBy('lastName').startAt(auxStart).endAt(auxEnd).get();
+    const emailSearch = userRef.ref.limit(25).orderBy('email').startAt(start).endAt(end).get();
+    const telefonoSearch = userRef.ref.limit(25).orderBy('cellphone').startAt(start).endAt(end).get();
+    const profesionSearch = userRef.ref.limit(25).orderBy('profesion').startAt(auxStart).endAt(auxEnd).get();
+    const descripcionSearch = userRef.ref.limit(25).orderBy('descripcion').startAt(start).endAt(end).get();
+
+    const [
+      nombreSnapshot,
+      apellidoSnapshot,
+      emailSnapshot,
+      telefonoSnapshot,
+      profesionSnapshot,
+      descripcionSnapshot,
+    ] = await Promise.all([
+      nombreSearch,
+      apellidoSearch,
+      emailSearch,
+      telefonoSearch,
+      profesionSearch,
+      descripcionSearch,
+    ]);
+
+    const nombreArray = nombreSnapshot.docs;
+    const apellidoArray = apellidoSnapshot.docs;
+    const emailArray = emailSnapshot.docs;
+    const telefonoArray = telefonoSnapshot.docs;
+    const profesionArray = profesionSnapshot.docs;
+    const descripcionArray = descripcionSnapshot.docs;
+
+    const busquedaArray = nombreArray
+      .concat(apellidoArray)
+      .concat(emailArray)
+      .concat(telefonoArray)
+      .concat(profesionArray)
+      .concat(descripcionArray);
+
+    console.log(busquedaArray);
+
+    return busquedaArray; */
+  }
+
   /*
   ┌──────────────────────────────────────────────┐
   │                 CAPACITACION                 │
@@ -788,7 +882,7 @@ export class FirestoreService {
           email: doc.data().email,
           firstName: doc.data().firstName,
           lastName: doc.data().lastName,
-          birthday: doc.data().birthday,
+          birthday: doc.data().birthday.seconds,
           photoURL: doc.data().photoURL,
           gender: doc.data().gender,
           cellphone: doc.data().cellphone,
@@ -798,6 +892,7 @@ export class FirestoreService {
           DNI: doc.data().DNI,
           empresa: doc.data().empresa,
           descripcion: doc.data().descripcion,
+          fechaDeRegistro: doc.data().fechaDeRegistro,
         };
         egresados.push(egresado);
       });

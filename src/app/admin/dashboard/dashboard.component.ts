@@ -228,9 +228,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       let csv = items.map((row) =>
         header
           .map((fieldName) => JSON.stringify(row[fieldName], replacer))
-          .join(';')
+          .join(',')
       );
-      csv.unshift(header.join(';'));
+      csv.unshift(header.join(','));
       csv = csv.join('\r\n');
       this.dyanmicDownloadByHtmlTag({
         fileName: 'Data Egresados.csv',
@@ -249,9 +249,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       let csv = items.map((row) =>
         header
           .map((fieldName) => JSON.stringify(row[fieldName], replacer))
-          .join(';')
+          .join(',')
       );
-      csv.unshift(header.join(';'));
+      csv.unshift(header.join(','));
       csv = csv.join('\r\n');
       this.dyanmicDownloadByHtmlTag({
         fileName: 'Data Empresas.csv',
