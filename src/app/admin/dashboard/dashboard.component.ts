@@ -1,16 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject, combineLatest, of } from 'rxjs';
 import { Titulos } from 'src/app/shared/interfaces/titulos';
 import { User } from 'src/app/shared/interfaces/user';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { FirestoreService } from 'src/app/shared/services/firestore.service';
 import { MiscService } from 'src/app/shared/services/misc.service';
-import { AgregarAdminComponent } from '../agregar-admin/agregar-admin.component';
 import { AgregarTituloComponent } from '../agregar-titulo/agregar-titulo.component';
 
 @Component({
@@ -52,7 +48,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       let admin: boolean = await this.miscSvc.getAdmin(user.email);
       if (admin) {
         this.titulos = await this.firestoreSvc.getTitulos();
-        console.log(this.titulos)
+        console.log(this.titulos);
         this.dataSource = new MatTableDataSource(this.titulos);
       } else {
         let hayUnUsuario: string = await this.miscSvc.checkIfUserIsLogged();
@@ -134,7 +130,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   async subirArchivo() {
     try {
-      console.log(this.titulosASubir)
+      console.log(this.titulosASubir);
       if (this.titulosASubir == []) {
         throw new Error('No hay nada para subir');
       } else {
@@ -163,12 +159,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     } else {
       this.editar = false;
       this.DNIParaEditar = undefined;
-      this.firestoreSvc.editarTitulo(
-        DNI,
-        nombre,
-        apellido,
-        yearDeEgreso
-      );
+      this.firestoreSvc.editarTitulo(DNI, nombre, apellido, yearDeEgreso);
     }
   }
 
@@ -229,18 +220,42 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   downloadJsonEgresados() {
     this.dataEgresados().then((res) => {
+      let auxContent = JSON.stringify(res);
+      let content = JSON.parse(auxContent);
+      const items = content;
+      const replacer = (key, value) => (value === null ? '' : value); // specify how you want to handle null values here
+      const header = Object.keys(items[0]);
+      let csv = items.map((row) =>
+        header
+          .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+          .join(';')
+      );
+      csv.unshift(header.join(';'));
+      csv = csv.join('\r\n');
       this.dyanmicDownloadByHtmlTag({
-        fileName: 'Data Egresados.json',
-        text: JSON.stringify(res),
+        fileName: 'Data Egresados.csv',
+        text: csv,
       });
     });
   }
 
   downloadJsonEmpresas() {
     this.dataEmpresas().then((res) => {
+      let auxContent = JSON.stringify(res);
+      let content = JSON.parse(auxContent);
+      const items = content;
+      const replacer = (key, value) => (value === null ? '' : value); // specify how you want to handle null values here
+      const header = Object.keys(items[0]);
+      let csv = items.map((row) =>
+        header
+          .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+          .join(';')
+      );
+      csv.unshift(header.join(';'));
+      csv = csv.join('\r\n');
       this.dyanmicDownloadByHtmlTag({
-        fileName: 'Data Empresas.json',
-        text: JSON.stringify(res),
+        fileName: 'Data Empresas.csv',
+        text: csv,
       });
     });
   }
@@ -251,7 +266,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
     const element = this.setting.element.dynamicDownload;
     const fileType =
-      arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+      arg.fileName.indexOf('.csv') > -1 ? 'text/csv' : 'text/plain';
     element.setAttribute(
       'href',
       `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`
