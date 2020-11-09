@@ -47,6 +47,7 @@ import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AgregarTituloComponent } from './admin/agregar-titulo/agregar-titulo.component';
 import { AgregarAdminComponent } from './admin/agregar-admin/agregar-admin.component';
+import { PruebaComponent } from './prueba/prueba.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { AgregarAdminComponent } from './admin/agregar-admin/agregar-admin.compo
     DashboardComponent,
     AgregarTituloComponent,
     AgregarAdminComponent,
+    PruebaComponent,
   ],
   imports: [
     BrowserModule,

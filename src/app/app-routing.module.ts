@@ -13,6 +13,7 @@ import { PerfilEgresadoComponent } from './perfil/egresado/perfil-egresado/perfi
 import { PerfilServicioEgresadoComponent } from './perfil/egresado/perfil-servicio-egresado/perfil-servicio-egresado.component';
 import { PerfilEmpresaComponent } from './perfil/empresa/perfil-empresa/perfil-empresa.component';
 import { PerfilServicioEmpresaComponent } from './perfil/empresa/perfil-servicio-empresa/perfil-servicio-empresa.component';
+import { PruebaComponent } from './prueba/prueba.component';
 import { ForgotPasswordComponent } from './shared/security/forgot-password/forgot-password.component';
 import { WaitVerificationComponent } from './shared/security/wait-verification/wait-verification.component';
 
@@ -77,6 +78,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+  },
+  {
+    path: 'prueba',
+    component: PruebaComponent,
   }
 ];
 

@@ -8,4 +8,5 @@ export interface Empresa {
   empresa: boolean;
   descripcion: string;
   lema: string;
+  fechaDeRegistro: number;
 }
