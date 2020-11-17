@@ -232,7 +232,7 @@ export class EgresadoRegisterComponent implements OnInit {
             yearDeEgresoEnFirestore = this.egresado.yearDeEgreso;
           } else {
             // Pero si no, tira un error
-            this.errorMessage = 'Ese titulo de egresado no existe';
+            this.errorMessage = 'El DNI no es válido';
             this.seApretoElBoton = false;
             throw new Error(this.errorMessage);
           }
@@ -263,7 +263,7 @@ export class EgresadoRegisterComponent implements OnInit {
               if (user == undefined) {
                 this.seApretoElBoton = false;
                 this.errorMessage =
-                  'El titulo de egreso o el DNI el incorrecto';
+                  'El DNI no es válido';
               } else {
                 // Si user es un string, significa que hubo un error, por lo tanto se muestra
                 this.errorMessage = user;
@@ -272,7 +272,7 @@ export class EgresadoRegisterComponent implements OnInit {
             }
           } else {
             // Si no coinciden se muestra el mensaje en la pantalla.
-            this.errorMessage = 'El titulo de egreso o el DNI el incorrecto';
+            this.errorMessage = 'El DNI no es válido';
             this.seApretoElBoton = false;
             throw new Error(this.errorMessage);
           }
