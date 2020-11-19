@@ -101,5 +101,5 @@ Una vez registrados, ambos tipos de usuario van a poder buscar a otros usuarios 
 - [x] Busqueda de egresados
 - [x] Agregar Experiencias
 - [x] Administrador
+- [x] Mensaje de error
 - [ ] Redes Sociales
-- [ ] Mensaje de error
