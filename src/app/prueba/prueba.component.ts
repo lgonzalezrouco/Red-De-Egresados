@@ -21,7 +21,7 @@ export class PruebaComponent implements OnInit {
   public endAt = new Subject();
   public startObservable = this.startAt.asObservable();
   public endObservable = this.endAt.asObservable();
-  public resultadosDeBusqueda = null;
+  public resultadosDeBusqueda: any[] = null;
 
   constructor(private firestoreSvc: FirestoreService) {}
 
@@ -51,10 +51,19 @@ export class PruebaComponent implements OnInit {
     ).subscribe((value) => {
       if (value[0] != null || value[0] != undefined) {
         this.makeQueryWithFirstName(value[0], value[1]).then((resultado) => {
-          this.resultadosDeBusqueda = resultado;
+          let resultadoAux = resultado;
+          let uids: string[] = [];
+          this.resultadosDeBusqueda = [];
+          resultadoAux.forEach((doc) => {
+            if(uids.indexOf(doc.data().uid) == -1){
+              uids.push(doc.data().uid)
+              this.resultadosDeBusqueda.push(doc.data());
+            }
+          });
+          /* this.resultadosDeBusqueda = resultado;
           this.resultadosDeBusqueda.forEach(doc => {
             console.log(doc.data())
-          })
+          }) */
           setTimeout(() => {
             subscription.unsubscribe;
             console.log('DESUSCRITO');

@@ -73,16 +73,16 @@ export class HomeEmpresaComponent implements OnInit {
   }
 
   // Llama al metodo que se encuentra en el service
-  makeQueryWithFirstName(start, end) {
+  /* makeQueryWithFirstName(start, end) {
     console.log(start);
     return this.firestoreSvc.searchwithFirstName(start, end);
-  }
+  } */
 
   /*
    * Se subscribe a un observable que va trayendo la informacion de la busqueda.
    * Por razones de seguiridad y para evitar un consumo de la red, se desuscribe despues de 30 segundos
    */
-  getResultsWithFirstName() {
+  /* getResultsWithFirstName() {
     let subscription = combineLatest(
       this.startObservable,
       this.endObservable
@@ -98,6 +98,43 @@ export class HomeEmpresaComponent implements OnInit {
             }, 30000);
           }
         );
+      } else {
+        console.log('No ingreso nada');
+      }
+    });
+  } */
+
+  // Llama al metodo que se encuentra en el service
+  async makeQueryWithFirstName(start, end) {
+    return await this.firestoreSvc.searchWithEveryParameter(start, end);
+  }
+
+  /*
+   * Se subscribe a un observable que va trayendo la informacion de la busqueda.
+   * Por razones de seguiridad y para evitar un consumo de la red, se desuscribe despues de 30 segundos
+   */
+
+  getResultsWithFirstName() {
+    let subscription = combineLatest(
+      this.startObservable,
+      this.endObservable
+    ).subscribe((value) => {
+      if (value[0] != null || value[0] != undefined) {
+        this.makeQueryWithFirstName(value[0], value[1]).then((resultado) => {
+          let resultadoAux = resultado;
+          let uids: string[] = [];
+          this.resultadosDeBusqueda = [];
+          resultadoAux.forEach((doc) => {
+            if(uids.indexOf(doc.data().uid) == -1){
+              uids.push(doc.data().uid)
+              this.resultadosDeBusqueda.push(doc.data());
+            }
+          });
+          setTimeout(() => {
+            subscription.unsubscribe;
+            console.log('DESUSCRITO');
+          }, 30000);
+        });
       } else {
         console.log('No ingreso nada');
       }
@@ -139,5 +176,23 @@ export class HomeEmpresaComponent implements OnInit {
     let today: Date = new Date();
     let edad: number = today.getFullYear() - fechaDeNacimiento.getFullYear();
     return edad;
+  }
+
+  getDescripcion(arregloDescripcion: string[]){
+    if(arregloDescripcion){
+      let descripcion = '';
+      let inicial = true;
+      for (const word of arregloDescripcion) {
+        if (inicial) {
+          descripcion = word;
+          inicial = false;
+        } else {
+          descripcion = descripcion + ' ' + word;
+        }
+      }
+      return descripcion;
+    } else {
+      return ''
+    }
   }
 }

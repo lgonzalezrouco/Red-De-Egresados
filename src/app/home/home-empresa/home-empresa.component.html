@@ -196,7 +196,7 @@
                 <div class="col-md-6 set-pointer">
                   <h1 class="nombre">{{ resultado.firstName }}</h1>
                   <h2 class="profesion">{{ resultado.lema }}</h2>
-                  <h3 class="orientacion">{{ resultado.descripcion }}</h3>
+                  <h3 class="orientacion">{{ getDescripcion(resultado.descripcion) }}</h3>
                   <h3 class="edad">CUIT: {{ resultado.CUIT }} </h3>
                 </div>
               </div>
@@ -214,7 +214,7 @@
                   <h1 class="nombre">{{ resultado.firstName }} {{ resultado.lastName }}</h1>
                   <h2 class="profesion">{{ resultado.profesion }}</h2>
                   <h3 class="orientacion">{{ resultado.orientacion }}, {{ resultado.yearDeEgreso }}</h3>
-                  <!-- <h3 class="yearDeEgreso">{{ resultado.yearDeEgreso }}</h3> -->
+                  <h3 class="orientacion">{{ getDescripcion(resultado.descripcion) }}</h3>
                   <h3 class="edad">{{ getEdad(resultado.birthday.seconds) }} años</h3>
                 </div>
               </div>
