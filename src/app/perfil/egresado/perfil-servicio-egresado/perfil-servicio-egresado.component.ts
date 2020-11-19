@@ -25,6 +25,7 @@ export class PerfilServicioEgresadoComponent implements OnInit {
   public githubUser: GithubUser;
   public githubRepos;
   public telefono: string;
+  public descripcion: string;
 
   constructor(
     private miscSvc: MiscService,
@@ -56,13 +57,30 @@ export class PerfilServicioEgresadoComponent implements OnInit {
           this.social = await this.miscSvc.getUserSocial(this.uid);
           const timestamp = this.usuarioIngresado.birthday.seconds;
           this.fechaDeNacimiento = new Date(timestamp * 1000);
-          this.getCapacitaciones();
-          await this.getGithubCard();
+          this.getDescripcion();
           this.telefono = '549' + this.usuarioIngresado.cellphone;
+          this.getCapacitaciones();
+          if(this.social.githubUsername){
+            await this.getGithubCard();
+          }
         }
       });
     } else {
       this.miscSvc.notAllowed(hayUnUsuario);
+    }
+  }
+
+  public getDescripcion() {
+    this.descripcion = '';
+    let inicial = true;
+    let descripcionAux: string[] = this.usuarioIngresado.descripcion;
+    for (const word of descripcionAux) {
+      if (inicial) {
+        this.descripcion = word;
+        inicial = false;
+      } else {
+        this.descripcion = this.descripcion + ' ' + word;
+      }
     }
   }
 

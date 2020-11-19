@@ -11,6 +11,7 @@ export class PerfilServicioEmpresaComponent implements OnInit {
   public uid;
   public empresaIngresada;
   public uidDelUsuarioLogeado;
+  public descripcion: string;
 
   constructor(
     private miscSvc: MiscService,
@@ -35,10 +36,25 @@ export class PerfilServicioEmpresaComponent implements OnInit {
         } else {
           // Sino muestra los datos correspondientes
           this.empresaIngresada = await this.miscSvc.getUser(this.uid);
+          this.getDescripcion();
         }
       });
     } else {
       this.miscSvc.notAllowed(hayUnUsuario);
+    }
+  }
+
+  public getDescripcion() {
+    this.descripcion = '';
+    let inicial = true;
+    let descripcionAux: string[] = this.empresaIngresada.descripcion;
+    for (const word of descripcionAux) {
+      if (inicial) {
+        this.descripcion = word;
+        inicial = false;
+      } else {
+        this.descripcion = this.descripcion + ' ' + word;
+      }
     }
   }
 }

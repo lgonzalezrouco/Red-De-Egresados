@@ -46,6 +46,8 @@ export class PerfilEmpresaComponent implements OnInit {
   // Se usa para saber si el usuario ofrece servicios o no.
   public ofreceServicio: boolean;
 
+  public descripcion: string;
+
   constructor(
     private authSvc: AuthService,
     private miscSvc: MiscService,
@@ -61,6 +63,21 @@ export class PerfilEmpresaComponent implements OnInit {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
       this.uid = localStorage.getItem('uid');
+      this.getDescripcion();
+    }
+  }
+
+  public getDescripcion() {
+    this.descripcion = '';
+    let inicial = true;
+    let descripcionAux: string[] = this.user.descripcion;
+    for (const word of descripcionAux) {
+      if (inicial) {
+        this.descripcion = word;
+        inicial = false;
+      } else {
+        this.descripcion = this.descripcion + ' ' + word;
+      }
     }
   }
 

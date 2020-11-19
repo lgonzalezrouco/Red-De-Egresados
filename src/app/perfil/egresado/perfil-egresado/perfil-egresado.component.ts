@@ -91,6 +91,8 @@ export class PerfilEgresadoComponent implements OnInit {
   // Se usa para mostrar la fecha de nacimiento en el formato correcto
   public fechaDeNacimiento: Date;
 
+  public descripcion: string;
+
   constructor(
     private authSvc: AuthService,
     private miscSvc: MiscService,
@@ -109,11 +111,14 @@ export class PerfilEgresadoComponent implements OnInit {
       this.userFirebase = JSON.parse(localStorage.getItem('userFirebase'));
       this.uid = localStorage.getItem('uid');
       this.capacitaciones = localStorage.getItem('capacitaciones');
+      this.getDescripcion();
       await this.miscSvc.getSocialOfLoggedUser(this.uid);
       this.social = JSON.parse(localStorage.getItem('social'));
       this.getCapacitaciones();
       console.log(this.social);
-      await this.getGithubCard();
+      if(this.social.githubUsername){
+        await this.getGithubCard();
+      }
       /* const timestamp = this.user.birthday.seconds;
       this.fechaDeNacimiento = new Date(timestamp * 1000); */
       this.fechaDeNacimiento = new Date(this.user.birthday.seconds * 1000);
@@ -122,6 +127,20 @@ export class PerfilEgresadoComponent implements OnInit {
       this.profesions = this.http.get('../../../../assets/JSON/profesion.json');
     } else {
       this.miscSvc.notAllowed(hayUnUsuario);
+    }
+  }
+
+  public getDescripcion() {
+    this.descripcion = '';
+    let inicial = true;
+    let descripcionAux: string[] = this.user.descripcion;
+    for (const word of descripcionAux) {
+      if (inicial) {
+        this.descripcion = word;
+        inicial = false;
+      } else {
+        this.descripcion = this.descripcion + ' ' + word;
+      }
     }
   }
 
@@ -375,7 +394,7 @@ export class PerfilEgresadoComponent implements OnInit {
   }
 
   async getGithubCard() {
-    if(this.social.githubUsername) {
+    if (this.social.githubUsername) {
       this.githubUser = await this.apiSvc.getGithubUser(
         this.social.githubUsername
       );

@@ -109,6 +109,11 @@ export class FirestoreService {
         return 'Por favor llene todos los campos obligatorios';
       }
 
+      const descripcionAux: string = data.descripcion;
+
+      const descripcion: string[] = descripcionAux.split(' ');
+      console.log(descripcion);
+
       data.firstName =
         data.firstName.charAt(0).toUpperCase() + data.firstName.slice(1);
       data.lastName =
@@ -132,7 +137,7 @@ export class FirestoreService {
           DNI: user.DNI,
           cellphone: data.cellphone,
           empresa: false,
-          descripcion: data.descripcion,
+          descripcion: descripcion,
           fechaDeRegistro: user.fechaDeRegistro,
         });
 
@@ -208,6 +213,11 @@ export class FirestoreService {
         return 'Por favor llene todos los campos obligatorios';
       }
 
+      const descripcionAux: string = data.descripcion;
+
+      const descripcion: string[] = descripcionAux.split(' ');
+      console.log(descripcion);
+
       // Se actualizan todos los datos del documento del usuario
       const result = this.angularFirestore
         .collection('users')
@@ -220,9 +230,9 @@ export class FirestoreService {
           verificada: user.verificada,
           photoURL: url,
           empresa: true,
-          descripcion: data.descripcion,
+          descripcion: descripcion,
           lema: data.lema,
-          fechaDeRegistro: user.fechaDeRegistro
+          fechaDeRegistro: user.fechaDeRegistro,
         });
 
       await this.miscSvc.saveUser(user.uid);
@@ -493,17 +503,49 @@ export class FirestoreService {
   async searchWithEveryParameter(start, end) {
     const userRef = this.angularFirestore.collection('users');
 
-    let mayusStart = start
+    let mayusStart = start;
     mayusStart = mayusStart.charAt(0).toUpperCase() + mayusStart.slice(1);
 
-    let mayusEnd = end
+    let mayusEnd = end;
     mayusEnd = mayusEnd.charAt(0).toUpperCase() + mayusEnd.slice(1);
 
-    const nombreSearch = userRef.ref.limit(25).orderBy('firstName').startAt(mayusStart).endAt(mayusEnd).get();
-    const apellidoSearch = userRef.ref.limit(25).orderBy('lastName').startAt(mayusStart).endAt(mayusEnd).get();
-    const emailSearch = userRef.ref.limit(25).orderBy('email').startAt(start).endAt(end).get();
-    const telefonoSearch = userRef.ref.limit(25).orderBy('cellphone').startAt(start).endAt(end).get();
-    const profesionSearch = userRef.ref.limit(25).orderBy('profesion').startAt(mayusStart).endAt(mayusEnd).get();
+    let startAux: string = start;
+    let arregloStart: string[] = startAux.split(' ');
+
+    const nombreSearch = userRef.ref
+      .limit(25)
+      .orderBy('firstName')
+      .startAt(mayusStart)
+      .endAt(mayusEnd)
+      .get();
+    const apellidoSearch = userRef.ref
+      .limit(25)
+      .orderBy('lastName')
+      .startAt(mayusStart)
+      .endAt(mayusEnd)
+      .get();
+    const emailSearch = userRef.ref
+      .limit(25)
+      .orderBy('email')
+      .startAt(start)
+      .endAt(end)
+      .get();
+    const telefonoSearch = userRef.ref
+      .limit(25)
+      .orderBy('cellphone')
+      .startAt(start)
+      .endAt(end)
+      .get();
+    const profesionSearch = userRef.ref
+      .limit(25)
+      .orderBy('profesion')
+      .startAt(mayusStart)
+      .endAt(mayusEnd)
+      .get();
+    const descripcionSearch = userRef.ref
+      .limit(25)
+      .where('descripcion', 'array-contains-any', arregloStart)
+      .get();
 
     const [
       nombreSnapshot,
@@ -511,12 +553,14 @@ export class FirestoreService {
       emailSnapshot,
       telefonoSnapshot,
       profesionSnapshot,
+      descripcionSnapshot,
     ] = await Promise.all([
       nombreSearch,
       apellidoSearch,
       emailSearch,
       telefonoSearch,
       profesionSearch,
+      descripcionSearch,
     ]);
 
     const nombreArray = nombreSnapshot.docs;
@@ -524,12 +568,14 @@ export class FirestoreService {
     const emailArray = emailSnapshot.docs;
     const telefonoArray = telefonoSnapshot.docs;
     const profesionArray = profesionSnapshot.docs;
+    const descripcionArray = descripcionSnapshot.docs;
 
     const busquedaArray = nombreArray
       .concat(apellidoArray)
       .concat(emailArray)
       .concat(telefonoArray)
       .concat(profesionArray)
+      .concat(descripcionArray);
 
     return busquedaArray;
   }
@@ -824,6 +870,18 @@ export class FirestoreService {
     let egresados: User[] = [];
     await query.then((documentos) => {
       documentos.forEach((doc) => {
+        let descripcion = '';
+        const descripcionAux: string[] = doc.data().descripcion;
+        let inicial = true;
+        for (const word of descripcionAux) {
+          if (inicial) {
+            descripcion = word;
+            inicial = false;
+          } else {
+            descripcion = descripcion + ' ' + word;
+          }
+        }
+
         let egresado: User = {
           uid: doc.id,
           email: doc.data().email,
@@ -838,7 +896,7 @@ export class FirestoreService {
           profesion: doc.data().profesion,
           DNI: doc.data().DNI,
           empresa: doc.data().empresa,
-          descripcion: doc.data().descripcion,
+          descripcion: descripcion,
           fechaDeRegistro: doc.data().fechaDeRegistro,
         };
         egresados.push(egresado);
@@ -855,6 +913,18 @@ export class FirestoreService {
     let empresas: Empresa[] = [];
     await query.then((documentos) => {
       documentos.forEach((doc) => {
+        let descripcion = '';
+        const descripcionAux: string[] = doc.data().descripcion;
+        let inicial = true;
+        for (const word of descripcionAux) {
+          if (inicial) {
+            descripcion = word;
+            inicial = false;
+          } else {
+            descripcion = descripcion + ' ' + word;
+          }
+        }
+
         let empresa: Empresa = {
           uid: doc.id,
           email: doc.data().email,
@@ -863,9 +933,9 @@ export class FirestoreService {
           CUIT: doc.data().CUIT,
           verificada: doc.data().verificada,
           empresa: doc.data().empresa,
-          descripcion: doc.data().descripcion,
+          descripcion: descripcion,
           lema: doc.data().lema,
-          fechaDeRegistro: doc.data().fechaDeRegistro
+          fechaDeRegistro: doc.data().fechaDeRegistro,
         };
         empresas.push(empresa);
       });

@@ -54,7 +54,7 @@
               <ng-template #mostrarDescripcion>
                 <h3>
                   <p class="descrip">
-                    {{ user.descripcion }}
+                    {{ descripcion }}
                   </p>
                 </h3>
               </ng-template>
@@ -96,7 +96,7 @@
               <div class="offset-md-1 col-md-10 col-12">
                 <mat-form-field class="full-width-height mt-2">
                   <mat-label>Descripción</mat-label>
-                  <textarea matInput formControlName="descripcion" [(ngModel)]="user.descripcion"></textarea>
+                  <textarea matInput formControlName="descripcion" [(ngModel)]="descripcion"></textarea>
                 </mat-form-field>
               </div>
             </div>
