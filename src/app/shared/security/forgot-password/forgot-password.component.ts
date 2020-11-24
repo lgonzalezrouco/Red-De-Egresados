@@ -25,7 +25,8 @@ export class ForgotPasswordComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     let hayUnUsuario: string = await this.miscSvc.checkIfUserIsLogged();
-    if(hayUnUsuario == 'nadie' || hayUnUsuario == 'wait-verification'){
+    console.log(hayUnUsuario)
+    if(hayUnUsuario == 'egresado' || hayUnUsuario == 'empresa'){
       this.miscSvc.notAllowed(hayUnUsuario);
     }
   }
